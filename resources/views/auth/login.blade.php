@@ -2,6 +2,7 @@
 @push('title')
     {{ __('Login') }} -
 @endpush
+{{-- gfd --}}
 @section('content')
     <div id="headless-wrapper">
         <section class="sign-up-page bg-white">
