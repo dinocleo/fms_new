@@ -71,8 +71,6 @@ class AgreementService
 
     public function send($request)
     {
-        // dd($request);
-
         $apiClient = new ApiClient();
         $apiClient->getOAuth()->setOAuthBasePath(env('DS_AUTH_SERVER'));
         try {
@@ -86,7 +84,7 @@ class AgreementService
             $accountInfo = $userInfo[0]->getAccounts();
             $apiClient->getConfig()->setHost($accountInfo[0]->getBaseUri() . env('DS_ESIGN_URI_SUFFIX'));
 
-            $user = User::query()->where('owner_user_id', getOwnerUserId())->where('role', USER_ROLE_TENANT)->find($request->user_id);
+            $user = User::query()->where('owner_user_id', auth()->id())->where('role', USER_ROLE_TENANT)->find($request->user_id);
             if (is_null($user)) {
                 throw new Exception(__('No tenant found'));
             }
@@ -247,11 +245,13 @@ class AgreementService
             $result = $envelopeApi->getDocument($accountInfo[0]->getAccountId(), '1', $agreementHistory->envelope_id);
             header("Content-Type: application/pdf");
             header("Content-Disposition: attachment; filename=\"{$agreementHistory->envelope_id}.pdf\"");
+            ob_clean();
+            flush();
             $file_path = $result->getPathname();
             readfile($file_path);
             exit();
         } catch (\Throwable $th) {
-            return back()->with('error', $th->getMessage());
+            return $this->error([], $th->getMessage());
         }
     }
 
@@ -282,11 +282,13 @@ class AgreementService
             $result = $envelopeApi->getDocument($accountInfo[0]->getAccountId(), '1', $agreementHistory->envelope_id);
             header("Content-Type: application/pdf");
             header("Content-Disposition: attachment; filename=\"{$agreementHistory->envelope_id}.pdf\"");
+            ob_clean();
+            flush();
             $file_path = $result->getPathname();
             readfile($file_path);
             exit();
         } catch (\Throwable $th) {
-            return back()->with('error', $th->getMessage());
+            return $this->error([], $th->getMessage());
         }
     }
 
