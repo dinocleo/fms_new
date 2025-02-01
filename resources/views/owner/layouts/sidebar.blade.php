@@ -37,6 +37,41 @@
                         </ul>
                     </li>
                 @endcan
+
+                @can('Manage Asset')
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="ri-folder-chart-line"></i>
+                        <span>{{ __('Asset Management') }}</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        {{-- <li>
+                            <a href="{{ route('owner.reports.earning') }}">{{ __('Earning') }}</a>
+                        </li>
+                        <li>
+                            <a
+                                href="{{ route('owner.reports.loss-profit.by.month') }}">{{ __('Loss / Profit By Month') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('owner.reports.expenses') }}">{{ __('Expenses') }}</a>
+                        </li> --}}
+                        {{-- <li>
+                            <a href="{{ route('owner.reports.lease') }}">{{ __('Lease') }}</a>
+                        </li> --}}
+                        <li>
+                            <a href="{{ route('owner.assets.all_assets') }}">{{ __('All Assets') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('owner.assets.replacement') }}">{{ __('Replacement') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('owner.assets.dispose') }}">{{ __('Dispose') }}</a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
+
+
                 @can('Manage Tenant')
                     <li>
                         <a href="javascript: void(0);" class="has-arrow">
@@ -80,14 +115,14 @@
                         </a>
                     </li>
                 @endcan --}}
-                @can('Manage Documents')
+                {{-- @can('Manage Documents')
                     <li>
                         <a href="{{ route('owner.documents.index') }}">
                             <i class="ri-article-line"></i>
                             <span>{{ __('Documents') }}</span>
                         </a>
                     </li>
-                @endcan
+                @endcan --}}
                 @can('Manage Information')
                     <li>
                         <a href="{{ route('owner.information.index') }}">
@@ -96,7 +131,7 @@
                         </a>
                     </li>
                 @endcan
-                @if (isAddonInstalled('PROTYLISTING') > 0)
+                {{-- @if (isAddonInstalled('PROTYLISTING') > 0)
                     @if (getOption('LISTING_STATUS', 0) == ACTIVE)
                         @can('Manage Listing')
                             <li>
@@ -125,7 +160,7 @@
                             </li>
                         @endcan
                     @endif
-                @endif
+                @endif --}}
                 @can('Manage Maintains')
                     <li>
                         <a href="javascript: void(0);" class="has-arrow">
@@ -150,7 +185,7 @@
                         </li>
                     @endcan
                 @endif
-                @if (isAddonInstalled('PROTYSAAS') < 1 || ownerCurrentPackage(getOwnerUserId())?->notice_support == ACTIVE)
+                {{-- @if (isAddonInstalled('PROTYSAAS') < 1 || ownerCurrentPackage(getOwnerUserId())?->notice_support == ACTIVE)
                     @can('Manage Noticeboard')
                         <li>
                             <a href="{{ route('owner.noticeboard.index') }}">
@@ -159,7 +194,7 @@
                             </a>
                         </li>
                     @endcan
-                @endif
+                @endif --}}
                 @can('Manage Report')
                     <li>
                         <a href="javascript: void(0);" class="has-arrow">
@@ -234,16 +269,16 @@
                     </li>
                 @endcan
                 @if (isAddonInstalled('PROTYSMS') > 0)
-                    @can('Manage Bulk SMS/Mail')
+                    @can('Manage Mail')
                         <li>
                             <a href="javascript: void(0);" class="has-arrow">
                                 <i class="ri-mail-send-line"></i>
-                                <span>{{ __('Bulk Sms/Mail') }}</span>
+                                <span>{{ __('Bulk Mail') }}</span>
                             </a>
                             <ul class="sub-menu" aria-expanded="false">
-                                <li>
+                                {{-- <li>
                                     <a href="{{ route('sms-mail.sms') }}">{{ __('Sms') }}</a>
-                                </li>
+                                </li> --}}
                                 <li>
                                     <a href="{{ route('sms-mail.mail') }}">{{ __('Email') }}</a>
                                 </li>

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="main-content">
-        <div class="page-content">
+         <div class="page-content" >
             <div class="container-fluid">
                 <div class="page-content-wrapper bg-white p-30 radius-20">
                     <div class="row">

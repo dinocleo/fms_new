@@ -169,6 +169,14 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         Route::get('tenant', [ReportController::class, 'tenant'])->name('tenant')->middleware('can:Manage Report');
     });
 
+    Route::group(['prefix' => 'assets', 'as' => 'assets.'], function () {
+        Route::get('all_assets', [AssetController::class, 'all_assets'])->name('all_assets')->middleware('can:Manage Asset');
+        Route::get('replacement', [AssetController::class, 'replacement'])->name('replacement')->middleware('can:Manage Asset');
+        Route::get('dispose', [AssetController::class, 'dispose'])->name('dispose')->middleware('can:Manage Asset');
+        
+    });
+
+
     // Start:: Setting
     Route::group(['prefix' => 'setting', 'as' => 'setting.'], function () {
         Route::get('general-setting', [SettingController::class, 'generalSetting'])->name('general-setting');
@@ -252,4 +260,10 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         Route::post('store', [TeamMemberController::class, 'store'])->name('store');
         Route::get('delete/{id}', [TeamMemberController::class, 'delete'])->name('delete');
     });
+
+    
+// Route::get('all_assets', [AssetController::class, 'all_assets'])->name('all_assets')->middleware('can:Manage Asset');
+// Route::get('replacement', [AssetController::class, 'replacement'])->name('replacement')->middleware('can:Manage Asset');
+// Route::get('dispose', [AssetController::class, 'dispose'])->name('dispose')->middleware('can:Manage Asset');
+
 });

@@ -4,7 +4,7 @@
 @endpush
 {{-- gfd --}}
 @section('content')
-    <div id="headless-wrapper">
+    <div  id="headless-wrapper">
         <section class="sign-up-page bg-white">
             <div class="container-fluid p-0">
                 <div class="row sign-up-page-wrap-row">
