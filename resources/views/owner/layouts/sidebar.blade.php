@@ -65,18 +65,18 @@
                             {{-- <li>
                             <a href="{{ route('owner.reports.lease') }}">{{ __('Lease') }}</a>
                         </li> --}}
-                            <li>
-                                <a href="{{ route('owner.assets.all_assets') }}">{{ __('All Assets') }}</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('owner.assets.replacement') }}">{{ __('Replacement') }}</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('owner.assets.dispose') }}">{{ __('Dispose') }}</a>
-                            </li>
-                        </ul>
-                    </li>
-                @endcan
+                        <li>
+                            <a href="{{ route('owner.assets.all_assets') }}">{{ __('All Assets') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('owner.assets.replacement') }}">{{ __('Replacement') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('owner.assets.dispose') }}">{{ __('Dispose') }}</a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
 
 
                 @can('Manage Tenant')
