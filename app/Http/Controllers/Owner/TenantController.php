@@ -55,6 +55,7 @@ class TenantController extends Controller
 
     public function create()
     {
+        
         if (getOwnerLimit(RULES_TENANT) < 1) {
             return back()->with('error', __('Your Tenant Limit finished'));
         }

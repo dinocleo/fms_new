@@ -5,12 +5,22 @@ namespace App\Http\Controllers\Owner;
 use App\Http\Controllers\Controller;
 use App\Models\Asset;
 use Illuminate\Http\Request;
+use App\Traits\ResponseTrait;
+use App\Models\DepreciationClass;
+use Illuminate\Support\Facades\Auth;
+
 
 class AssetController extends Controller
 {
+    use ResponseTrait;
+    public $assetsService;
+    public $depreciationClassService;
 
     public function __construct()
     {
+        $this->assetsService = new Asset;
+        $this->depreciationClassService = new DepreciationClass;
+
         // $this->reportService =  new ReportService;
         // $this->propertyService = new PropertyService;
     }
@@ -22,13 +32,35 @@ class AssetController extends Controller
     public function all_assets()
     {
         //
-        $data['pageTitle'] = __('All Asset');
-        if ($request->ajax()) {
-            // return $this->reportService->occupancy();
-        }
-        return "hello";
+        $data['pageTitle'] = __('Asset List');
+        $data['assets'] = Asset::all(); // Fetch all assets directly
+        return view('owner.asset.all-assets', $data);
+  
+    }
+    public function depreciation_class(){
+        $data['pageTitle'] = __('Depreciation Class');
+        $data['depreciation_class'] = DepreciationClass::all(); // Fetch all assets directly
+        return view('owner.asset.depreciation-class.index', $data);
     }
 
+    public function save_depreciation_class(Request $request){
+      
+        $request->validate([
+            'name' => 'required|unique:depreciation_classes,name',
+            'formula' => 'required|string',
+        ]);
+
+        $depreciation_class = new DepreciationClass();
+        $depreciation_class->name = $request->name;
+        $depreciation_class->added_by = Auth::user()->id;
+        $depreciation_class->formula = $request->formula;
+        // $depreciation_class->description = $request->description;
+        $depreciation_class->save();
+        return redirect()->back();
+        
+
+
+    }
     /**
      * Show the form for creating a new resource.
      *

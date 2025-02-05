@@ -67,6 +67,18 @@
                         <li>
                             <a href="{{ route('owner.assets.dispose') }}">{{ __('Dispose') }}</a>
                         </li>
+                        <li>
+                            <a href="{{ route('owner.assets.category') }}">{{ __('Category') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('owner.assets.vendor') }}">{{ __('Vendor') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('owner.assets.manufacturer') }}">{{ __('Manufacturer') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('owner.assets.depreciation_class') }}">{{ __('Depreciation Class') }}</a>
+                        </li>
                     </ul>
                 </li>
             @endcan

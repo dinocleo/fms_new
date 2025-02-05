@@ -24,6 +24,7 @@ use App\Http\Controllers\Owner\TeamMemberController;
 use App\Http\Controllers\Owner\TenantController;
 use App\Http\Controllers\Owner\TicketController;
 use App\Http\Controllers\Owner\TicketTopicController;
+use App\Http\Controllers\Owner\AssetController;
 use App\Http\Controllers\Tenancy\DomainController;
 use Illuminate\Support\Facades\Route;
 
@@ -171,9 +172,16 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
 
     Route::group(['prefix' => 'assets', 'as' => 'assets.'], function () {
         Route::get('all_assets', [AssetController::class, 'all_assets'])->name('all_assets')->middleware('can:Manage Asset');
+        Route::post('save-asset', [AssetController::class, 'save-asset'])->name('save-asset')->middleware('can:Manage Asset');
         Route::get('replacement', [AssetController::class, 'replacement'])->name('replacement')->middleware('can:Manage Asset');
         Route::get('dispose', [AssetController::class, 'dispose'])->name('dispose')->middleware('can:Manage Asset');
-        
+        Route::post('save_depreciation_class', [AssetController::class, 'save_depreciation_class'])->name('save_depreciation_class')->middleware('can:Manage Asset');
+        Route::get('category', [AssetController::class, 'dispose'])->name('category')->middleware('can:Manage Asset');
+        Route::get('vendor', [AssetController::class, 'dispose'])->name('vendor')->middleware('can:Manage Asset');
+        Route::get('manufacturer', [AssetController::class, 'dispose'])->name('manufacturer')->middleware('can:Manage Asset');
+        Route::get('depreciation_class', [AssetController::class, 'depreciation_class'])->name('depreciation_class')->middleware('can:Manage Asset');
+        // Route::get('dispose', [AssetController::class, 'dispose'])->name('dispose')->middleware('can:Manage Asset');
+
     });
 
 
