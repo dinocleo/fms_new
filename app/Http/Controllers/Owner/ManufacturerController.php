@@ -1,17 +1,31 @@
 <?php
+namespace App\Http\Controllers\Owner;
 
-namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use App\Models\Manufacturer;
+// use App\Models\Manufa/ctureService;
 use Illuminate\Http\Request;
+use App\Services\ManufactureService;
+use App\Traits\ResponseTrait;
 
 class ManufacturerController extends Controller
 {
+    public $manufacturerServiceData;
+    use ResponseTrait;
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct()
+     {
+     $this->manufacturerServiceData = new ManufactureService;
+
+    }
+
+
     public function index()
     {
         //
@@ -78,8 +92,10 @@ class ManufacturerController extends Controller
      * @param  \App\Models\Manufacturer  $manufacturer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Manufacturer $manufacturer)
+    public function destroy( $id)
     {
-        //
+        // return $this->manufacturer->destroy($id);
+        return $this->manufacturerServiceData->deleteById($id);
+        
     }
 }

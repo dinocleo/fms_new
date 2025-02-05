@@ -33,15 +33,12 @@
                             <div class="property-search-inner-bg bg-off-white theme-border radius-4 p-25 pb-0 mb-25">
                                 <div class="row">
                                     <div class="col-xl-12 col-xxl-6 tenants-top-bar-left">
-                                        <form   action="{{ route('owner.assets.save_depreciation_class') }}" method="POST">
+                                        <form   action="{{ route('owner.assets.save_manufacturer') }}" method="POST">
                                             @csrf
                                             <div class="row">
                                             @if (getOption('app_card_data_show', 1) == 1)
                                                 <div class="col-md-6 col-lg-6 col-xl-4 col-xxl-4 mb-25">
-                                                    <input type="text" required class="form-control" name="name"  placeholder="Class Name">
-                                                </div>
-                                                <div class="col-md-6 col-lg-6 col-xl-4 col-xxl-4 mb-25">
-                                                    <input type="text" required class="form-control" name="formula" placeholder="Formula">
+                                                    <input type="text" required class="form-control" name="name"  placeholder="Manufacturer Name">
                                                 </div>
                                                 <div class="col-auto mb-25">
                                                     <button type="submit" class="default-btn theme-btn-purple w-auto"
@@ -71,23 +68,35 @@
                                                             <tr>
                                                                 <th>{{ __('ID') }}</th>
                                                                 <th data-priority="1">{{ __('Name') }}</th>
-                                                                <th>{{ __('Formular') }}</th>
                                                                 <th>{{ __('Status') }}</th>
                                                                 {{-- <th>{{ __('Tenant') }}</th> --}}
                                                                 <th class="text-center">{{ __('Action') }}</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach ($depreciation_class as $depreciation_class_item)
+                                                            @foreach ($manufacturer as $manufacturerItem)
                                                                 <tr>
-                                                                    <td>{{ $depreciation_class_item->id }}</td>
-                                                                    <td>{{ $depreciation_class_item->name }}</td>
+                                                                    <td>{{ $manufacturerItem->id }}</td>
+                                                                    <td>{{ $manufacturerItem->name }}</td>
                                                                 
-                                                                    <td>{{ $depreciation_class_item->formula }}</td>
-                                                                    <td>{{ $depreciation_class_item->status }}</td>
+                                                                    <td>{{ $manufacturerItem->status }}</td>
 
                                                                     <td class="text-center">
-                                                                       
+                                                                        @if ($manufacturerItem->name!=null)
+                                                                        <button class="p-1 tbl-action-btn deleteItem"
+                                                                            data-formid="delete_row_form_{{ $manufacturerItem->id }}">
+                                                                            <span class="iconify"
+                                                                                data-icon="ep:delete-filled"></span>
+                                                                        </button>
+                                                                        <form
+                                                                            action="{{ route('owner.assets.manufacturer.delete', [$manufacturerItem->id]) }}"
+                                                                            method="post"
+                                                                            id="delete_row_form_{{ $manufacturerItem->id }}">
+                                                                            {{ method_field('DELETE') }}
+                                                                            <input type="hidden" name="_token"
+                                                                                value="{{ csrf_token() }}">
+                                                                        </form>
+                                                                    @endif
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -109,8 +118,8 @@
         </div>
         <!-- End Page-content -->
     </div>
-    <input type="hidden" id="getAllTenantRoute" value="{{ route('owner.tenant.index', ['type' => 'all']) }}">
-    <input type="hidden" id="getPropertyUnitsRoute" value="{{ route('owner.property.getPropertyUnits') }}">
+    {{-- <input type="hidden" id="getAllTenantRoute" value="{{ route('owner.tenant.index', ['type' => 'all']) }}"> --}}
+    {{-- <input type="hidden" id="getPropertyUnitsRoute" value="{{ route('owner.property.getPropertyUnits') }}"> --}}
 
 @endsection
 @if (getOption('app_card_data_show', 1) != 1)

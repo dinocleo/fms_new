@@ -13,7 +13,6 @@ use Illuminate\Support\Str;
 class MaintenanceRequestService
 {
     use ResponseTrait;
-
     public function getAll()
     {
         $maintenance = MaintenanceRequest::query()

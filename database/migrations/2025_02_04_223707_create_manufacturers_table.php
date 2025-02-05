@@ -15,7 +15,10 @@ return new class extends Migration
     {
         Schema::create('manufacturers', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('name');
+            $table->unsignedBigInteger('added_by');
+            $table->enum('status',['inactive', 'active'])->default('active');
+           $table->timestamps();
         });
     }
 

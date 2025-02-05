@@ -26,6 +26,7 @@ use App\Http\Controllers\Owner\TicketController;
 use App\Http\Controllers\Owner\TicketTopicController;
 use App\Http\Controllers\Owner\AssetController;
 use App\Http\Controllers\Tenancy\DomainController;
+use App\Http\Controllers\Owner\ManufacturerController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'owner']], function () {
@@ -176,9 +177,12 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         Route::get('replacement', [AssetController::class, 'replacement'])->name('replacement')->middleware('can:Manage Asset');
         Route::get('dispose', [AssetController::class, 'dispose'])->name('dispose')->middleware('can:Manage Asset');
         Route::post('save_depreciation_class', [AssetController::class, 'save_depreciation_class'])->name('save_depreciation_class')->middleware('can:Manage Asset');
+        Route::post('save_manufacturer', [AssetController::class, 'save_manufacturer'])->name('save_manufacturer')->middleware('can:Manage Asset');
+        // Route::post('delete_manufacturer', [AssetController::class, 'delete_manufacturer'])->name('delete_manufacturer')->middleware('can:Manage Asset');
+        Route::delete('manufacturer/delete/{id}', [ManufacturerController::class, 'destroy'])->name('manufacturer.delete');
         Route::get('category', [AssetController::class, 'dispose'])->name('category')->middleware('can:Manage Asset');
         Route::get('vendor', [AssetController::class, 'dispose'])->name('vendor')->middleware('can:Manage Asset');
-        Route::get('manufacturer', [AssetController::class, 'dispose'])->name('manufacturer')->middleware('can:Manage Asset');
+        Route::get('manufacturer', [AssetController::class, 'manufacturer'])->name('manufacturer')->middleware('can:Manage Asset');
         Route::get('depreciation_class', [AssetController::class, 'depreciation_class'])->name('depreciation_class')->middleware('can:Manage Asset');
         // Route::get('dispose', [AssetController::class, 'dispose'])->name('dispose')->middleware('can:Manage Asset');
 

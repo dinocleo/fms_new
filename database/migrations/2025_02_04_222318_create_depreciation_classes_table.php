@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('added_by');
             $table->longtext('formula');
             $table->longtext('description')->nullable();
+            $table->enum('status',['inactive', 'active'])->default('inactive');
             $table->timestamps();
         });
     }

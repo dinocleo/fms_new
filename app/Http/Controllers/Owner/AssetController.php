@@ -7,6 +7,8 @@ use App\Models\Asset;
 use Illuminate\Http\Request;
 use App\Traits\ResponseTrait;
 use App\Models\DepreciationClass;
+use App\Models\Manufacturer;
+
 use Illuminate\Support\Facades\Auth;
 
 
@@ -29,6 +31,13 @@ class AssetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function manufacturer(){
+        $data['pageTitle'] = __('Manufacturer');
+        $data['manufacturer'] = Manufacturer::all(); // 
+        return view('owner.asset.manufacturer.index', $data);
+ 
+     }
     public function all_assets()
     {
         //
@@ -39,7 +48,7 @@ class AssetController extends Controller
     }
     public function depreciation_class(){
         $data['pageTitle'] = __('Depreciation Class');
-        $data['depreciation_class'] = DepreciationClass::all(); // Fetch all assets directly
+        $data['depreciation_class'] = DepreciationClass::all(); 
         return view('owner.asset.depreciation-class.index', $data);
     }
 
@@ -54,13 +63,27 @@ class AssetController extends Controller
         $depreciation_class->name = $request->name;
         $depreciation_class->added_by = Auth::user()->id;
         $depreciation_class->formula = $request->formula;
-        // $depreciation_class->description = $request->description;
         $depreciation_class->save();
         return redirect()->back();
         
-
-
     }
+
+
+    public function save_manufacturer(Request $request){
+      
+        $request->validate([
+            'name' => 'required|unique:depreciation_classes,name',
+        ]);
+
+        $manufacturer = new Manufacturer();
+        $manufacturer->name = $request->name;
+        $manufacturer->added_by = Auth::user()->id;
+        $manufacturer->save();
+        return redirect()->back();
+        
+    }
+
+    
     /**
      * Show the form for creating a new resource.
      *
