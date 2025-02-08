@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Owner;
 use App\Http\Controllers\Controller;
 use App\Models\SubUnit;
 use Illuminate\Http\Request;
-use App\Services\SubUnitService;
+use App\Services\Assets\SubUnitService;
 
 class SubUnitController extends Controller
 {

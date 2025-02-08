@@ -63,7 +63,7 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         Route::group(['prefix' => 'sub-unit', 'as' => 'sub-unit.'], function () {
             // Route::get('sub-unit-list', [SubUnitController::class, 'subUnitList'])->name('index')->middleware('can:Manage Property');
             Route::post('store', [SubUnitController::class, 'store'])->name('store');
-            Route::post('getSubUnits', [SubUnitController::class, 'getSubUnits'])->name('getSubUnits');
+            Route::get('getSubUnits', [SubUnitController::class, 'getSubUnits'])->name('getSubUnits');
 
             
         });

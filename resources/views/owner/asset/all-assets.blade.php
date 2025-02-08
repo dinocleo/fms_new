@@ -194,13 +194,11 @@
                             </div>
 
                             
-                            <div class="row">
-                             
-
+                            <div class="row">   
                                 <div class="col-md-6 mb-25">
                                     <label
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Sub Unit') }}</label>
-                                    <select class="form-select flex-shrink-0 unit_id" name="sub_unit_id">
+                                    <select class="form-select flex-shrink-0 sub_unit_id" name="sub_unit_id">
                                         <option value="">--{{ __('Select Sub Unit') }}--</option>
                                     </select>
                                 </div>

@@ -10,10 +10,10 @@ use Exception;
 class SubUnitService{
     use ResponseTrait;
 
-    public function getUnitsByPropertyId($id)
+    public function getSubUnitsByUnitId($id)
     {
         $subUnits = SubUnit::where('unit_id', $id)->get();
-        return $this->success($subUnits);
+        return $subUnits;
     }
 
 
