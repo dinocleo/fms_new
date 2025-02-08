@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('sub_units', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('unit_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->unsignedBigInteger('unit_id');
             $table->string('sub_unit_name');
             $table->integer('bedroom');
             $table->integer('bath');
