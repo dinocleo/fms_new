@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Services;
-use App\Models\Manufacturer;
+namespace App\Services\Assets;
+use App\Models\AssetStatus;
 use Illuminate\Support\Facades\DB;
 use App\Traits\ResponseTrait;
 
 use Exception;
 
-class ManufactureService{
+class AssetStatusService{
     use ResponseTrait;
 
     public function deleteById($id)
     {
         DB::beginTransaction();
         try {
-            $manufacture = Manufacturer::where('id',$id);
-            $manufacture->delete();
+            $item = AssetStatus::where('id',$id);
+            $item->delete();
             DB::commit();
             $message = __(DELETED_SUCCESSFULLY);
             return redirect()->back()->with('success', __(DELETED_SUCCESSFULLY));

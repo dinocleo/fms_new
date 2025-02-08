@@ -1,18 +1,17 @@
 <?php
+
 namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
-use App\Models\Manufacturer;
-// use App\Models\Manufa/ctureService;
+use App\Models\AssetStatus;
 use Illuminate\Http\Request;
-use App\Services\ManufactureService;
-use App\Traits\ResponseTrait;
+use App\Services\Assets\AssetStatusService;
 
-class ManufacturerController extends Controller
+// use App\Models\AssetCategory;
+use Illuminate\Support\Facades\Auth;
+
+class AssetStatusController extends Controller
 {
-    public $manufacturerServiceData;
-    use ResponseTrait;
-
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +20,8 @@ class ManufacturerController extends Controller
 
      public function __construct()
      {
-     $this->manufacturerServiceData = new ManufactureService;
+
+     $this->statusService = new AssetStatusService;
 
     }
 
@@ -29,6 +29,11 @@ class ManufacturerController extends Controller
     public function index()
     {
         //
+
+        $data['pageTitle'] = __('Status');
+        $data['list'] = AssetStatus::all(); // Fetch all assets directly
+        return view('owner.asset.status.index', $data);
+  
     }
 
     /**
@@ -49,16 +54,24 @@ class ManufacturerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:asset_categories,name',
+        ]);
+
+        $status = new AssetStatus();
+        $status->name = $request->name;
+        $status->added_by = Auth::user()->id;
+        $status->save();
+        return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Manufacturer  $manufacturer
+     * @param  \App\Models\AssetStatus  $assetStatus
      * @return \Illuminate\Http\Response
      */
-    public function show(Manufacturer $manufacturer)
+    public function show(AssetStatus $assetStatus)
     {
         //
     }
@@ -66,10 +79,10 @@ class ManufacturerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Manufacturer  $manufacturer
+     * @param  \App\Models\AssetStatus  $assetStatus
      * @return \Illuminate\Http\Response
      */
-    public function edit(Manufacturer $manufacturer)
+    public function edit(AssetStatus $assetStatus)
     {
         //
     }
@@ -78,10 +91,10 @@ class ManufacturerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Manufacturer  $manufacturer
+     * @param  \App\Models\AssetStatus  $assetStatus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Manufacturer $manufacturer)
+    public function update(Request $request, AssetStatus $assetStatus)
     {
         //
     }
@@ -89,13 +102,12 @@ class ManufacturerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Manufacturer  $manufacturer
+     * @param  \App\Models\AssetStatus  $assetStatus
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $id)
+   public function destroy($id)
     {
+        return $this->statusService->deleteById($id);
 
-        return $this->manufacturerServiceData->deleteById($id);
-        
     }
 }
