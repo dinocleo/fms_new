@@ -15,37 +15,44 @@
                     <li>
                         <a href="javascript: void(0);" class="has-arrow">
                             <i class="ri-building-line"></i>
-                            <span>{{ __('Real Estate') }}</span>
+                            <span>{{ __('Estate Portfolio') }}</span>
                         </a>
                         <ul class="sub-menu {{ @$navPropertyMMShowClass }}" aria-expanded="false">
                             <li class="{{ @$subNavAllPropertyMMActiveClass }}">
                                 <a href="{{ route('owner.property.allProperty') }}"
-                                    class="{{ @$subNavAllPropertyActiveClass }}">{{ __('All Property') }}</a>
+                                    class="{{ @$subNavAllPropertyActiveClass }}">{{ __('Commercial') }}</a>
                             </li>
+
+                            <li class="{{ request()->routeIs('nonCommercial') ? 'active' : '' }}">
+                                <a href="{{ route('owner.property.nonCommercial') }}"
+                                    class="{{ @$subNavNonCommercialActiveClass }}">{{ __('Non-Commercial') }}</a>
+                            </li>
+
+
                             <li class="{{ @$subNavAllUnitMMActiveClass }}">
                                 <a href="{{ route('owner.property.allUnit') }}"
                                     class="{{ @$subNavAllUnitActiveClass }}">{{ __('All Unit') }}</a>
                             </li>
-                            <li class="{{ @$subNavOwnPropertyActiveClass }}">
+                            {{-- <li class="{{ @$subNavOwnPropertyActiveClass }}">
                                 <a href="{{ route('owner.property.ownProperty') }}"
                                     class="{{ @$subNavOwnPropertyActiveClass }}">{{ __('Own Property') }}</a>
                             </li>
                             <li class="{{ @$subNavLeasePropertyActiveClass }}">
                                 <a href="{{ route('owner.property.leaseProperty') }}"
                                     class="{{ @$subNavLeasePropertyActiveClass }}">{{ __('Lease Property') }}</a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </li>
                 @endcan
 
                 @can('Manage Asset')
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow">
-                        <i class="ri-folder-chart-line"></i>
-                        <span>{{ __('Asset Management') }}</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        {{-- <li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i class="ri-folder-chart-line"></i>
+                            <span>{{ __('Asset Management') }}</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            {{-- <li>
                             <a href="{{ route('owner.reports.earning') }}">{{ __('Earning') }}</a>
                         </li>
                         <li>
@@ -55,7 +62,7 @@
                         <li>
                             <a href="{{ route('owner.reports.expenses') }}">{{ __('Expenses') }}</a>
                         </li> --}}
-                        {{-- <li>
+                            {{-- <li>
                             <a href="{{ route('owner.reports.lease') }}">{{ __('Lease') }}</a>
                         </li> --}}
                         <li>

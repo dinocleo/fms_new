@@ -42,6 +42,9 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
 
     Route::group(['prefix' => 'property', 'as' => 'property.'], function () {
         Route::get('all-property', [PropertyController::class, 'allProperty'])->name('allProperty')->middleware('can:Manage Property');
+        Route::get('non-commercial', [PropertyController::class, 'nonCommercialProperty'])->name('nonCommercial')->middleware('can:Manage Property');
+        Route::get('add-non-commercial', [PropertyController::class, 'nonCommercialPropertyAdd'])->name('nonCommercialAdd')->middleware('can:Manage Property');
+
         Route::get('all-unit', [PropertyController::class, 'allUnit'])->name('allUnit')->middleware('can:Manage Property');
         Route::get('own-property', [PropertyController::class, 'ownProperty'])->name('ownProperty')->middleware('can:Manage Property');
         Route::get('lease-property', [PropertyController::class, 'leaseProperty'])->name('leaseProperty')->middleware('can:Manage Property');

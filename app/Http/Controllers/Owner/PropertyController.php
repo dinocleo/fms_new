@@ -36,6 +36,17 @@ class PropertyController extends Controller
         return view('owner.property.all-property-list')->with($data);
     }
 
+
+    public function nonCommercialProperty()
+    {
+        return view('owner.property.nonCommercial');
+    }
+
+    public function nonCommercialPropertyAdd()
+    {
+        return view('owner.property.add-non');
+    }
+
     public function allUnit()
     {
         $data['pageTitle'] = __("All Unit");
