@@ -31,6 +31,8 @@ use App\Http\Controllers\Owner\VendorController;
 use App\Http\Controllers\Owner\AssetCategoryController;
 use App\Http\Controllers\Owner\AssetStatusController;
 use App\Http\Controllers\Owner\ConditionController;
+use App\Http\Controllers\Owner\SubUnitController;
+
 
 
 use Illuminate\Support\Facades\Route;
@@ -59,9 +61,9 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         Route::delete('unit/delete/{id}', [PropertyController::class, 'unitDelete'])->name('unit.delete');
       
         Route::group(['prefix' => 'sub-unit', 'as' => 'sub-unit.'], function () {
-            Route::get('sub-unit-list', [SubUnitController::class, 'subUnitList'])->name('index')->middleware('can:Manage Property');
+            // Route::get('sub-unit-list', [SubUnitController::class, 'subUnitList'])->name('index')->middleware('can:Manage Property');
             Route::post('store', [SubUnitController::class, 'store'])->name('store');
-            Route::post('getSubUnits', [SubUnitController::class, 'getSubUnits'])->name('store');
+            Route::post('getSubUnits', [SubUnitController::class, 'getSubUnits'])->name('getSubUnits');
 
             
         });
