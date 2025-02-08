@@ -200,7 +200,7 @@
                                 <div class="col-md-6 mb-25">
                                     <label
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Sub Unit') }}</label>
-                                    <select class="form-select flex-shrink-0 unit_id" name="unit_id">
+                                    <select class="form-select flex-shrink-0 unit_id" name="sub_unit_id">
                                         <option value="">--{{ __('Select Sub Unit') }}--</option>
                                     </select>
                                 </div>
@@ -267,10 +267,12 @@
         </div>
     </div>
  
-    <!-- Add Information Modal End -->
-    {{-- <input type="hidden" id="getInfoRoute" value="{{ route('owner.maintenance-request.get.info') }}"> --}}
-    {{-- <input type="hidden" id="route" value="{{ route('owner.maintenance-request.index') }}"> --}}
+
     <input type="hidden" id="getPropertyUnitsRoute" value="{{ route('owner.property.getPropertyUnits') }}">
+    <input type="hidden" id="getUnitsRoute" value="{{ route('owner.property.sub-unit.getSubUnits') }}">
+
+    {{-- <input type="hidden" id="getSubUnitsRoute" value="{{ route('owner.property.getSubUnits') }}"> --}}
+
 @endsection
 @push('style')
     @include('common.layouts.datatable-style')

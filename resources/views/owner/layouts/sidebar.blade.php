@@ -52,19 +52,7 @@
                             <span>{{ __('Asset Management') }}</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            {{-- <li>
-                            <a href="{{ route('owner.reports.earning') }}">{{ __('Earning') }}</a>
-                        </li>
-                        <li>
-                            <a
-                                href="{{ route('owner.reports.loss-profit.by.month') }}">{{ __('Loss / Profit By Month') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('owner.reports.expenses') }}">{{ __('Expenses') }}</a>
-                        </li> --}}
-                            {{-- <li>
-                            <a href="{{ route('owner.reports.lease') }}">{{ __('Lease') }}</a>
-                        </li> --}}
+                         
                         <li>
                             <a href="{{ route('owner.assets.all_assets') }}">{{ __('All Assets') }}</a>
                         </li>

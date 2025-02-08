@@ -57,6 +57,15 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         Route::post('location/store', [PropertyController::class, 'locationStore'])->name('location.store');
         Route::post('unit/store', [PropertyController::class, 'unitStore'])->name('unit.store');
         Route::delete('unit/delete/{id}', [PropertyController::class, 'unitDelete'])->name('unit.delete');
+      
+        Route::group(['prefix' => 'sub-unit', 'as' => 'sub-unit.'], function () {
+            Route::get('sub-unit-list', [SubUnitController::class, 'subUnitList'])->name('index')->middleware('can:Manage Property');
+            Route::post('store', [SubUnitController::class, 'store'])->name('store');
+            Route::post('getSubUnits', [SubUnitController::class, 'getSubUnits'])->name('store');
+
+            
+        });
+        
         Route::post('rent-charge/store', [PropertyController::class, 'rentChargeStore'])->name('rentCharge.store');
         Route::get('image/doc', [PropertyController::class, 'getImageDoc'])->name('image.doc');
         Route::post('image/store/{id?}', [PropertyController::class, 'imageStore'])->name('image.store');
