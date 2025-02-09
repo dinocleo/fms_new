@@ -1,36 +1,33 @@
 <?php
+
 namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
-use App\Models\Manufacturer;
-// use App\Models\Manufa/ctureService;
+use App\Models\SubUnit;
 use Illuminate\Http\Request;
-use App\Services\ManufactureService;
-use App\Traits\ResponseTrait;
+use App\Services\Assets\SubUnitService;
 
-class ManufacturerController extends Controller
+class SubUnitController extends Controller
 {
-    public $manufacturerServiceData;
-    use ResponseTrait;
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-     public function __construct()
-     {
-     $this->manufacturerServiceData = new ManufactureService;
-
+    public $subUnitService;
+    public function __construct()
+    {
+        $this->subUnitService = new SubUnitService;
     }
-
 
     public function index()
     {
         //
     }
 
+    public function getSubUnits(Request $request){
+        return $this->subUnitService->getSubUnitsByUnitId($request->unit_id);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -55,10 +52,10 @@ class ManufacturerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Manufacturer  $manufacturer
+     * @param  \App\Models\SubUnit  $subUnit
      * @return \Illuminate\Http\Response
      */
-    public function show(Manufacturer $manufacturer)
+    public function show(SubUnit $subUnit)
     {
         //
     }
@@ -66,10 +63,10 @@ class ManufacturerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Manufacturer  $manufacturer
+     * @param  \App\Models\SubUnit  $subUnit
      * @return \Illuminate\Http\Response
      */
-    public function edit(Manufacturer $manufacturer)
+    public function edit(SubUnit $subUnit)
     {
         //
     }
@@ -78,10 +75,10 @@ class ManufacturerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Manufacturer  $manufacturer
+     * @param  \App\Models\SubUnit  $subUnit
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Manufacturer $manufacturer)
+    public function update(Request $request, SubUnit $subUnit)
     {
         //
     }
@@ -89,13 +86,11 @@ class ManufacturerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Manufacturer  $manufacturer
+     * @param  \App\Models\SubUnit  $subUnit
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $id)
+    public function destroy(SubUnit $subUnit)
     {
-
-        return $this->manufacturerServiceData->deleteById($id);
-        
+        //
     }
 }

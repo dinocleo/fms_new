@@ -15,7 +15,6 @@ class ReportService
     public function earning()
     {
         $request = request()->all();
-
         $invoice = Invoice::query()
             ->join('properties', 'invoices.property_id', '=', 'properties.id')
             ->join('property_units', 'invoices.property_unit_id', '=', 'property_units.id')

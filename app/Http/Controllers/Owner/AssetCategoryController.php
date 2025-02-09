@@ -1,18 +1,14 @@
 <?php
+
 namespace App\Http\Controllers\Owner;
 
-use App\Http\Controllers\Controller;
-use App\Models\Manufacturer;
-// use App\Models\Manufa/ctureService;
+use App\Models\AssetCategory;
 use Illuminate\Http\Request;
-use App\Services\ManufactureService;
-use App\Traits\ResponseTrait;
+use App\Services\Assets\assetCategoryService;
+use App\Http\Controllers\Controller;
 
-class ManufacturerController extends Controller
+class AssetCategoryController extends Controller
 {
-    public $manufacturerServiceData;
-    use ResponseTrait;
-
     /**
      * Display a listing of the resource.
      *
@@ -21,10 +17,9 @@ class ManufacturerController extends Controller
 
      public function __construct()
      {
-     $this->manufacturerServiceData = new ManufactureService;
+     $this->assetCategoryService = new assetCategoryService;
 
     }
-
 
     public function index()
     {
@@ -47,6 +42,7 @@ class ManufacturerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         //
@@ -55,10 +51,10 @@ class ManufacturerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Manufacturer  $manufacturer
+     * @param  \App\Models\AssetCategory  $assetCategory
      * @return \Illuminate\Http\Response
      */
-    public function show(Manufacturer $manufacturer)
+    public function show(AssetCategory $assetCategory)
     {
         //
     }
@@ -66,10 +62,10 @@ class ManufacturerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Manufacturer  $manufacturer
+     * @param  \App\Models\AssetCategory  $assetCategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(Manufacturer $manufacturer)
+    public function edit(AssetCategory $assetCategory)
     {
         //
     }
@@ -78,10 +74,10 @@ class ManufacturerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Manufacturer  $manufacturer
+     * @param  \App\Models\AssetCategory  $assetCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Manufacturer $manufacturer)
+    public function update(Request $request, AssetCategory $assetCategory)
     {
         //
     }
@@ -89,13 +85,12 @@ class ManufacturerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Manufacturer  $manufacturer
+     * @param  \App\Models\AssetCategory  $assetCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $id)
+    public function destroy($id)
     {
+        return $this->assetCategoryService->deleteById($id);
 
-        return $this->manufacturerServiceData->deleteById($id);
-        
     }
 }
