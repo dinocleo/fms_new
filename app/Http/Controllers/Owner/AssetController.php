@@ -8,9 +8,13 @@ use Illuminate\Http\Request;
 use App\Traits\ResponseTrait;
 use App\Models\DepreciationClass;
 use App\Models\Manufacturer;
+use App\Models\Vendor;
+use App\Models\AssetCategory;
+use App\Models\Property;
+use App\Models\AssetStatus;
+use App\Models\Condition;
 
 use Illuminate\Support\Facades\Auth;
-
 
 class AssetController extends Controller
 {
@@ -22,10 +26,8 @@ class AssetController extends Controller
     {
         $this->assetsService = new Asset;
         $this->depreciationClassService = new DepreciationClass;
-
-        // $this->reportService =  new ReportService;
-        // $this->propertyService = new PropertyService;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,16 +38,80 @@ class AssetController extends Controller
         $data['pageTitle'] = __('Manufacturer');
         $data['manufacturer'] = Manufacturer::all(); // 
         return view('owner.asset.manufacturer.index', $data);
- 
      }
+
     public function all_assets()
     {
-        //
         $data['pageTitle'] = __('Asset List');
-        $data['assets'] = Asset::all(); // Fetch all assets directly
+        $data['depreciation_class'] = DepreciationClass::all(); 
+        $data['vendor'] = Vendor::all(); 
+        $data['property'] = Property::all();
+        $data['status'] = AssetStatus::all();
+        // $data['status'] = Sattus::all();
+        $data['conditions'] = Condition::all();
+        $data['manufacturer'] = Manufacturer::all();
+        $data['categories'] = AssetCategory::all();
+        $data['properties'] = Property::all();
+        $data['assets'] = Asset::all();
         return view('owner.asset.all-assets', $data);
+
+    }
+
+    public function storeCategory(Request $request){
+        $request->validate([
+            'name' => 'required|unique:depreciation_classes,name',
+        ]);
+
+        $category = new AssetCategory();
+        $category->name = $request->name;
+        $category->added_by = Auth::user()->id;
+        $category->save();
+        return redirect()->back();
+
+    }
+
+
+    public function storeVendor(Request $request){
+        
+        $request->validate([
+            'name' => 'required|unique:vendors,name',
+        ]);
+
+        $vendor = new Vendor();
+        $vendor->name = $request->name;
+        $vendor->added_by = Auth::user()->id;
+        $vendor->save();
+        return redirect()->back();
+    }
+    public function dispose()
+    {
+        //
+        $data['pageTitle'] = __('Disposable Asset List');
+        $data['assets'] = Asset::all(); // Fetch all assets directly
+        return view('owner.asset.dispose', $data);
   
     }
+
+    // public function categoryList(){
+    //     $data['pageTitle'] = __('Vendor');
+    //     $data['list'] = Vendor::all(); // Fetch all assets directly
+    //     return view('owner.asset.vendor.index', $data);
+     
+    // }
+  
+    public  function vendorList(){
+        $data['pageTitle'] = __('Vendor');
+        $data['list'] = Vendor::all(); // Fetch all assets directly
+        return view('owner.asset.vendor.index', $data);
+    }
+
+    public function categoryList(){
+        $data['pageTitle'] = __('Category');
+        $data['list'] = AssetCategory::all(); // Fetch all assets directly
+        return view('owner.asset.category.index', $data);
+  
+    }
+
     public function depreciation_class(){
         $data['pageTitle'] = __('Depreciation Class');
         $data['depreciation_class'] = DepreciationClass::all(); 

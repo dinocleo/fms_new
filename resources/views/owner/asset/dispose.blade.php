@@ -46,7 +46,7 @@
                                     <div class="col-md-6">
                                         <div class="property-top-search-bar-right text-md-end">
                                             <button type="button" class="theme-btn" id="add"
-                                                title="{{ __('Add Assets') }}">{{ __('Add Assets') }}</button>
+                                                title="{{ __('Dispose') }}">{{ __('Dispose') }}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -55,27 +55,7 @@
                         <!-- Property Top Search Bar End -->
 
                         <!-- All Maintainer Table Area Start -->
-                        <div class="all-maintainer-table-area">
-                            <!-- datatable Start -->
-                            <div class="bg-off-white theme-border radius-4 p-25">
-                                <table id="allMaintenanceDataTable" class="table bg-off-white aaa theme-border dt-responsive">
-                                    <thead>
-                                        <tr>
-                                            <th>{{ __('SL') }}</th>
-                                            <th>{{ __('Property') }}</th>
-                                            <th>{{ __('Unit Name') }}</th>
-                                            <th data-priority="1">{{ __('Issue Name') }}</th>
-                                            <th>{{ __('Details') }}</th>
-                                            <th>{{ __('Created Date') }}</th>
-                                            <th>{{ __('Resolved Date') }}</th>
-                                            <th>{{ __('Status') }}</th>
-                                            <th>{{ __('Action') }}</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                            <!-- datatable End -->
-                        </div>
+                     
                         <!-- All Maintainer Table Area End -->
                     </div>
                     <!-- Information Page Area row End -->
@@ -124,11 +104,6 @@
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Category') }}</label>
                                     <select class="form-select flex-shrink-0 category_id" name="category_id">
                                         <option value="">--{{ __('Select Category') }}--</option>
-                                        @if(count($categories)>0)
-                                        @foreach($categories as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                        @endforeach
-                                        @endif                                        
                                     </select>
                                 </div>
 
@@ -137,11 +112,9 @@
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Manufacturer') }}</label>
                                     <select class="form-select flex-shrink-0 property_id" name="manufacturer_id">
                                         <option value="" selected>--{{ __('Select Manufacturer') }}--</option>
-                                        @if(count($manufacturer)>0)
-                                        @foreach($manufacturer as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @foreach ($assets as $asset)
+                                            <option value="{{ $asset->id }}">{{ $asset->gateway }}</option>
                                         @endforeach
-                                        @endif   
                                     </select>
                                 </div>
                                
@@ -157,14 +130,13 @@
 
                                 </div>
                                 <div class="col-md-6 mb-25">
-                                    <label class="label-text-title color-heading font-medium mb-2">{{ __('Condition') }}</label>
+                                    <label
+                                        class="label-text-title color-heading font-medium mb-2">{{ __('Condition') }}</label>
                                     <select class="form-select flex-shrink-0 property_id" name="condition_id">
                                         <option value="" selected>--{{ __('Select Condition') }}--</option>
-                                        @if(count($conditions)>0)
-                                        @foreach($conditions as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @foreach ($assets as $asset)
+                                            <option value="{{ $asset->id }}">{{ $asset->gateway }}</option>
                                         @endforeach
-                                        @endif   
                                     </select>
                                 </div>
                             </div>
@@ -177,8 +149,8 @@
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Property') }}</label>
                                     <select class="form-select flex-shrink-0 property_id" name="property_id">
                                         <option value="" selected>--{{ __('Select Property') }}--</option>
-                                        @foreach ($properties as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @foreach ($assets as $asset)
+                                            <option value="{{ $asset->id }}">{{ $asset->gateway }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -194,11 +166,13 @@
                             </div>
 
                             
-                            <div class="row">   
+                            <div class="row">
+                             
+
                                 <div class="col-md-6 mb-25">
                                     <label
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Sub Unit') }}</label>
-                                    <select class="form-select flex-shrink-0 sub_unit_id" name="sub_unit_id">
+                                    <select class="form-select flex-shrink-0 unit_id" name="unit_id">
                                         <option value="">--{{ __('Select Sub Unit') }}--</option>
                                     </select>
                                 </div>
@@ -265,12 +239,10 @@
         </div>
     </div>
  
-
+    <!-- Add Information Modal End -->
+    <input type="hidden" id="getInfoRoute" value="{{ route('owner.maintenance-request.get.info') }}">
+    <input type="hidden" id="route" value="{{ route('owner.maintenance-request.index') }}">
     <input type="hidden" id="getPropertyUnitsRoute" value="{{ route('owner.property.getPropertyUnits') }}">
-    <input type="hidden" id="getUnitsRoute" value="{{ route('owner.property.sub-unit.getSubUnits') }}">
-
-    {{-- <input type="hidden" id="getSubUnitsRoute" value="{{ route('owner.property.getSubUnits') }}"> --}}
-
 @endsection
 @push('style')
     @include('common.layouts.datatable-style')
@@ -278,5 +250,5 @@
 
 @push('script')
     @include('common.layouts.datatable-script')
-    <script src="{{ asset('assets/js/custom/asset.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/maintenance-request.js') }}"></script>
 @endpush

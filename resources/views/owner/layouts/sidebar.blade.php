@@ -52,19 +52,7 @@
                             <span>{{ __('Asset Management') }}</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            {{-- <li>
-                            <a href="{{ route('owner.reports.earning') }}">{{ __('Earning') }}</a>
-                        </li>
-                        <li>
-                            <a
-                                href="{{ route('owner.reports.loss-profit.by.month') }}">{{ __('Loss / Profit By Month') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('owner.reports.expenses') }}">{{ __('Expenses') }}</a>
-                        </li> --}}
-                            {{-- <li>
-                            <a href="{{ route('owner.reports.lease') }}">{{ __('Lease') }}</a>
-                        </li> --}}
+                         
                         <li>
                             <a href="{{ route('owner.assets.all_assets') }}">{{ __('All Assets') }}</a>
                         </li>
@@ -73,6 +61,25 @@
                         </li>
                         <li>
                             <a href="{{ route('owner.assets.dispose') }}">{{ __('Dispose') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('owner.assets.category.index') }}">{{ __('Category') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('owner.assets.vendor.index') }}">{{ __('Vendor') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('owner.assets.manufacturer') }}">{{ __('Manufacturer') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('owner.assets.depreciation_class') }}">{{ __('Depreciation Class') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('owner.assets.condition.index') }}">{{ __('Condition') }}</a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('owner.assets.status.index') }}">{{ __('Status') }}</a>
                         </li>
                     </ul>
                 </li>

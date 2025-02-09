@@ -1,16 +1,17 @@
 <?php
+
 namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
-use App\Models\Manufacturer;
-// use App\Models\Manufa/ctureService;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
-use App\Services\ManufactureService;
+use App\Services\Assets\VendorService;
 use App\Traits\ResponseTrait;
 
-class ManufacturerController extends Controller
+class VendorController extends Controller
 {
-    public $manufacturerServiceData;
+
+    public $vendorService;
     use ResponseTrait;
 
     /**
@@ -18,13 +19,10 @@ class ManufacturerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-     public function __construct()
-     {
-     $this->manufacturerServiceData = new ManufactureService;
-
-    }
-
+    public function __construct()
+    {
+    $this->vendorService = new VendorService;
+   }
 
     public function index()
     {
@@ -55,10 +53,10 @@ class ManufacturerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Manufacturer  $manufacturer
+     * @param  \App\Models\Vendor  $vendor
      * @return \Illuminate\Http\Response
      */
-    public function show(Manufacturer $manufacturer)
+    public function show(Vendor $vendor)
     {
         //
     }
@@ -66,10 +64,10 @@ class ManufacturerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Manufacturer  $manufacturer
+     * @param  \App\Models\Vendor  $vendor
      * @return \Illuminate\Http\Response
      */
-    public function edit(Manufacturer $manufacturer)
+    public function edit(Vendor $vendor)
     {
         //
     }
@@ -78,10 +76,10 @@ class ManufacturerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Manufacturer  $manufacturer
+     * @param  \App\Models\Vendor  $vendor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Manufacturer $manufacturer)
+    public function update(Request $request, Vendor $vendor)
     {
         //
     }
@@ -89,13 +87,11 @@ class ManufacturerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Manufacturer  $manufacturer
+     * @param  \App\Models\Vendor  $vendor
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $id)
+    public function destroy($id)
     {
-
-        return $this->manufacturerServiceData->deleteById($id);
-        
+        return $this->vendorService->deleteById($id);
     }
 }
