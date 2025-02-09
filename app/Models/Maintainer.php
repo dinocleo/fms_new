@@ -32,4 +32,15 @@ class Maintainer extends Model
     {
         return $this->hasMany(Property::class, 'maintainer_id', 'user_id');
     }
+
+    public function noncommercial(): HasOne
+    {
+        return $this->hasOne(NonCommercial::class, 'id', 'non_commercial_id');
+    }
+    
+    public function noncommercials(): HasMany
+    {
+        return $this->hasMany(NonCommercial::class, 'maintainer_id', 'user_id');
+    }
+    
 }

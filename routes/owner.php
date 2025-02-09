@@ -1,33 +1,34 @@
 <?php
 
-use App\Http\Controllers\Owner\CurrencyController;
-use App\Http\Controllers\Owner\DashboardController;
-use App\Http\Controllers\Owner\DocumentController;
-use App\Http\Controllers\Owner\ExpenseController;
-use App\Http\Controllers\Owner\ExpenseTypeController;
-use App\Http\Controllers\Owner\GatewayController;
-use App\Http\Controllers\Owner\InformationController;
-use App\Http\Controllers\Owner\InvoiceController;
-use App\Http\Controllers\Owner\InvoiceRecurringController;
-use App\Http\Controllers\Owner\InvoiceTypeController;
-use App\Http\Controllers\Owner\KycConfigController;
-use App\Http\Controllers\Owner\LocationController;
-use App\Http\Controllers\Owner\MaintainerController;
-use App\Http\Controllers\Owner\MaintenanceIssueController;
-use App\Http\Controllers\Owner\MaintenanceRequestController;
-use App\Http\Controllers\Owner\NoticeBoardController;
-use App\Http\Controllers\Owner\PropertyController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Owner\AssetController;
 use App\Http\Controllers\Owner\ReportController;
-use App\Http\Controllers\Owner\RolePermissionController;
-use App\Http\Controllers\Owner\SettingController;
-use App\Http\Controllers\Owner\TeamMemberController;
 use App\Http\Controllers\Owner\TenantController;
 use App\Http\Controllers\Owner\TicketController;
-use App\Http\Controllers\Owner\TicketTopicController;
-use App\Http\Controllers\Owner\AssetController;
+use App\Http\Controllers\Owner\ExpenseController;
+use App\Http\Controllers\Owner\GatewayController;
+use App\Http\Controllers\Owner\InvoiceController;
+use App\Http\Controllers\Owner\SettingController;
+use App\Http\Controllers\Owner\CurrencyController;
+use App\Http\Controllers\Owner\DocumentController;
+use App\Http\Controllers\Owner\LocationController;
+use App\Http\Controllers\Owner\PropertyController;
 use App\Http\Controllers\Tenancy\DomainController;
+use App\Http\Controllers\Owner\DashboardController;
+use App\Http\Controllers\Owner\KycConfigController;
+use App\Http\Controllers\Owner\MaintainerController;
+use App\Http\Controllers\Owner\TeamMemberController;
+use App\Http\Controllers\Owner\ExpenseTypeController;
+use App\Http\Controllers\Owner\InformationController;
+use App\Http\Controllers\Owner\InvoiceTypeController;
+use App\Http\Controllers\Owner\NoticeBoardController;
+use App\Http\Controllers\Owner\TicketTopicController;
 use App\Http\Controllers\Owner\ManufacturerController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Owner\RolePermissionController;
+use App\Http\Controllers\Owner\InvoiceRecurringController;
+use App\Http\Controllers\Owner\MaintenanceIssueController;
+use App\Http\Controllers\Owner\MaintenanceRequestController;
+use App\Http\Controllers\Owner\NonCommercialPropertyController;
 
 Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'owner']], function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
@@ -38,6 +39,16 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         Route::get('all-property', [PropertyController::class, 'allProperty'])->name('allProperty')->middleware('can:Manage Property');
         Route::get('non-commercial', [PropertyController::class, 'nonCommercialProperty'])->name('nonCommercial')->middleware('can:Manage Property');
         Route::get('add-non-commercial', [PropertyController::class, 'nonCommercialPropertyAdd'])->name('nonCommercialAdd')->middleware('can:Manage Property');
+
+        Route::get('property/information', [PropertyController::class, 'propertyInformation'])->name('information');
+        Route::post('property/store', [NonCommercialPropertyController::class, 'storeProperty'])->name('property.store');
+        Route::get('property/location', [PropertyController::class, 'propertyLocation'])->name('location');
+
+        Route::get('property/location', [PropertyController::class, 'propertyLocation'])->name('location');
+        Route::get('property/unit/{propertyId}', [NonCommercialPropertyController::class, 'propertyUnit'])->name('unit');
+        Route::post('property/unit/{propertyId}', [NonCommercialPropertyController::class, 'storeUnitDetails'])->name('unit.store')->middleware('can:Manage Property');
+        
+
 
         Route::get('all-unit', [PropertyController::class, 'allUnit'])->name('allUnit')->middleware('can:Manage Property');
         Route::get('own-property', [PropertyController::class, 'ownProperty'])->name('ownProperty')->middleware('can:Manage Property');

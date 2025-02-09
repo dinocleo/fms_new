@@ -37,40 +37,158 @@
                                 <!-- Stepper Start -->
                                 <div class="col-12">
                                     <div id="msform">
-                                        <!-- progressbar -->
+
                                         <div class="stepper-progressbar-wrap radius-10 theme-border p-25 mb-25">
                                             <ul id="progressbar" class="text-center">
-                                                <li class="active" id="accountInformationStep">
-                                                    <span class="form-stepper-nav-icon"><i
-                                                            class="ri-home-4-fill"></i></span>
-                                                    <span>{{ __('Property Information') }}</span>
+                                                <li class="active">
+                                                    <a href="{{ route('owner.property.information') }}">
+                                                        <span class="form-stepper-nav-icon"><i
+                                                                class="ri-home-4-fill"></i></span>
+                                                        <span>{{ __('Property Information') }}</span>
+                                                    </a>
                                                 </li>
-                                                <li id="locationStep">
-                                                    <span class="form-stepper-nav-icon"><i
-                                                            class="ri-map-pin-2-fill"></i></span>
-                                                    <span>{{ __('Location') }}</span>
+                                                <li>
+                                                    <a href="#">
+                                                        <span class="form-stepper-nav-icon"><i
+                                                                class="ri-layout-4-fill"></i></span>
+                                                        <span>{{ __('Unit') }}</span>
+                                                    </a>
                                                 </li>
-                                                <li id="unitStep">
-                                                    <span class="form-stepper-nav-icon"><i
-                                                            class="ri-layout-4-fill"></i></span>
-                                                    <span>{{ __('Unit') }}</span>
+                                                <li>
+                                                    <a href="#">
+                                                        <span class="form-stepper-nav-icon"><i
+                                                                class="ri-map-pin-2-fill"></i></span>
+                                                        <span>{{ __('Location') }}</span>
+                                                    </a>
                                                 </li>
-                                                <li id="rentChargesStep">
-                                                    <span class="form-stepper-nav-icon"><i
-                                                            class="ri-file-text-fill"></i></span>
-                                                    <span>{{ __('Rent & Charges') }}</span>
-                                                </li>
-                                                <li id="imageStep">
-                                                    <span class="form-stepper-nav-icon"><i
-                                                            class="ri-image-add-fill"></i></span>
-                                                    <span>{{ __('Image') }}</span>
-                                                </li>
+
                                             </ul>
                                         </div>
-                                        <!-- Start:: fieldSets -->
-                                        <fieldset>
-                                            <div id="addHtmlForm"></div>
-                                        </fieldset>
+
+                                        <form action="{{ route('owner.property.property.store') }}" method="POST">
+                                            @csrf
+
+                                            <div class="select-property-box bg-white theme-border radius-4 p-20 mb-25">
+                                                <h6 class="mb-15">{{ __('Select Property Type') }}</h6>
+                                                <ul class="nav nav-tabs select-property-nav-tabs border-0" id="propertyTab"
+                                                    role="tablist">
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="p-0 me-4 mb-1 nav-link active select_property_type"
+                                                            data-property_type="office" id="office-tab" data-bs-toggle="tab"
+                                                            data-bs-target="#office-tab-pane" type="button" role="tab"
+                                                            aria-controls="office-tab-pane" aria-selected="true">
+                                                            <span
+                                                                class="select-property-nav-text d-flex align-items-center position-relative">
+                                                                <span class="select-property-nav-text-box me-2"></span>🏢
+                                                                {{ __('Office') }}
+                                                            </span>
+                                                        </button>
+                                                    </li>
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="p-0 me-4 mb-1 nav-link select_property_type"
+                                                            data-property_type="resident" id="resident-tab"
+                                                            data-bs-toggle="tab" data-bs-target="#resident-tab-pane"
+                                                            type="button" role="tab" aria-controls="resident-tab-pane"
+                                                            aria-selected="false">
+                                                            <span
+                                                                class="select-property-nav-text d-flex align-items-center position-relative">
+                                                                <span class="select-property-nav-text-box me-2"></span>🏠
+                                                                {{ __('Resident') }}
+                                                            </span>
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                                <input type="hidden" name="property_type" id="property_type"
+                                                    value="office">
+                                            </div>
+
+                                            <div class="select-property-box bg-white theme-border radius-4 p-20 mb-25">
+                                                <div id="common-fields">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Property Name</label>
+                                                        <input type="text" class="form-control" name="property_name"
+                                                            required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Description</label>
+                                                        <textarea class="form-control" name="description" required></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div id="office-fields">
+                                                    {{-- <h4>Office Details</h4> --}}
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Number of Units</label>
+                                                        <input type="number" class="form-control" name="number_of_units"
+                                                            required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Conference Room Availability</label>
+                                                        <select class="form-control" name="conference_room" required>
+                                                            <option value="yes">Yes</option>
+                                                            <option value="no">No</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div id="resident-fields" style="display: none;">
+                                                    {{-- <h4>Resident Details</h4> --}}
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Number of Units</label>
+                                                        <input type="number" class="form-control" name="number_of_unit"
+                                                            required>
+                                                    </div>
+                                                    {{-- <div class="mb-3">
+                                                    <label class="form-label">Number of Bathrooms</label>
+                                                    <input type="number" class="form-control" name="bathrooms" required>
+                                                </div> --}}
+                                                </div>
+                                                <button type="submit"
+                                                    class="action-button theme-btn mt-25">{{ __('Save & Go to Next') }}</button>
+                                            </div>
+                                        </form>
+
+                                        <script>
+                                            function toggleFields(type) {
+                                                // Show or hide sections based on selection
+                                                document.getElementById('office-fields').style.display = (type === 'office') ? 'block' : 'none';
+                                                document.getElementById('resident-fields').style.display = (type === 'resident') ? 'block' : 'none';
+                                                document.getElementById('property_type').value = type;
+
+                                                // Remove 'required' attribute from hidden fields
+                                                toggleRequiredFields(type);
+                                            }
+
+                                            function toggleRequiredFields(type) {
+                                                let officeFields = document.querySelectorAll('#office-fields [required]');
+                                                let residentFields = document.querySelectorAll('#resident-fields [required]');
+
+                                                if (type === 'office') {
+                                                    officeFields.forEach(field => field.setAttribute('required', 'true'));
+                                                    residentFields.forEach(field => field.removeAttribute('required'));
+                                                } else {
+                                                    residentFields.forEach(field => field.setAttribute('required', 'true'));
+                                                    officeFields.forEach(field => field.removeAttribute('required'));
+                                                }
+                                            }
+
+                                            document.addEventListener('DOMContentLoaded', function() {
+                                                toggleFields('office'); // Default to office selection
+                                            });
+
+                                            // Event listeners for property type selection
+                                            document.querySelectorAll('.select_property_type').forEach(button => {
+                                                button.addEventListener('click', function() {
+                                                    let selectedType = this.getAttribute('data-property_type');
+                                                    toggleFields(selectedType);
+                                                });
+                                            });
+                                        </script>
+
+
+
+
+
                                         <!-- End:: fieldSets -->
                                     </div>
                                 </div>
@@ -86,16 +204,6 @@
         </div>
         <!-- End Page-content -->
     </div>
-
-    <input type="hidden" id="property_id" value="{{ @$property->id }}">
-    <input type="hidden" id="getStateListRoute" value="{{ route('owner.location.state.list') }}">
-    <input type="hidden" id="getCityListRoute" value="{{ route('owner.location.city.list') }}">
-    <input type="hidden" id="imageStoreRoute" value="{{ route('owner.property.image.store') }}">
-    <input type="hidden" id="imageDoc" value="{{ route('owner.property.image.doc') }}">
-    <input type="hidden" id="getPropertyInformationRoute" value="{{ route('owner.property.getPropertyInformation') }}">
-    <input type="hidden" id="getLocationRoute" value="{{ route('owner.property.getLocation') }}">
-    <input type="hidden" id="getUnitRoute" value="{{ route('owner.property.getUnitByPropertyId') }}">
-    <input type="hidden" id="getRentChargeRoute" value="{{ route('owner.property.getRentCharge') }}">
 @endsection
 
 @push('script')

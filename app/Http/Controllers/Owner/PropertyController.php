@@ -8,6 +8,7 @@ use App\Http\Requests\Owner\Property\PropertyInformationRequest;
 use App\Http\Requests\Owner\Property\RentChargeRequest;
 use App\Http\Requests\UnitRequest;
 use App\Models\Property;
+use App\Models\NonCommercialProperty;
 use App\Services\PropertyService;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
@@ -46,6 +47,45 @@ class PropertyController extends Controller
     {
         return view('owner.property.add-non');
     }
+
+
+    public function propertyInformation()
+    {
+        
+        return view('owner.property.add-non'); // Property Information Step
+    }
+
+    // public function storeProperty(Request $request)
+    // {
+    //     $request->validate([
+    //         'property_type' => 'required|in:office,resident',
+    //         'property_name' => 'required|string|max:255',
+    //         'description' => 'required|string',
+    //         'workspaces' => 'nullable|integer',
+    //         'conference_room' => 'nullable|string|in:yes,no',
+    //         'bedrooms' => 'nullable|integer',
+    //         'bathrooms' => 'nullable|integer',
+    //     ]);
+
+    //     Property::create([
+    //         'property_type' => $request->property_type,
+    //         'property_name' => $request->property_name,
+    //         'description' => $request->description,
+    //         'workspaces' => $request->workspaces,
+    //         'conference_room' => $request->conference_room,
+    //         'bedrooms' => $request->bedrooms,
+    //         'bathrooms' => $request->bathrooms,
+    //     ]);
+
+    //     return redirect()->route('owner.property.location')->with('success', 'Property information saved successfully.');
+    // }
+
+    public function propertyLocation()
+    {
+        return view('owner.property.location'); // Location Step
+    }
+
+    
 
     public function allUnit()
     {
