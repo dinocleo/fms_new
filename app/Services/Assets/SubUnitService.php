@@ -12,8 +12,7 @@ class SubUnitService{
 
     public function getSubUnitsByUnitId($id)
     {
-        $subUnits = SubUnit::where('unit_id', $id)->get();
-        return $subUnits;
+       return SubUnit::where('unit_id', $id)->get();
     }
 
 

@@ -13,18 +13,19 @@ use App\Models\AssetCategory;
 use App\Models\Property;
 use App\Models\AssetStatus;
 use App\Models\Condition;
-
+use App\Services\Assets\AssetService;
 use Illuminate\Support\Facades\Auth;
 
 class AssetController extends Controller
 {
+
     use ResponseTrait;
     public $assetsService;
     public $depreciationClassService;
 
     public function __construct()
     {
-        $this->assetsService = new Asset;
+        $this->assetsService = new AssetService;
         $this->depreciationClassService = new DepreciationClass;
     }
 
@@ -40,19 +41,25 @@ class AssetController extends Controller
         return view('owner.asset.manufacturer.index', $data);
      }
 
-    public function all_assets()
+     
+
+
+    public function getList(Request $request)
     {
         $data['pageTitle'] = __('Asset List');
         $data['depreciation_class'] = DepreciationClass::all(); 
-        $data['vendor'] = Vendor::all(); 
+        // $data['vendor'] = Vendor::all(); 
         $data['property'] = Property::all();
         $data['status'] = AssetStatus::all();
-        // $data['status'] = Sattus::all();
+        $data['vendor'] = Vendor::all();
         $data['conditions'] = Condition::all();
         $data['manufacturer'] = Manufacturer::all();
         $data['categories'] = AssetCategory::all();
         $data['properties'] = Property::all();
-        $data['assets'] = Asset::all();
+        $data['list'] = Asset::all();
+        if ($request->ajax()) {
+            return $this->assetsService->getAllData();
+        }
         return view('owner.asset.all-assets', $data);
 
     }
@@ -83,6 +90,28 @@ class AssetController extends Controller
         $vendor->save();
         return redirect()->back();
     }
+
+    public function save_asset(Request $request){
+        // $request->validate([
+        //     'name' => 'required|unique:vendors,name',
+        // ]);
+        $asset = new Asset();
+        $asset->name = $request->name;
+        $asset->tag = $request->tag;
+        $asset->category_id = $request->category_id;
+        $asset->manufacturer_id = $request->manufacturer_id;
+        $asset->condition_id = $request->condition_id;
+        $asset->property_id = $request->property_id;
+        $asset->unit_id = $request->unit_id;
+        $asset->sub_unit_id = $request->sub_unit_id;
+        $asset->vendor_id = $request->vendor_id;
+        $asset->purchase_cost = $request->purchase_cost;
+        $asset->added_by = Auth::user()->id;
+        $asset->save();
+
+        return redirect()->back();
+    }
+
     public function dispose()
     {
         //

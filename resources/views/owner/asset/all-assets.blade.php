@@ -35,9 +35,9 @@
                                     <div class="col-md-6">
                                         <div class="property-top-search-bar-left">
                                                     <select class="form-select flex-shrink-0 " id="search_property">
-                                                        <option value="" selected>{{ __('Select Property') }}</option>
-                                                        @foreach ($assets as $asset)
-                                                            <option value="{{ $asset->gateway }}">{{ $asset->gateway }}
+                                                        <option value="" selected>{{ __('--Select Category--') }}</option>
+                                                        @foreach ($categories as $item)
+                                                            <option value="{{ $item->name }}">{{ $item->name }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -58,16 +58,14 @@
                         <div class="all-maintainer-table-area">
                             <!-- datatable Start -->
                             <div class="bg-off-white theme-border radius-4 p-25">
-                                <table id="allMaintenanceDataTable" class="table bg-off-white aaa theme-border dt-responsive">
+                                <table id="allMaintainerDataTable"
+                                    class="table bg-off-white aaa theme-border dt-responsive">
                                     <thead>
                                         <tr>
-                                            <th>{{ __('SL') }}</th>
+                                            <th>{{ __('ID') }}</th>
+                                            {{-- <th>{{ __('Name') }}</th> --}}
+                                            {{-- <th>{{ __('Name') }}</th> --}}
                                             <th>{{ __('Property') }}</th>
-                                            <th>{{ __('Unit Name') }}</th>
-                                            <th data-priority="1">{{ __('Issue Name') }}</th>
-                                            <th>{{ __('Details') }}</th>
-                                            <th>{{ __('Created Date') }}</th>
-                                            <th>{{ __('Resolved Date') }}</th>
                                             <th>{{ __('Status') }}</th>
                                             <th>{{ __('Action') }}</th>
                                         </tr>
@@ -76,6 +74,8 @@
                             </div>
                             <!-- datatable End -->
                         </div>
+
+
                         <!-- All Maintainer Table Area End -->
                     </div>
                     <!-- Information Page Area row End -->
@@ -95,8 +95,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
                             class="iconify" data-icon="akar-icons:cross"></span></button>
                 </div>
-                <form class="ajax" action="{{ route('owner.assets.save-asset') }}" method="POST"
+                <form   action="{{ route('owner.assets.save-asset') }}" method="POST"
                     data-handler="getShowMessage">
+
+                    @csrf
                     <div class="modal-body">
                         <!-- Modal Inner Form Box Start -->
                         <div class="modal-inner-form-box">
@@ -207,9 +209,11 @@
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Vendor') }}</label>
                                     <select class="form-select flex-shrink-0 property_id" name="vendor_id">
                                         <option value="" selected>--{{ __('Select Vendor') }}--</option>
-                                        @foreach ($assets as $asset)
-                                            <option value="{{ $asset->id }}">{{ $asset->gateway }}</option>
+                                        @if(count($vendor)>0)
+                                        @foreach ($vendor as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </div>
 
@@ -223,7 +227,7 @@
                                 <div class="col-md-6 mb-25">
                                     <label
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Purchase Cost (TZS)') }}</label>
-                                        <input type="Number" class="form-control" name="name">
+                                        <input type="Number" class="form-control" name="purchase_cost">
 
                                 </div>
 
@@ -232,6 +236,12 @@
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Depreciation Class') }}</label>
                                     <select class="form-select flex-shrink-0 depreciation_class_id" name="depreciation_class_id">
                                         <option value="">--{{ __('Select Depreciation Class') }}--</option>
+                                        @if(count($depreciation_class)>0)
+                                        @foreach ($depreciation_class as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                        @endif
+                                   
                                     </select>
                                 </div>
                             </div>
@@ -245,8 +255,7 @@
                                     <textarea class="form-control details" name="missing_description" placeholder="{{ __('Description') }}"></textarea>
                                 </div>
                                 <div class="col-md-12">
-                                    <label
-                                        class="label-text-title color-heading font-medium mb-2">{{ __('Image') }}</label>
+                                    <label   class="label-text-title color-heading font-medium mb-2">{{ __('Image') }}</label>
                                     <input type="file" class="form-control" name="image">
                                 </div>
                             </div>
@@ -268,6 +277,7 @@
 
     <input type="hidden" id="getPropertyUnitsRoute" value="{{ route('owner.property.getPropertyUnits') }}">
     <input type="hidden" id="getUnitsRoute" value="{{ route('owner.property.sub-unit.getSubUnits') }}">
+    <input type="hidden" id="route" value="{{ route('owner.assets.getList') }}">
 
     {{-- <input type="hidden" id="getSubUnitsRoute" value="{{ route('owner.property.getSubUnits') }}"> --}}
 

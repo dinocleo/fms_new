@@ -71,7 +71,7 @@
                     <!-- dashboard-feature-item row -->
 
                     <!-- Chart row -->
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-12 col-lg-12 col-xl-12">
                             <div class="bg-off-white radius-4 mb-25 theme-border p-20 w-100">
                                 <div class="bg-transparent">
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- Chart row -->
 
                     <div class="row">

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('prefix');
             $table->string('tag')->nullable();
+            $table->string('added_by')->nullable();
             $table->date('purchase_date')->nullable();
             $table->unsignedBigInteger('main_propert_cat_id')->nullable();
             $table->unsignedBigInteger('category_id');
