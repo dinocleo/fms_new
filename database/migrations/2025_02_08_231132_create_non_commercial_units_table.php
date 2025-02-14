@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('amenities')->nullable();
             $table->enum('condition', ['new', 'good', 'fair', 'poor'])->nullable();
             $table->boolean('parking')->default(0);
+            $table->boolean('sub_unit')->default(0);
             $table->timestamps();
         });
     }

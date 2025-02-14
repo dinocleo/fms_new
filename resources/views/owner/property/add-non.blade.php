@@ -104,30 +104,32 @@
 
                                             <div class="select-property-box bg-white theme-border radius-4 p-20 mb-25">
                                                 <div id="common-fields">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">Property Name</label>
-                                                        <input type="text" class="form-control" name="property_name"
-                                                            required>
+                                                    <div class="row">
+                                                        <div class="col-md-6 mb-3">
+                                                            <label class="form-label">Property Name</label>
+                                                            <input type="text" class="form-control" name="property_name"
+                                                                placeholder="Enter property name" required>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label class="form-label">Property Address</label>
+                                                            <input type="text" class="form-control"
+                                                                name="property_address" placeholder="Enter property Address"
+                                                                required>
+                                                        </div>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">Description</label>
-                                                        <textarea class="form-control" name="description" required></textarea>
+                                                        <textarea class="form-control" name="description"  style="height: 100px; width: 100%;"></textarea>
                                                     </div>
                                                 </div>
+
 
                                                 <div id="office-fields">
                                                     {{-- <h4>Office Details</h4> --}}
                                                     <div class="mb-3">
                                                         <label class="form-label">Number of Units</label>
                                                         <input type="number" class="form-control" name="number_of_units"
-                                                            required>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label">Conference Room Availability</label>
-                                                        <select class="form-control" name="conference_room" required>
-                                                            <option value="yes">Yes</option>
-                                                            <option value="no">No</option>
-                                                        </select>
+                                                            placeholder="Enter property Number of Units" required>
                                                     </div>
                                                 </div>
 
@@ -136,12 +138,8 @@
                                                     <div class="mb-3">
                                                         <label class="form-label">Number of Units</label>
                                                         <input type="number" class="form-control" name="number_of_unit"
-                                                            required>
+                                                            placeholder="Enter property Number of Units" required>
                                                     </div>
-                                                    {{-- <div class="mb-3">
-                                                    <label class="form-label">Number of Bathrooms</label>
-                                                    <input type="number" class="form-control" name="bathrooms" required>
-                                                </div> --}}
                                                 </div>
                                                 <button type="submit"
                                                     class="action-button theme-btn mt-25">{{ __('Save & Go to Next') }}</button>
@@ -154,7 +152,6 @@
                                                 document.getElementById('office-fields').style.display = (type === 'office') ? 'block' : 'none';
                                                 document.getElementById('resident-fields').style.display = (type === 'resident') ? 'block' : 'none';
                                                 document.getElementById('property_type').value = type;
-
                                                 // Remove 'required' attribute from hidden fields
                                                 toggleRequiredFields(type);
                                             }
@@ -184,11 +181,6 @@
                                                 });
                                             });
                                         </script>
-
-
-
-
-
                                         <!-- End:: fieldSets -->
                                     </div>
                                 </div>

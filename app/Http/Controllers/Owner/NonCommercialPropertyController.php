@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\NonCommercial;
 use App\Models\NonCommercialUnit;
 use App\Http\Controllers\Controller;
+use App\Models\NonCommercialSubUnit;
 
 class NonCommercialPropertyController extends Controller
 {
@@ -15,9 +16,9 @@ class NonCommercialPropertyController extends Controller
         $request->validate([
             'property_type' => 'required|in:office,resident',
             'property_name' => 'required|string|max:255',
+            'property_address' => 'required|string|max:255',
             'description' => 'nullable|string',
             'number_of_units' => 'nullable|integer', // For offices
-            'conference_room' => 'nullable|string|in:yes,no',
             'number_of_unit' => 'nullable|integer', // For residents
         ]);
     
@@ -25,9 +26,9 @@ class NonCommercialPropertyController extends Controller
         $property = NonCommercial::create([
             'property_type' => $request->property_type,
             'property_name' => $request->property_name,
+            'property_address' => $request->property_address,
             'description' => $request->description,
             'number_of_units' => $request->number_of_units, // For offices
-            'conference_room' => $request->conference_room,
             'number_of_unit' => $request->number_of_unit, // For residents
         ]);
     
@@ -42,7 +43,7 @@ class NonCommercialPropertyController extends Controller
         return view('owner.property.unit', compact('property'));
     }
 
-    public function storeUnitDetails(Request $request)
+    public function storeUnitDetails(Request $request, $propertyId)
     {
         // Validate input
         $validatedData = $request->validate([
@@ -62,16 +63,14 @@ class NonCommercialPropertyController extends Controller
             'multiple.condition.*' => 'nullable|in:new,good,fair,poor',
             'multiple.parking' => 'nullable|array',
             'multiple.parking.*' => 'nullable|boolean',
-            'multiple.images' => 'nullable|array',
-            'multiple.images.*' => 'nullable|image',
-            'multiple.description' => 'nullable|array',
-            'multiple.description.*' => 'nullable|string',
+            'multiple.sub_unit' => 'nullable|array',
+            'multiple.sub_unit.*' => 'nullable|boolean',
         ]);
     
-        // Store each unit's data
+        // Insert each unit
         foreach ($validatedData['multiple']['unit_name'] as $key => $unitName) {
             NonCommercialUnit::create([
-                'non_commercial_properties_id' => $request->propertyId,
+                'non_commercial_properties_id' => $propertyId, // Ensure this matches the column name
                 'unit_name' => $unitName,
                 'bedroom' => $validatedData['multiple']['bedroom'][$key] ?? null,
                 'bath' => $validatedData['multiple']['bath'][$key] ?? null,
@@ -79,13 +78,90 @@ class NonCommercialPropertyController extends Controller
                 'square_feet' => $validatedData['multiple']['square_feet'][$key] ?? null,
                 'amenities' => $validatedData['multiple']['amenities'][$key] ?? null,
                 'condition' => $validatedData['multiple']['condition'][$key] ?? null,
-                'parking' => isset($validatedData['multiple']['parking'][$key]) ? 1 : 0, // Handle checkbox
-                'description' => $validatedData['multiple']['description'][$key] ?? null,
+                'parking' => $validatedData['multiple']['parking'][$key] ?? 0,
+                'sub_unit' => $validatedData['multiple']['sub_unit'][$key] ?? 0,
+
             ]);
         }
-    
-        return redirect()->route('owner.property.index')->with('success', 'Units added successfully!');
+        // Check if any unit has sub_unit = 1
+            $hasSubUnit = NonCommercialUnit::where('non_commercial_properties_id', $propertyId)
+            ->where('sub_unit', 1)
+            ->exists();
+
+        if ($hasSubUnit) {
+            return redirect()->route('owner.property.subUnits', ['id' => $propertyId])->with('success', 'Units added successfully!');
+        }
+
+        return view('owner.property.nonCommercial')->with('success', 'Units added successfully!');
     }
+
+    public function propertySubUnit($propertyId)
+    {
+        $property = NonCommercial::with('units.subUnits')->find($propertyId);
+    
+        if (!$property) {
+            return redirect()->route('nonCommercial')->with('error', 'Property not found.');
+        }
+    
+        return view('owner.property.sub_unit', compact('property', 'propertyId'))
+            ->with('success', 'Units added successfully!');
+    }
+    
+    
+    
+    // public function storeSubUnitDetails(Request $request, $unitId)
+    // {
+    //     dd($request->all());
+    //     $validatedData = $request->validate([
+    //         'unit_name' => 'required|string',
+    //         'amenities' => 'nullable|string',
+    //     ]);
+    
+    //     // Find the NonCommercialUnit
+    //     $unit = NonCommercialUnit::find($unitId);
+    
+    //     // Check if the unit exists
+    //     if (!$unit) {
+    //         return redirect()->back()->with('error', 'Unit not found.');
+    //     }
+    
+    //     // Store the sub-unit associated with the unit
+    //     NonCommercialSubUnit::create([
+    //         'non_commercial_unit_id' => $unit->id, // Foreign key linking to the unit
+    //         'unit_name' => $validatedData['unit_name'],
+    //         'amenities' => $validatedData['amenities'] ?? null,
+    //     ]);
+    
+    //     return redirect()->route('owner.property.nonCommercial', ['propertyId' => $unit->noncommercial->id])
+    //         ->with('success', 'Sub-unit added successfully!');
+    // }
+    
+    public function storeSubUnitDetails(Request $request, $propertyId)
+{
+    // Validate the input for the multiple sub-units
+    $validatedData = $request->validate([
+        'multiple.unit_name' => 'required|array',
+        'multiple.unit_name.*' => 'required|string',
+        'multiple.amenities' => 'nullable|array',
+        'multiple.amenities.*' => 'nullable|string',
+    ]);
+
+    // Loop through the unit names and save each sub-unit
+    foreach ($validatedData['multiple']['unit_name'] as $key => $unitName) {
+        NonCommercialSubUnit::create([
+            'non_commercial_unit_id' => $propertyId,  // Assuming you need to link the sub-unit to the unit
+            'unit_name' => $unitName,
+            'amenities' => $validatedData['multiple']['amenities'][$key] ?? null,
+        ]);
+    }
+
+    return redirect()->route('owner.property.nonCommercial', ['propertyId' => $propertyId])
+        ->with('success', 'Sub-units added successfully!');
+}
+
+    
+
+    
     
     
     

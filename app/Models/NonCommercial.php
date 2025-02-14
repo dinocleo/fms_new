@@ -15,6 +15,7 @@ class NonCommercial extends Model
     protected $fillable = [
         'property_type',  
         'property_name',
+        'property_address',
         'description',
         'number_of_units',
         'conference_room',
@@ -28,32 +29,7 @@ class NonCommercial extends Model
         'owner_user_id',
     ];
 
-    public function tenants()
-    {
-        return $this->hasMany(Tenant::class, 'property_id', 'id');
-    }
-
-    public function maintainers()
-    {
-        return $this->hasMany(Maintainer::class, 'property_id', 'id');
-    }
-    public function propertyDetail(): HasOne
-    {
-        return $this->hasOne(PropertyDetail::class);
-    }
-
-    public function propertyImages(): HasMany
-    {
-        return $this->hasMany(PropertyImage::class);
-    }
-
-    public function propertyUnits(): HasMany
-    {
-        return $this->hasMany(PropertyUnit::class, 'property_id', 'id')->select('id', 'unit_name', 'property_id');
-    }
     public function units() {
-        return $this->hasMany(NonCommercialUnit::class);
+        return $this->hasMany(NonCommercialUnit::class, 'non_commercial_properties_id'); // Update this
     }
-
-    
 }

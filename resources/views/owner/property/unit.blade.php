@@ -68,15 +68,17 @@
 
                                         <div class="select-property-box bg-white theme-border radius-4 p-20 mb-25">
                                             <form
-                                                action="{{ route('owner.property.unit.store', ['propertyId' => $property->id]) }}"
+                                                action="{{ route('owner.property.non_unit.store', ['propertyId' => $property->id]) }}"
                                                 method="POST" enctype="multipart/form-data">
                                                 @csrf
+
                                                 @php
+                                                    // Check if property type is 'office' from the database
+                                                    $isOffice = $property->property_type === 'office';
                                                     // Determine the number of units based on property type
-                                                    $unitCount =
-                                                        $property->property_type === 'office'
-                                                            ? $property->number_of_units
-                                                            : $property->number_of_unit;
+                                                    $unitCount = $isOffice
+                                                        ? $property->number_of_units
+                                                        : $property->number_of_unit;
                                                 @endphp
 
                                                 @for ($i = 0; $i < $unitCount; $i++)
@@ -92,7 +94,9 @@
                                                                     placeholder="{{ __('Unit Name') }}">
                                                             </div>
 
-                                                            <div class="col-md-2 mb-25">
+                                                            <!-- Bedroom Field - Hidden if office -->
+                                                            <div class="col-md-2 mb-25" id="bedroomField"
+                                                                style="{{ $isOffice ? 'display: none;' : '' }}">
                                                                 <label
                                                                     class="label-text-title color-heading font-medium mb-2">{{ __('Bedroom') }}</label>
                                                                 <input type="number" min="0"
@@ -100,14 +104,18 @@
                                                                     placeholder="0">
                                                             </div>
 
-                                                            <div class="col-md-2 mb-25">
+                                                            <!-- Bath Field - Hidden if office -->
+                                                            <div class="col-md-2 mb-25" id="bathField"
+                                                                style="{{ $isOffice ? 'display: none;' : '' }}">
                                                                 <label
                                                                     class="label-text-title color-heading font-medium mb-2">{{ __('Baths') }}</label>
                                                                 <input type="number" min="0" name="multiple[bath][]"
                                                                     class="form-control" placeholder="0">
                                                             </div>
 
-                                                            <div class="col-md-2 mb-25">
+                                                            <!-- Kitchen Field - Hidden if office -->
+                                                            <div class="col-md-2 mb-25" id="kitchenField"
+                                                                style="{{ $isOffice ? 'display: none;' : '' }}">
                                                                 <label
                                                                     class="label-text-title color-heading font-medium mb-2">{{ __('Kitchen') }}</label>
                                                                 <input type="number" min="0"
@@ -117,10 +125,10 @@
 
                                                             <div class="col-md-2 mb-25">
                                                                 <label
-                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Square Feet') }}</label>
+                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Square metre') }}</label>
                                                                 <input type="text" name="multiple[square_feet][]"
                                                                     class="form-control"
-                                                                    placeholder="{{ __('Square Feet') }}">
+                                                                    placeholder="{{ __('Square metre') }}">
                                                             </div>
 
                                                             <div class="col-md-2 mb-25">
@@ -151,23 +159,39 @@
                                                             </div>
 
                                                             <div class="col-md-2 mb-25">
-                                                                <label class="label-text-title color-heading font-medium mb-2">{{ __('Parking') }}</label>
-                                                                
-                                                                <!-- Yes Radio Button -->
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="multiple[parking][]" id="parkingYes{{ $i }}" value="1">
-                                                                    <label class="form-check-label" for="parkingYes{{ $i }}">{{ __('Yes') }}</label>
+                                                                <label
+                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Parking') }}</label>
+
+                                                                <!-- Parking Radio Buttons for Each Unit -->
+                                                                <div class="d-flex">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="multiple[parking][{{ $i }}]"
+                                                                            id="parkingNo{{ $i }}"
+                                                                            value="0">
+                                                                        <label class="form-check-label"
+                                                                            for="parkingNo{{ $i }}">{{ __('No') }}</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="multiple[parking][{{ $i }}]"
+                                                                            id="parkingYes{{ $i }}"
+                                                                            value="1">
+                                                                        <label class="form-check-label"
+                                                                            for="parkingYes{{ $i }}">{{ __('Yes') }}</label>
+                                                                    </div>
+
+
                                                                 </div>
-                                                                
-                                                                <!-- No Radio Button -->
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="multiple[parking][]" id="parkingNo{{ $i }}" value="0">
-                                                                    <label class="form-check-label" for="parkingNo{{ $i }}">{{ __('No') }}</label>
+                                                                <!-- Has Sub-Unit Checkbox -->
+                                                                <div class="form-check form-check-inline ml-4">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        name="multiple[sub_unit][{{ $i }}]"
+                                                                        id="subUnit{{ $i }}" value="1">
+                                                                    <label class="form-check-label"
+                                                                        for="subUnit{{ $i }}">{{ __('Has Sub-Unit') }}</label>
                                                                 </div>
                                                             </div>
-                                                            
-
-
                                                         </div>
                                                     </div>
                                                 @endfor
@@ -176,85 +200,6 @@
                                                     class="action-button theme-btn mt-25">{{ __('Save & Go to Next') }}</button>
                                             </form>
                                         </div>
-
-
-
-                                        {{-- <form action="{{ route('image.upload') }}" method="POST" enctype="multipart/form-data">
-                                        <div class="select-property-box bg-white theme-border radius-4 p-20 mb-25">
-                                            <input type="hidden" name="multiple[id][]" value="">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-xl-2 mb-25">
-                                                    <label
-                                                        class="label-text-title color-heading font-medium mb-2">{{ __('Unit Name') }}</label>
-                                                    <input type="text" name="multiple[unit_name][]" value=""
-                                                        class="form-control multiple-unit_name"
-                                                        placeholder="{{ __('Unit Name') }}">
-                                                </div>
-                                                <div class="col-md-2 col-lg-2 col-xl-2 mb-25">
-                                                    <label
-                                                        class="label-text-title color-heading font-medium mb-2">{{ __('Bedroom') }}</label>
-                                                    <input type="number" min="0" name="multiple[bedroom][]"
-                                                        value="" class="form-control multiple-bedroom"
-                                                        placeholder="0">
-                                                </div>
-                                                <div class="col-md-2 col-lg-2 col-xl-2 mb-25">
-                                                    <label
-                                                        class="label-text-title color-heading font-medium mb-2">{{ __('Baths') }}</label>
-                                                    <input type="number" min="0" name="multiple[bath][]"
-                                                        value="" class="form-control multiple-bath" placeholder="0">
-                                                </div>
-                                                <div class="col-md-2 col-lg-2 col-xl-2 mb-25">
-                                                    <label
-                                                        class="label-text-title color-heading font-medium mb-2">{{ __('Kitchen') }}</label>
-                                                    <input type="number" min="0" name="multiple[kitchen][]"
-                                                        value="" class="form-control multiple-kitchen"
-                                                        placeholder="0">
-                                                </div>
-                                                <div class="col-md-2 col-lg-2 col-xl-2 mb-25">
-                                                    <label
-                                                        class="label-text-title color-heading font-medium mb-2">{{ __('Square Feet') }}</label>
-                                                    <input type="text" name="multiple[square_feet][]" value=""
-                                                        class="form-control multiple-square_feet"
-                                                        placeholder="{{ __('Square Feet') }}">
-                                                </div>
-                                                <div class="col-md-2 col-lg-2 col-xl-2 mb-25">
-                                                    <label
-                                                        class="label-text-title color-heading font-medium mb-2">{{ __('Amenities') }}</label>
-                                                    <input type="text" name="multiple[amenities][]" value=""
-                                                        class="form-control multiple-amenities"
-                                                        placeholder="{{ __('Amenities') }}">
-                                                </div>
-                                                <div class="col-md-2 col-lg-2 col-xl-2 mb-25">
-                                                    <label
-                                                        class="label-text-title color-heading font-medium mb-2">{{ __('Condition') }}</label>
-                                                    <input type="text" name="multiple[condition][]" value=""
-                                                        class="form-control multiple-condition"
-                                                        placeholder="{{ __('Condition') }}">
-                                                </div>
-                                                <div class="col-md-2 col-lg-2 col-xl-2 mb-25">
-                                                    <label
-                                                        class="label-text-title color-heading font-medium mb-2">{{ __('Parking') }}</label>
-                                                    <input type="text" name="multiple[parking][]" value=""
-                                                        class="form-control multiple-parking"
-                                                        placeholder="{{ __('Parking') }}">
-                                                </div>
-                                                <div class="col-md-2 col-lg-2 col-xl-2 mb-25">
-                                                    <label
-                                                        class="label-text-title color-heading font-medium mb-2">{{ __('Images') }}</label>
-                                                    <input type="file" name="multiple[images][]"
-                                                        class="form-control multiple-images">
-                                                </div>
-                                                <div class="col-md-6 col-lg-6 col-xl-6 mb-25">
-                                                    <label
-                                                        class="label-text-title color-heading font-medium mb-2">{{ __('Description') }}</label>
-                                                    <input type="text" name="multiple[description][]" value=""
-                                                        class="form-control multiple-description"
-                                                        placeholder="{{ __('Description') }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </form> --}}
-
 
 
 

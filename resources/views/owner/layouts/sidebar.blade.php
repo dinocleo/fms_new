@@ -52,17 +52,17 @@
                             <span>{{ __('Asset Management') }}</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                         
-                        <li>
-                            <a href="{{ route('owner.assets.all_assets') }}">{{ __('All Assets') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('owner.assets.replacement') }}">{{ __('Replacement') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('owner.assets.dispose') }}">{{ __('Dispose') }}</a>
-                        </li>
-                        <li>
+
+                            <li>
+                                <a href="{{ route('owner.assets.all_assets') }}">{{ __('All Assets') }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('owner.assets.replacement') }}">{{ __('Replacement') }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('owner.assets.dispose') }}">{{ __('Dispose') }}</a>
+                            </li>
+                            {{-- <li>
                             <a href="{{ route('owner.assets.category.index') }}">{{ __('Category') }}</a>
                         </li>
                         <li>
@@ -76,14 +76,14 @@
                         </li>
                         <li>
                             <a href="{{ route('owner.assets.condition.index') }}">{{ __('Condition') }}</a>
-                        </li>
+                        </li> --}}
 
-                        <li>
-                            <a href="{{ route('owner.assets.status.index') }}">{{ __('Status') }}</a>
-                        </li>
-                    </ul>
-                </li>
-            @endcan
+                            {{-- <li>
+                                <a href="{{ route('owner.assets.status.index') }}">{{ __('Status') }}</a>
+                            </li> --}}
+                        </ul>
+                    </li>
+                @endcan
 
 
                 @can('Manage Tenant')

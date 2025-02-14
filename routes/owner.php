@@ -24,7 +24,11 @@ use App\Http\Controllers\Owner\InvoiceTypeController;
 use App\Http\Controllers\Owner\NoticeBoardController;
 use App\Http\Controllers\Owner\TicketTopicController;
 use App\Http\Controllers\Owner\ManufacturerController;
-// use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Owner\RolePermissionController;
+use App\Http\Controllers\Owner\InvoiceRecurringController;
+use App\Http\Controllers\Owner\MaintenanceIssueController;
+use App\Http\Controllers\Owner\MaintenanceRequestController;
+use App\Http\Controllers\Owner\NonCommercialPropertyController;
 
 Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'owner']], function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
@@ -42,8 +46,10 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
 
         Route::get('property/location', [PropertyController::class, 'propertyLocation'])->name('location');
         Route::get('property/unit/{propertyId}', [NonCommercialPropertyController::class, 'propertyUnit'])->name('unit');
-        Route::post('property/unit/{propertyId}', [NonCommercialPropertyController::class, 'storeUnitDetails'])->name('unit.store')->middleware('can:Manage Property');
-        
+        Route::post('property/unit/{propertyId}', [NonCommercialPropertyController::class, 'storeUnitDetails'])->name('non_unit.store')->middleware('can:Manage Property');
+        // Route::post('property/sub-unit/{propertyId}', [NonCommercialPropertyController::class, 'storeSubUnitDetails'])->name('sub_unit.store')->middleware('can:Manage Property');
+        Route::get('property/{id}/sub-units', [NonCommercialPropertyController::class, 'propertySubUnit'])->name('subUnits')->middleware('can:Manage Property');
+        Route::post('property/{propertyId}/sub-units/store', [NonCommercialPropertyController::class, 'storeSubUnitDetails'])->name('sub_unit.store')->middleware('can:Manage Property');
 
 
         Route::get('all-unit', [PropertyController::class, 'allUnit'])->name('allUnit')->middleware('can:Manage Property');
@@ -58,15 +64,6 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         Route::post('location/store', [PropertyController::class, 'locationStore'])->name('location.store');
         Route::post('unit/store', [PropertyController::class, 'unitStore'])->name('unit.store');
         Route::delete('unit/delete/{id}', [PropertyController::class, 'unitDelete'])->name('unit.delete');
-      
-        Route::group(['prefix' => 'sub-unit', 'as' => 'sub-unit.'], function () {
-            // Route::get('sub-unit-list', [SubUnitController::class, 'subUnitList'])->name('index')->middleware('can:Manage Property');
-            Route::post('store', [SubUnitController::class, 'store'])->name('store');
-            Route::get('getSubUnits', [SubUnitController::class, 'getSubUnits'])->name('getSubUnits');
-
-            
-        });
-        
         Route::post('rent-charge/store', [PropertyController::class, 'rentChargeStore'])->name('rentCharge.store');
         Route::get('image/doc', [PropertyController::class, 'getImageDoc'])->name('image.doc');
         Route::post('image/store/{id?}', [PropertyController::class, 'imageStore'])->name('image.store');
@@ -197,35 +194,16 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         Route::get('dispose', [AssetController::class, 'dispose'])->name('dispose')->middleware('can:Manage Asset');
         Route::post('save_depreciation_class', [AssetController::class, 'save_depreciation_class'])->name('save_depreciation_class')->middleware('can:Manage Asset');
         Route::post('save_manufacturer', [AssetController::class, 'save_manufacturer'])->name('save_manufacturer')->middleware('can:Manage Asset');
+        // Route::post('delete_manufacturer', [AssetController::class, 'delete_manufacturer'])->name('delete_manufacturer')->middleware('can:Manage Asset');
         Route::delete('manufacturer/delete/{id}', [ManufacturerController::class, 'destroy'])->name('manufacturer.delete');
+        Route::get('category', [AssetController::class, 'dispose'])->name('category')->middleware('can:Manage Asset');
+        Route::get('vendor', [AssetController::class, 'dispose'])->name('vendor')->middleware('can:Manage Asset');
         Route::get('manufacturer', [AssetController::class, 'manufacturer'])->name('manufacturer')->middleware('can:Manage Asset');
         Route::get('depreciation_class', [AssetController::class, 'depreciation_class'])->name('depreciation_class')->middleware('can:Manage Asset');
-    
-        Route::group(['prefix' => 'vendor', 'as' => 'vendor.'], function () {
-            Route::get('vendor-list', [AssetController::class, 'vendorList'])->name('index')->middleware('can:Manage Asset');
-            Route::post('store', [AssetController::class, 'storeVendor'])->name('store');
-            Route::delete('vendor/delete/{id}', [VendorController::class, 'destroy'])->name('delete');
-        });
-          
-          Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
-            Route::get('category-list', [AssetController::class, 'categoryList'])->name('index')->middleware('can:Manage Asset');
-            Route::post('store', [AssetController::class, 'storeCategory'])->name('store');
-            Route::delete('category/delete/{id}', [AssetCategoryController::class, 'destroy'])->name('delete');
-        });
-        
-        Route::group(['prefix' => 'status', 'as' => 'status.'], function () {
-            Route::get('status-list', [AssetStatusController::class, 'index'])->name('index')->middleware('can:Manage Asset');
-            Route::post('store', [AssetStatusController::class, 'store'])->name('store');
-            Route::delete('status/delete/{id}', [AssetStatusController::class, 'destroy'])->name('delete');
-        });
-          
-        Route::group(['prefix' => 'condition', 'as' => 'condition.'], function () {
-            Route::get('condition-list', [ConditionController::class, 'index'])->name('index')->middleware('can:Manage Asset');
-            Route::post('store', [ConditionController::class, 'store'])->name('store');
-            Route::delete('status/delete/{id}', [ConditionController::class, 'destroy'])->name('delete');
-        });
-          
+        // Route::get('dispose', [AssetController::class, 'dispose'])->name('dispose')->middleware('can:Manage Asset');
+
     });
+
 
     // Start:: Setting
     Route::group(['prefix' => 'setting', 'as' => 'setting.'], function () {
