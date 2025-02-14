@@ -24,11 +24,7 @@ use App\Http\Controllers\Owner\InvoiceTypeController;
 use App\Http\Controllers\Owner\NoticeBoardController;
 use App\Http\Controllers\Owner\TicketTopicController;
 use App\Http\Controllers\Owner\ManufacturerController;
-use App\Http\Controllers\Owner\RolePermissionController;
-use App\Http\Controllers\Owner\InvoiceRecurringController;
-use App\Http\Controllers\Owner\MaintenanceIssueController;
-use App\Http\Controllers\Owner\MaintenanceRequestController;
-use App\Http\Controllers\Owner\NonCommercialPropertyController;
+use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'owner']], function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
