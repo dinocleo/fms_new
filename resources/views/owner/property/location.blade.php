@@ -12,7 +12,7 @@
                             <div
                                 class="page-title-box d-sm-flex align-items-center justify-content-between border-bottom mb-20">
                                 <div class="page-title-left">
-                                    <h3 class="mb-sm-0">Add Property</h3>
+                                    <h3 class="mb-sm-0">Add Unit </h3>
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
@@ -51,15 +51,14 @@
                                                     <a href="#">
                                                         <span class="form-stepper-nav-icon"><i
                                                                 class="ri-map-pin-2-fill"></i></span>
-                                                        <span>{{ __('Location') }}</span>
+                                                        <span>{{ __('Unit') }}</span>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a
-                                                        href="#">
+                                                    <a href="#">
                                                         <span class="form-stepper-nav-icon"><i
                                                                 class="ri-layout-4-fill"></i></span>
-                                                        <span>{{ __('Unit') }}</span>
+                                                        <span>{{ __('Sub Unit') }}</span>
                                                     </a>
                                                 </li>
                                             </ul>

@@ -37,6 +37,12 @@ class NonCommercialPropertyController extends Controller
     }
     
 
+    public function showNonCommercialProperty($id)
+{
+    $property = NonCommercial::findOrFail($id);
+    return view('ownerr.property.showNonCommercial', compact('property'));
+}
+
     public function propertyUnit($propertyId)
     {
         $property = NonCommercial::findOrFail($propertyId);
@@ -92,7 +98,11 @@ class NonCommercialPropertyController extends Controller
             return redirect()->route('owner.property.subUnits', ['id' => $propertyId])->with('success', 'Units added successfully!');
         }
 
-        return view('owner.property.nonCommercial')->with('success', 'Units added successfully!');
+        $properties = NonCommercial::where('id', $propertyId)->get(); 
+
+        return view('owner.property.nonCommercial', compact('properties'))
+            ->with('success', 'Units added successfully!');
+        
     }
 
     public function propertySubUnit($propertyId)

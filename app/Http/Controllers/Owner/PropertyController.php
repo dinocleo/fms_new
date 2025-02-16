@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Owner;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Owner\Property\LocationRequest;
-use App\Http\Requests\Owner\Property\PropertyInformationRequest;
-use App\Http\Requests\Owner\Property\RentChargeRequest;
-use App\Http\Requests\UnitRequest;
 use App\Models\Property;
-use App\Models\NonCommercialProperty;
-use App\Services\PropertyService;
-use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
+use App\Models\NonCommercial;
+use App\Traits\ResponseTrait;
+use App\Services\PropertyService;
+use App\Http\Requests\UnitRequest;
+use App\Http\Controllers\Controller;
+use App\Models\NonCommercialProperty;
+use App\Http\Requests\Owner\Property\LocationRequest;
+use App\Http\Requests\Owner\Property\RentChargeRequest;
+use App\Http\Requests\Owner\Property\PropertyInformationRequest;
 
 class PropertyController extends Controller
 {
@@ -40,7 +41,9 @@ class PropertyController extends Controller
 
     public function nonCommercialProperty()
     {
-        return view('owner.property.nonCommercial');
+        $properties = NonCommercial::all(); // Fetch all properties
+    return view('owner.property.nonCommercial', compact('properties'));
+        // return view('owner.property.nonCommercial');
     }
 
     public function nonCommercialPropertyAdd()

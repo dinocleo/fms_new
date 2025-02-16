@@ -12,13 +12,13 @@
                             <div
                                 class="page-title-box d-sm-flex align-items-center justify-content-between border-bottom mb-20">
                                 <div class="page-title-left">
-                                    <h3 class="mb-sm-0">Non Commercial<span
-                                            class="property-count theme-text-color">  </span></h3>
+                                    <h3 class="mb-sm-0">Non Commercial<span class="property-count theme-text-color"> </span>
+                                    </h3>
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}"
-                                                title=></a></li>
+                                        <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}" title=></a>
+                                        </li>
                                         <li class="breadcrumb-item active" aria-current="page"></li>
                                     </ol>
                                 </div>
@@ -41,18 +41,59 @@
                         <!-- Property Top Search Bar End -->
 
                         <!-- Properties Item Wrap Start -->
+                        {{-- <div class="properties-item-wrap">
+                            <div class="row">
+
+                            </div>
+                        </div> --}}
                         <div class="properties-item-wrap">
                             <div class="row">
+                                @foreach ($properties as $property)
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card shadow-lg border-0 rounded-3">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-primary fw-bold">{{ $property->property_name }}
+                                                </h5>
+                                                <p class="card-text"><strong>Type:</strong> <span
+                                                        class="text-secondary">{{ ucfirst($property->property_type) }}</span>
+                                                </p>
+                                                <p class="card-text"><strong>Address:</strong> <span
+                                                        class="text-muted">{{ $property->property_address }}</span></p>
+                                                <p class="card-text"><strong>Description:</strong> <span
+                                                        class="text-muted">{{ Str::limit($property->description, 50) ?? 'N/A' }}</span>
+                                                </p>
+                                                <p class="card-text">
+                                                    <strong>Units:</strong>
+                                                    <span class="text-dark">
+                                                        @if ($property->property_type == 'office')
+                                                            {{ $property->number_of_units ?? 'N/A' }}
+                                                        @else
+                                                            {{ $property->number_of_unit ?? 'N/A' }}
+                                                        @endif
+                                                    </span>
+                                                </p>
+                                                <a href="{{ route('owner.property.show', $property->id) }}"
+                                                    class="btn btn-outline-primary w-100 fw-bold">
+                                                    <i class="fas fa-eye"></i> View Details
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
-                        <!-- Properties Item Wrap End -->
+
+
                     </div>
-                    <!-- All Property Area row End -->
                 </div>
-                <!-- Page Content Wrapper End -->
+                <!-- Properties Item Wrap End -->
             </div>
+            <!-- All Property Area row End -->
         </div>
-        <!-- End Page-content -->
+        <!-- Page Content Wrapper End -->
+    </div>
+    </div>
+    <!-- End Page-content -->
     </div>
     <input type="hidden" id="getAllPropertyRoute" value="{{ route('owner.property.allProperty') }}">
 @endsection

@@ -52,6 +52,9 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         Route::get('property/{id}/sub-units', [NonCommercialPropertyController::class, 'propertySubUnit'])->name('subUnits')->middleware('can:Manage Property');
         Route::post('property/{propertyId}/sub-units/store', [NonCommercialPropertyController::class, 'storeSubUnitDetails'])->name('sub_unit.store')->middleware('can:Manage Property');
 
+        Route::get('/owner/property/nonCommercial/{id}', [NonCommercialPropertyController::class, 'showNonCommercialProperty'])
+    ->name('owner.property.show');
+
 
         Route::get('all-unit', [PropertyController::class, 'allUnit'])->name('allUnit')->middleware('can:Manage Property');
         Route::get('own-property', [PropertyController::class, 'ownProperty'])->name('ownProperty')->middleware('can:Manage Property');
