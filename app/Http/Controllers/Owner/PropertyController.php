@@ -22,6 +22,8 @@ class PropertyController extends Controller
         $this->propertyService = new PropertyService;
     }
 
+
+
     public function allProperty(Request $request)
     {
         $data['pageTitle'] = __("All Property");

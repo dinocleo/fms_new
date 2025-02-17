@@ -57,7 +57,7 @@
                             <a href="{{ route('owner.assets.getList') }}">{{ __('All Assets') }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('owner.assets.replacement') }}">{{ __('Replacement') }}</a>
+                            <a href="{{ route('owner.assets.replacement.replacement') }}">{{ __('Replacement') }}</a>
                         </li>
                         <li>
                             <a href="{{ route('owner.assets.dispose') }}">{{ __('Dispose') }}</a>

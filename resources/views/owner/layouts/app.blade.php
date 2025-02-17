@@ -46,6 +46,19 @@
     @include('owner.layouts.modal')
     @include('common.layouts.script')
     @stack('script')
+<style>
+.theme-btn{
+    border-radius: 4px;
+    padding: 3px;
+    color: white;
+    font-weight: 700;
+}
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+
+
 
     <!-- App Custom js -->
     <script src="{{ asset('assets/js/custom.js') }}"></script>

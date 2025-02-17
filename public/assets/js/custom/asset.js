@@ -25,14 +25,22 @@
             }
         },
         columns: [
-            { "data": 'DT_RowIndex', "name": 'DT_RowIndex', orderable: false, searchable: false },
+            { "data":"image", "image": 'DT_RowIndex' },
             // { "data": "name" },
             // { "data": "name", "name": "users.first_name" },
             // { "data": "name", "visible": false, "name": "users.last_name" },
             // { "data": "email", "name": "users.email" },
-            { "data": "property", "property": "users.contact_number" },
+            { "data": "tag", "tag": "users.tag" },
+            { "data": "name"  },
+            // { "data": "property", "property": "users.contact_number" },
+            // { "data": "property", "property": "users.contact_number" },
+            // { "data": "category", },
+            // { "data": "manufacturer",  },
+            // { "data": "property", "property": "users.contact_number" },
+            { "data": "property",   },
+            { "data": "unit",  },
             // { "data": "property", "name": "properties.name" },
-            { "data": "property" },
+            { "data": "sub_unit" },
             { "data": "action", "class": "text-end" },
         ]
     });
@@ -44,6 +52,14 @@
 
 
 
+
+$(document).on('click', '#add2', function () {
+    var selector = $('#addModal2');
+    selector.find('.is-invalid').removeClass('is-invalid');
+    selector.find('.error-message').remove();
+    selector.modal('show');
+    selector.find('form').trigger("reset");
+});
 
 $(document).on('click', '#add', function () {
     var selector = $('#addModal');

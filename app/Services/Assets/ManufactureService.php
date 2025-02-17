@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Asset;
+namespace App\Services\Assets;
 use App\Models\Manufacturer;
 use Illuminate\Support\Facades\DB;
 use App\Traits\ResponseTrait;

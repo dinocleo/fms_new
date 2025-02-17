@@ -24,10 +24,31 @@ class AssetController extends Controller
     public $depreciationClassService;
 
     public function __construct()
-    {
+    {   
         $this->assetsService = new AssetService;
         $this->depreciationClassService = new DepreciationClass;
     }
+
+    public function fetchLocation(Request $request){
+        $tag = $request->tag;
+        return $this->assetsService->fetchAssetLocationByTag($tag);
+    }
+
+    public function disposeAsset(Request $request){
+        $asset = Asset::where('tag', $request->tag)->first();
+
+            if( $asset!=null){
+            // $item = Asset::where('id',$id)->first();
+            $asset->status_id = 10;
+            $asset->save();
+            }
+                    
+                
+
+
+            return redirect()->back();   
+
+       }
 
     /**
      * Display a listing of the resource.
@@ -41,13 +62,21 @@ class AssetController extends Controller
         return view('owner.asset.manufacturer.index', $data);
      }
 
+ 
      
+    public function  replacement(){
+        $data['pageTitle'] = __('Replacement'); 
+        $data['properties'] = Property::all();
+        $data['assets'] = Asset::all(); 
+        return view('owner.asset.replacement', $data);
+    }
+
 
 
     public function getList(Request $request)
     {
         $data['pageTitle'] = __('Asset List');
-        $data['depreciation_class'] = DepreciationClass::all(); 
+        $data['depreciation_class'] = DepreciationClass::where('status','active')->get(); 
         // $data['vendor'] = Vendor::all(); 
         $data['property'] = Property::all();
         $data['status'] = AssetStatus::all();
@@ -98,6 +127,7 @@ class AssetController extends Controller
         $asset = new Asset();
         $asset->name = $request->name;
         $asset->tag = $request->tag;
+        $asset->status_id = $request->status_id;
         $asset->category_id = $request->category_id;
         $asset->manufacturer_id = $request->manufacturer_id;
         $asset->condition_id = $request->condition_id;
@@ -115,7 +145,7 @@ class AssetController extends Controller
     public function dispose()
     {
         //
-        $data['pageTitle'] = __('Disposable Asset List');
+        $data['pageTitle'] = __('Dispose Asset');
         $data['assets'] = Asset::all(); // Fetch all assets directly
         return view('owner.asset.dispose', $data);
   

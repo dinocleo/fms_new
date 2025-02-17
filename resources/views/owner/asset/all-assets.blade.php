@@ -45,8 +45,10 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="property-top-search-bar-right text-md-end">
-                                            <button type="button" class="theme-btn" id="add"
-                                                title="{{ __('Add Assets') }}">{{ __('Add Assets') }}</button>
+                                            <button type="button" class="theme-btn" id="fetchLocation"
+                                                style="" title="{{ __('Add Asset') }}">{{ __('Add Asset') }}</button>
+                                            <button type="button" class="default-btn theme-btn-purple w-auto" id="add2"
+                                                title="{{ __('Add In Bulk') }}">{{ __('Add In Bulk') }}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -62,11 +64,20 @@
                                     class="table bg-off-white aaa theme-border dt-responsive">
                                     <thead>
                                         <tr>
-                                            <th>{{ __('ID') }}</th>
+                                            <th>{{ __('Image') }}</th>
                                             {{-- <th>{{ __('Name') }}</th> --}}
                                             {{-- <th>{{ __('Name') }}</th> --}}
+                                            <th>{{ __('Tag') }}</th>
+                                            <th>{{ __('Name') }}</th>
+                                            {{-- <th>{{ __('Category') }}</th> --}}
+                                            {{-- <th>{{ __('Vendor') }}</th> --}}
+                                            {{-- <th>{{ __('Manufacturer') }}</th> --}}
                                             <th>{{ __('Property') }}</th>
-                                            <th>{{ __('Status') }}</th>
+                                            {{-- <th>{{ __('Property') }}</th> --}}
+                                            {{-- <th>{{ __('Property') }}</th> --}}
+                                            <th>{{ __('Unit') }}</th>
+                                            <th>{{ __('SubUnit') }}</th>
+                                            {{-- <th>{{ __('Condition') }}</th> --}}
                                             <th>{{ __('Action') }}</th>
                                         </tr>
                                     </thead>
@@ -74,7 +85,6 @@
                             </div>
                             <!-- datatable End -->
                         </div>
-
 
                         <!-- All Maintainer Table Area End -->
                     </div>
@@ -247,6 +257,40 @@
                             </div>
 
                           
+
+                            <div class="row">
+                              
+                                <div class="col-md-6 mb-25">
+                                    <label
+                                        class="label-text-title color-heading font-medium mb-2">{{ __('Status') }}</label>
+                                        <select class="form-select flex-shrink-0 status_id" name="status_id">
+                                            <option value="">--{{ __('Select Status Class') }}--</option>
+                                            @if(count($status)>0)
+                                            @foreach ($status as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                            @endif
+                                       
+                                        </select>
+
+                                </div>
+
+                                <div class="col-md-6 mb-25">
+                                    {{-- <label   class="label-text-title color-heading font-medium mb-2">{{ __('Depreciation Class') }}</label> --}}
+                                 
+                                        <div class="col-md-12">
+                                            <label   class="label-text-title color-heading font-medium mb-2">{{ __('Image') }}</label>
+                                            <input type="file" class="form-control" name="image">
+                                        </div>
+
+
+                                </div>
+                            </div>
+
+
+
+
+
                            
                             <div class="row">
                                 <div class="col-md-12 mb-25">
@@ -254,10 +298,7 @@
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Missing Description') }}</label>
                                     <textarea class="form-control details" name="missing_description" placeholder="{{ __('Description') }}"></textarea>
                                 </div>
-                                <div class="col-md-12">
-                                    <label   class="label-text-title color-heading font-medium mb-2">{{ __('Image') }}</label>
-                                    <input type="file" class="form-control" name="image">
-                                </div>
+                              
                             </div>
                         </div>
                         <!-- Modal Inner Form Box End -->
@@ -274,7 +315,48 @@
         </div>
     </div>
  
+    <div class="modal fade" id="addModal2" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addModalLabel">{{ __('Bulk Assets') }}</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
+                            class="iconify" data-icon="akar-icons:cross"></span></button>
+                </div>
+                <form   action="{{ route('owner.assets.save-asset') }}" method="POST"
+                    data-handler="getShowMessage">
 
+                    @csrf
+                    <div class="modal-body">
+                        <!-- Modal Inner Form Box Start -->
+                        <div class="modal-inner-form-box">
+
+                            
+
+                       
+                           
+                            <div class="row">
+                                <div class="col-md-12 mb-25">
+                                    <label
+                                        class="label-text-title color-heading font-medium mb-2">{{ __('Select File') }}</label>
+                                    <input type="file" class="form-control details"  ></textarea>
+                                </div>
+                              
+                            </div>
+                        </div>
+                        <!-- Modal Inner Form Box End -->
+                    </div>
+
+                    <div class="modal-footer justify-content-start">
+                        <button type="button" class="theme-btn-back me-3" data-bs-dismiss="modal"
+                            title="{{ __('Back') }}">{{ __('Back') }}</button>
+                        <button type="submit" class="theme-btn me-3"
+                            title="{{ __('Save Asset') }}">{{ __('Save Asset') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <input type="hidden" id="getPropertyUnitsRoute" value="{{ route('owner.property.getPropertyUnits') }}">
     <input type="hidden" id="getUnitsRoute" value="{{ route('owner.property.sub-unit.getSubUnits') }}">
     <input type="hidden" id="route" value="{{ route('owner.assets.getList') }}">

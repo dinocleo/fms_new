@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Manufacturer;
 // use App\Models\Manufa/ctureService;
 use Illuminate\Http\Request;
-use App\Services\ManufactureService;
+use App\Services\Assets\ManufactureService;
 use App\Traits\ResponseTrait;
 
 class ManufacturerController extends Controller

@@ -28,27 +28,28 @@
                     <!-- Information Page Area row Start -->
                     <div class="row">
                         <!-- Property Top Search Bar Start -->
-                        <h4 class="mb-20">{{ __('All Assets') }}</h4>
+                        {{-- <h4 class="mb-20">{{ __('All Assets') }}</h4> --}}
                         <div class="property-top-search-bar">
                             <div class="property-search-inner-bg bg-off-white theme-border radius-4 p-25 mb-25">
-                                <div class="row align-items-center rg-25">
-                                    <div class="col-md-6">
-                                        <div class="property-top-search-bar-left">
-                                                    <select class="form-select flex-shrink-0 " id="search_property">
-                                                        <option value="" selected>{{ __('Select Property') }}</option>
-                                                        @foreach ($assets as $asset)
-                                                            <option value="{{ $asset->gateway }}">{{ $asset->gateway }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
+                                <div class="row">
+                                    <div class="col-xl-12 col-xxl-6 tenants-top-bar-left">
+                                        <form action="{{ route('owner.assets.disposeAsset') }}" method="POST">
+                                            @csrf
+                                            <div class="row">
+                                            @if (getOption('app_card_data_show', 1) == 1)
+                                                <div class="col-md-6 col-lg-6 col-xl-4 col-xxl-4 mb-25">
+                                                    <input type="text" required class="form-control" name="tag"  placeholder="Enter Asset Tag">
+                                                </div>
+                                                <div class="col-auto mb-25">
+                                                    <button type="submit" class="theme-btn"
+                                                     >{{ __('Dispose') }}</button>
+                                                </div>
+                                            @endif
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="property-top-search-bar-right text-md-end">
-                                            <button type="button" class="theme-btn" id="add"
-                                                title="{{ __('Dispose') }}">{{ __('Dispose') }}</button>
-                                        </div>
-                                    </div>
+                                    </form>
+                                </div>
+
+                                   
                                 </div>
                             </div>
                         </div>

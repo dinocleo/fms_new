@@ -16,6 +16,8 @@ class PropertyService
 {
     use ResponseTrait;
 
+
+
     public function getAll()
     {
         $data = Property::query()
