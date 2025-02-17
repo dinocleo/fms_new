@@ -80,12 +80,12 @@
                                                         class="form-control multiple-parking"
                                                         placeholder="{{ __('Parking') }}">
                                                 </div>
-                                                <div class="col-md-2 col-lg-2 col-xl-2 mb-25">
+                                                {{-- <div class="col-md-2 col-lg-2 col-xl-2 mb-25">
                                                     <label
                                                         class="label-text-title color-heading font-medium mb-2">{{ __('Images') }}</label>
                                                     <input type="file" name="multiple[images][]"
                                                         class="form-control multiple-images">
-                                                </div>
+                                                </div> --}}
                                                 <div class="col-md-6 col-lg-6 col-xl-6 mb-25">
                                                     <label
                                                         class="label-text-title color-heading font-medium mb-2">{{ __('Description') }}</label>
@@ -160,12 +160,12 @@
                                                     class="form-control multiple-parking"
                                                     placeholder="{{ __('Parking') }}">
                                             </div>
-                                            <div class="col-md-2 col-lg-2 col-xl-2 mb-25">
+                                            {{-- <div class="col-md-2 col-lg-2 col-xl-2 mb-25">
                                                 <label
                                                     class="label-text-title color-heading font-medium mb-2">{{ __('Images') }}</label>
                                                 <input type="file" name="multiple[images][]"
                                                     class="form-control multiple-images">
-                                            </div>
+                                            </div> --}}
                                             <div class="col-md-6 col-lg-6 col-xl-6 mb-25">
                                                 <label
                                                     class="label-text-title color-heading font-medium mb-2">{{ __('Description') }}</label>
@@ -239,12 +239,12 @@
                                                     class="form-control multiple-parking"
                                                     placeholder="{{ __('Parking') }}">
                                             </div>
-                                            <div class="col-md-2 col-lg-2 col-xl-2 mb-25">
+                                            {{-- <div class="col-md-2 col-lg-2 col-xl-2 mb-25">
                                                 <label
                                                     class="label-text-title color-heading font-medium mb-2">{{ __('Images') }}</label>
                                                 <input type="file" name="multiple[images][]"
                                                     class="form-control multiple-images">
-                                            </div>
+                                            </div> --}}
                                             <div class="col-md-6 col-lg-6 col-xl-6 mb-25">
                                                 <label
                                                     class="label-text-title color-heading font-medium mb-2">{{ __('Description') }}</label>
