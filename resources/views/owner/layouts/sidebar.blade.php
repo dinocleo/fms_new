@@ -29,10 +29,10 @@
                             </li>
 
 
-                            <li class="{{ @$subNavAllUnitMMActiveClass }}">
+                            {{-- <li class="{{ @$subNavAllUnitMMActiveClass }}">
                                 <a href="{{ route('owner.property.allUnit') }}"
                                     class="{{ @$subNavAllUnitActiveClass }}">{{ __('All Unit') }}</a>
-                            </li>
+                            </li> --}}
                             {{-- <li class="{{ @$subNavOwnPropertyActiveClass }}">
                                 <a href="{{ route('owner.property.ownProperty') }}"
                                     class="{{ @$subNavOwnPropertyActiveClass }}">{{ __('Own Property') }}</a>

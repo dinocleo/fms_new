@@ -5,27 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SubUnit extends Model
+class NonCommercialSubUnit extends Model
 {
     use HasFactory;
+    protected $table = 'non_commercial_sub_units';
+
     protected $fillable = [
-        'non_commercial_unit_id',
+        'non_commercial_unit_id', // Foreign key
         'unit_name',
-        'bedroom',
-        'bath',
-        'kitchen',
-        'workspaces',
-        'conference_room',
-        'square_feet',
         'amenities',
-        'condition',
-        'parking',
-        'description',
     ];
 
-    public function unit()
+    public function nonCommercialUnit()
     {
         return $this->belongsTo(NonCommercialUnit::class, 'non_commercial_unit_id');
     }
-
 }

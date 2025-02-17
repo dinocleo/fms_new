@@ -58,10 +58,10 @@
                                                 class="property-item bg-off-white theme-border radius-10 position-relative mb-25">
                                                 <a href="{{ route('owner.property.show', $property->id) }}"
                                                     class="property-item-img-wrap d-block position-relative overflow-hidden radius-10">
-                                                    <div class="property-item-img">
+                                                    {{-- <div class="property-item-img">
                                                         <img src="{{ $property->thumbnail_image }}" alt=""
                                                             class="fit-image">
-                                                    </div>
+                                                    </div> --}}
                                                 </a>
                                                 <div class="property-item-content p-20">
                                                     <h4 class="property-item-title position-relative">
@@ -154,7 +154,8 @@
                                             <div class="tenants-details-payment-history">
                                                 <div class="account-settings-content-box">
                                                     <div class="tenants-details-payment-history-table">
-                                                        <table id="allOwnPropertiesDataTable" class="table responsive theme-border p-20">
+                                                        <table id="allOwnPropertiesDataTable"
+                                                            class="table responsive theme-border p-20">
                                                             <thead>
                                                                 <tr>
                                                                     <th>{{ __('SL') }}</th>
@@ -200,6 +201,6 @@
 @endif
 
 @push('script')
-        @include('common.layouts.datatable-script')
-        <script src="{{ asset('assets/js/custom/property-search-datatable.js') }}"></script>
- @endpush
+    @include('common.layouts.datatable-script')
+    <script src="{{ asset('assets/js/custom/property-search-datatable.js') }}"></script>
+@endpush

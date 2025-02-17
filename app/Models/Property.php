@@ -54,4 +54,5 @@ class Property extends Model
     {
         return $this->hasOne(FileManager::class, 'id', 'thumbnail_image_id')->select('id', 'folder_name', 'file_name', 'origin_type', 'origin_id');
     }
+    
 }

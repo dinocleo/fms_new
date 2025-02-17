@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Owner;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Owner\Property\LocationRequest;
-use App\Http\Requests\Owner\Property\PropertyInformationRequest;
-use App\Http\Requests\Owner\Property\RentChargeRequest;
-use App\Http\Requests\UnitRequest;
 use App\Models\Property;
-use App\Services\PropertyService;
-use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
+use App\Models\NonCommercial;
+use App\Traits\ResponseTrait;
+use App\Services\PropertyService;
+use App\Http\Requests\UnitRequest;
+use App\Http\Controllers\Controller;
+use App\Models\NonCommercialProperty;
+use App\Http\Requests\Owner\Property\LocationRequest;
+use App\Http\Requests\Owner\Property\RentChargeRequest;
+use App\Http\Requests\Owner\Property\PropertyInformationRequest;
 
 class PropertyController extends Controller
 {
@@ -39,15 +41,44 @@ class PropertyController extends Controller
     }
 
 
-    public function nonCommercialProperty()
-    {
-        return view('owner.property.nonCommercial');
+    public function nonCommercialProperty(Request $request)
+{
+    $query = NonCommercial::query();
+
+    // Search functionality (by name or type)
+    if ($request->has('search')) {
+        $search = $request->input('search');
+        $query->where('property_name', 'like', "%{$search}%")
+              ->orWhere('property_type', 'like', "%{$search}%");
     }
+
+    // Paginate results (show 6 per page)
+    $properties = $query->paginate(6);
+
+    return view('owner.property.nonCommercial', compact('properties'));
+}
+
 
     public function nonCommercialPropertyAdd()
     {
         return view('owner.property.add-non');
     }
+
+
+    public function propertyInformation()
+    {
+        
+        return view('owner.property.add-non'); // Property Information Step
+    }
+
+
+
+    public function propertyLocation()
+    {
+        return view('owner.property.location'); // Location Step
+    }
+
+    
 
     public function allUnit()
     {

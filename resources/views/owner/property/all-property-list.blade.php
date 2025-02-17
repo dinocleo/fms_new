@@ -49,13 +49,13 @@
                                         <div class="col-md-6 col-lg-6 col-xl-4 col-xxl-3">
                                             <div
                                                 class="property-item bg-off-white theme-border radius-10 position-relative mb-25">
-                                                <a href="{{ route('owner.property.show', $property->id) }}"
+                                                {{-- <a href="{{ route('owner.property.show', $property->id) }}"
                                                     class="property-item-img-wrap d-block position-relative overflow-hidden radius-10">
                                                     <div class="property-item-img">
                                                         <img src="{{ $property->thumbnail_image }}" alt=""
                                                             class="fit-image">
                                                     </div>
-                                                </a>
+                                                </a> --}}
                                                 <div class="property-item-content p-20">
                                                     <h4 class="property-item-title position-relative">
                                                         <a href="{{ route('owner.property.show', $property->id) }}"

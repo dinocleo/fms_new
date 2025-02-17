@@ -46,10 +46,10 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="property-details-right text-end">
-                                        {{-- <button type="button" class="theme-btn" data-bs-toggle="modal"
+                                        <button type="button" class="theme-btn" data-bs-toggle="modal"
                                             data-bs-target="#tenantAssignModal"
                                             title="{{ __('Tenant Assign') }}">{{ __('Tenant Assign') }}<i
-                                                class="user-add-line ms-2"></i></button> --}}
+                                                class="user-add-line ms-2"></i></button>
                                         <a href="{{ route('owner.property.edit', $property->id) }}" class="edit-btn"
                                             title="{{ __('Edit Info') }}">{{ __('Edit Info') }}<i
                                                 class="ri-arrow-right-line ms-2"></i></a>
@@ -64,17 +64,17 @@
                             <!-- Property details content -->
                             <div class="property-details-content mb-25">
                                 <div class="col-12">
-                                    <div class="property-details-img radius-4 mb-25">
+                                    {{-- <div class="property-details-img radius-4 mb-25">
                                         <img src="{{ $property->thumbnail_image }}" alt=""
                                             class="fit-image radius-4">
-                                    </div>
+                                    </div> --}}
                                     <h4 class="mb-2">{{ __('Description') }}</h4>
                                     <p>{{ $property->description }}</p>
                                 </div>
                             </div>
 
                             <!-- Property details gallery -->
-                            <div class="property-details-gallery mb-25">
+                            {{-- <div class="property-details-gallery mb-25">
                                 <div class="col-12">
                                     <h4 class="mb-3">{{ __('Image Gallery') }}</h4>
                                     <div class="gallery-slider-carousel owl-carousel owl-theme">
@@ -101,7 +101,7 @@
                                     </div>
 
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <!-- Property details table -->
                             <div class="property-details-table bg-off-white mb-25 p-25 radius-4">
@@ -110,58 +110,70 @@
                                         <div class="col-md-6">
                                             <h4>{{ __('Property Details') }}</h4>
                                         </div>
-                                        {{-- <div class="col-md-6">
+                                        <div class="col-md-6">
                                             <div class="property-details-right text-end">
                                                 <a href="{{ route('owner.property.edit', $property->id) }}"
                                                     class="edit-btn" title="{{ __('Edit Info') }}">{{ __('Edit Info') }}<i
                                                         class="ri-arrow-right-line ms-2"></i></a>
                                             </div>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="col-12">
-                                    <div class="table-responsive">
-                                        <table class="table theme-border bg-off-white p-20">
-                                            <tbody>
-                                                <tr>
-                                                    <th>{{ __('Total Unit') }}</th>
-                                                    <th class="text-end">{{ count($units) }}</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>{{ __('Available for Lease') }}</th>
-                                                    <th class="text-end">{{ $property->available_unit }}</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>{{ __('Current Tenants') }}</th>
-                                                    <th class="text-end">
-                                                        {{ $property->number_of_unit - $property->available_unit }}</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>{{ __('Average Rent') }}</th>
-                                                    <th class="text-end">{{ currencyPrice($property->avg_general_rent) }}
-                                                    </th>
-                                                </tr>
-                                                <tr>
-                                                    <th>{{ __('Security Deposit') }}</th>
-                                                    <th class="text-end">
-                                                        {{ currencyPrice($property->total_security_deposit) }}</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>{{ __('Late fee') }}</th>
-                                                    <th class="text-end">{{ currencyPrice($property->total_late_fee) }}
-                                                    </th>
-                                                </tr>
-                                                <tr>
-                                                    <th>{{ __('Maintainer Name') }}</th>
-                                                    <th class="text-end">{{ $property->first_name }}
-                                                        {{ $property->last_name }}
-                                                    </th>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                    <div class="row">
+                                        <div class="col-6 mb-3">
+                                            <strong>{{ __('Total Unit') }}</strong>
+                                        </div>
+                                        <div class="col-6 mb-3 text-end">
+                                            <span>{{ count($units) }}</span>
+                                        </div>
+
+                                        <div class="col-6 mb-3">
+                                            <strong>{{ __('Available for Lease') }}</strong>
+                                        </div>
+                                        <div class="col-6 mb-3 text-end">
+                                            <span>{{ $property->available_unit }}</span>
+                                        </div>
+
+                                        <div class="col-6 mb-3">
+                                            <strong>{{ __('Current Tenants') }}</strong>
+                                        </div>
+                                        <div class="col-6 mb-3 text-end">
+                                            <span>{{ $property->number_of_unit - $property->available_unit }}</span>
+                                        </div>
+
+                                        <div class="col-6 mb-3">
+                                            <strong>{{ __('Average Rent') }}</strong>
+                                        </div>
+                                        <div class="col-6 mb-3 text-end">
+                                            <span>{{ currencyPrice($property->avg_general_rent) }}</span>
+                                        </div>
+
+                                        <div class="col-6 mb-3">
+                                            <strong>{{ __('Security Deposit') }}</strong>
+                                        </div>
+                                        <div class="col-6 mb-3 text-end">
+                                            <span>{{ currencyPrice($property->total_security_deposit) }}</span>
+                                        </div>
+
+                                        <div class="col-6 mb-3">
+                                            <strong>{{ __('Late fee') }}</strong>
+                                        </div>
+                                        <div class="col-6 mb-3 text-end">
+                                            <span>{{ currencyPrice($property->total_late_fee) }}</span>
+                                        </div>
+
+                                        <div class="col-6 mb-3">
+                                            <strong>{{ __('Maintainer Name') }}</strong>
+                                        </div>
+                                        <div class="col-6 mb-3 text-end">
+                                            <span>{{ $property->first_name }} {{ $property->last_name }}</span>
+                                        </div>
                                     </div>
                                 </div>
+
+
                             </div>
 
                             <!-- All Unit Detials details table -->
@@ -171,14 +183,14 @@
                                         <div class="col-md-6">
                                             <h4>{{ __('All Unit Details') }}</h4>
                                         </div>
-                                        {{-- <div class="col-md-6">
+                                        <div class="col-md-6">
                                             <div class="property-details-right text-end">
                                                 <button type="button" class="theme-btn" data-bs-toggle="modal"
                                                     data-bs-target="#tenantAssignModal"
                                                     title="{{ __('Tenant Assign') }}">{{ __('Tenant Assign') }}<i
                                                         class="user-add-line ms-2"></i></button>
                                             </div>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                 </div>
 
