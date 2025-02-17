@@ -1,6 +1,7 @@
 <?php
 
 // use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Owner\AssetController;
 use App\Http\Controllers\Owner\ReportController;
 use App\Http\Controllers\Owner\TenantController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\Owner\PropertyController;
 use App\Http\Controllers\Tenancy\DomainController;
 use App\Http\Controllers\Owner\DashboardController;
 use App\Http\Controllers\Owner\KycConfigController;
+use App\Http\Controllers\Owner\ComplianceController;
 use App\Http\Controllers\Owner\MaintainerController;
 use App\Http\Controllers\Owner\TeamMemberController;
 use App\Http\Controllers\Owner\ExpenseTypeController;
@@ -25,11 +27,13 @@ use App\Http\Controllers\Owner\NoticeBoardController;
 use App\Http\Controllers\Owner\TicketTopicController;
 use App\Http\Controllers\Owner\ManufacturerController;
 use App\Http\Controllers\Owner\RolePermissionController;
+use App\Http\Controllers\Owner\VendorContractController;
+use App\Http\Controllers\Owner\SpaceManagementController;
+use App\Http\Controllers\Owner\EnergyManagementController;
 use App\Http\Controllers\Owner\InvoiceRecurringController;
 use App\Http\Controllers\Owner\MaintenanceIssueController;
 use App\Http\Controllers\Owner\MaintenanceRequestController;
 use App\Http\Controllers\Owner\NonCommercialPropertyController;
-use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'owner']], function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
@@ -55,6 +59,49 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         Route::get('/owner/property/nonCommercial/{id}', [NonCommercialPropertyController::class, 'showNonCommercialProperty'])
     ->name('owner.property.show');
 
+
+
+
+                // Space Management
+            Route::get('space-management', [SpaceManagementController::class, 'index'])->name('space.index');
+            // Route::get('space-management/create', [SpaceManagementController::class, 'create'])->name('space.create');
+            // Route::post('space-management/store', [SpaceManagementController::class, 'store'])->name('space.store');
+            // Route::get('space-management/{id}', [SpaceManagementController::class, 'show'])->name('space.show');
+            // Route::get('space-management/{id}/edit', [SpaceManagementController::class, 'edit'])->name('space.edit');
+            // Route::put('space-management/{id}', [SpaceManagementController::class, 'update'])->name('space.update');
+            // Route::delete('space-management/{id}', [SpaceManagementController::class, 'destroy'])->name('space.destroy');
+
+
+
+
+            // Energy Management
+        Route::get('energy-management', [EnergyManagementController::class, 'index'])->name('energy.index');
+        // Route::get('energy-management/create', [EnergyManagementController::class, 'create'])->name('energy.create');
+        // Route::post('energy-management/store', [EnergyManagementController::class, 'store'])->name('energy.store');
+        // Route::get('energy-management/{id}', [EnergyManagementController::class, 'show'])->name('energy.show');
+        // Route::get('energy-management/{id}/edit', [EnergyManagementController::class, 'edit'])->name('energy.edit');
+        // Route::put('energy-management/{id}', [EnergyManagementController::class, 'update'])->name('energy.update');
+        // Route::delete('energy-management/{id}', [EnergyManagementController::class, 'destroy'])->name('energy.destroy');
+
+
+         // Vendor and Contractor Management
+        Route::get('vendor', [VendorContractController::class, 'index'])->name('vendor.index');
+        // Route::get('vendor/create', [VendorController::class, 'create'])->name('vendor.create');
+        // Route::post('vendor/store', [VendorController::class, 'store'])->name('vendor.store');
+        // Route::get('vendor/{id}', [VendorController::class, 'show'])->name('vendor.show');
+        // Route::get('vendor/{id}/edit', [VendorController::class, 'edit'])->name('vendor.edit');
+        // Route::put('vendor/{id}', [VendorController::class, 'update'])->name('vendor.update');
+        // Route::delete('vendor/{id}', [VendorController::class, 'destroy'])->name('vendor.destroy');
+
+
+        // Compliance and Risk Management
+        Route::get('compliance', [ComplianceController::class, 'index'])->name('compliance.index');
+        // Route::get('compliance/create', [ComplianceController::class, 'create'])->name('compliance.create');
+        // Route::post('compliance/store', [ComplianceController::class, 'store'])->name('compliance.store');
+        // Route::get('compliance/{id}', [ComplianceController::class, 'show'])->name('compliance.show');
+        // Route::get('compliance/{id}/edit', [ComplianceController::class, 'edit'])->name('compliance.edit');
+        // Route::put('compliance/{id}', [ComplianceController::class, 'update'])->name('compliance.update');
+        // Route::delete('compliance/{id}', [ComplianceController::class, 'destroy'])->name('compliance.destroy');
 
         Route::get('all-unit', [PropertyController::class, 'allUnit'])->name('allUnit')->middleware('can:Manage Property');
         Route::get('own-property', [PropertyController::class, 'ownProperty'])->name('ownProperty')->middleware('can:Manage Property');

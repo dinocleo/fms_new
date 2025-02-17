@@ -189,6 +189,50 @@
                         </ul>
                     </li>
                 @endcan
+
+                @can('Manage Asset')
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i class="ri-building-line"></i>
+                            <span>{{ __('Manage Space') }}</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="{{ route('owner.property.space.index') }}">{{ __('All Spaces') }}</a></li>
+                            {{-- <li><a href="{{ route('space.create') }}">{{ __('Add Space') }}</a></li> --}}
+                        </ul>
+                    </li>
+                @endcan
+
+                @can('Manage Asset')
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i class="ri-flashlight-line"></i>
+                            <span>{{ __('Manage Energy') }}</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="{{ route('owner.property.energy.index') }}">{{ __('Energy Usage') }}</a></li>
+                            {{-- <li><a href="{{ route('owner.property.energy.create') }}">{{ __('Add Energy Data') }}</a></li> --}}
+                        </ul>
+                    </li>
+                @endcan
+                @can('Manage Asset')
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i class="ri-error-warning-line"></i>
+                            <span>{{ __('Compliance & Risk') }}</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a
+                                    href="{{ route('owner.property.compliance.index') }}">{{ __('Compliance Reports') }}</a>
+                            </li>
+                            {{-- <li><a href="{{ route('compliance.create') }}">{{ __('Add Compliance') }}</a></li> --}}
+                        </ul>
+                    </li>
+                @endcan
+
+
+
+
                 @if (isAddonInstalled('PROTYSAAS') < 1 || ownerCurrentPackage(getOwnerUserId())?->ticket_support == ACTIVE)
                     @can('Manage Ticket')
                         <li>
@@ -241,6 +285,7 @@
                         </ul>
                     </li>
                 @endcan
+
                 @can('Manage Settings')
                     <li>
                         <a href="{{ route('owner.setting.gateway.index') }}">
@@ -304,6 +349,20 @@
                             </ul>
                         </li>
                     @endcan
+
+
+                    @can('Manage Vendor')
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i class="ri-group-line"></i>
+                                <span>{{ __('Vendors & Contractors') }}</span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="{{ route('owner.property.vendor.index') }}">{{ __('Vendor List') }}</a></li>
+                                {{-- <li><a href="{{ route('owner.property.vendor.create') }}">{{ __('Add Vendor') }}</a></li> --}}
+                            </ul>
+                        </li>
+                    @endcan
                 @endif
                 @if (isAddonInstalled('PROTYAGREEMENT') > 0)
                     @can('Manage Agreement')
@@ -317,11 +376,31 @@
                                             fill="#737C90" />
                                     </svg>
                                 </i>
-                                <span>{{ __('Agreement') }}</span>
+                                <span>{{ __('Agreement') }}</span> </a>
                             </a>
                         </li>
                     @endcan
                 @endif
+
+                @can('Manage Asset')
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i class="ri-error-warning-line"></i>
+                            <span>{{ __('Compliance & Risk') }}</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a
+                                    href="{{ route('owner.property.compliance.index') }}">{{ __('Compliance Reports') }}</a>
+                            </li>
+                            {{-- <li><a href="{{ route('compliance.create') }}">{{ __('Add Compliance') }}</a></li> --}}
+                        </ul>
+                    </li>
+                @endcan
+
+
+
+
+
                 @if (isAddonInstalled('PROTYTENANCY') > 0)
                     @if (env('TENANCY_STATUS') == ACTIVE)
                         @can('Manage Domain Config')
