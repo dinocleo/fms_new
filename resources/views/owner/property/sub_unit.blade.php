@@ -41,36 +41,60 @@
                                         <!-- Stepper Progress Bar -->
                                         <div class="stepper-progressbar-wrap radius-10 theme-border p-25 mb-25">
                                             <ul id="progressbar" class="text-center">
-                                                <li class="active">
-                                                    <a href="{{ route('owner.property.information') }}">
-                                                        <span class="form-stepper-nav-icon">
-                                                            <i class="ri-home-4-fill"></i>
-                                                        </span>
+                                                <!-- Property Information Step -->
+                                                <li
+                                                    class="{{ request()->routeIs('owner.property.nonCommercial') ? 'active' : '' }}">
+                                                    <a href="{{ route('owner.property.nonCommercial') }}">
+                                                        <span class="form-stepper-nav-icon"><i
+                                                                class="ri-home-4-fill"></i></span>
                                                         <span>{{ __('Property Information') }}</span>
                                                     </a>
                                                 </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="form-stepper-nav-icon">
-                                                            <i class="ri-layout-4-fill"></i>
-                                                        </span>
+
+                                                @php
+                                                    $propertyId =
+                                                        request()->route('propertyId') ?? request()->route('id'); // Get the property ID from the route
+                                                @endphp
+
+                                                <!-- Unit Step (Requires propertyId) -->
+                                                <li class="{{ request()->routeIs('owner.property.unit') ? 'active' : '' }}">
+                                                    @if ($propertyId)
+                                                        <a
+                                                            href="{{ route('owner.property.unit', ['propertyId' => $propertyId]) }}">
+                                                            <span class="form-stepper-nav-icon"><i
+                                                                    class="ri-layout-4-fill"></i></span>
+                                                            <span>{{ __('Unit') }}</span>
+                                                        </a>
+                                                    @else
+                                                        <span class="form-stepper-nav-icon"><i
+                                                                class="ri-layout-4-fill"></i></span>
                                                         <span>{{ __('Unit') }}</span>
-                                                    </a>
+                                                    @endif
                                                 </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="form-stepper-nav-icon">
-                                                            <i class="ri-map-pin-2-fill"></i>
-                                                        </span>
-                                                        <span>{{ __('Location') }}</span>
-                                                    </a>
+
+                                                <!-- Sub Unit Step (Requires id, which we assume is the same as propertyId) -->
+                                                <li
+                                                    class="{{ request()->routeIs('owner.property.subUnits') ? 'active' : '' }}">
+                                                    @if ($propertyId)
+                                                        <a
+                                                            href="{{ route('owner.property.subUnits', ['id' => $propertyId]) }}">
+                                                            <span class="form-stepper-nav-icon"><i
+                                                                    class="ri-map-pin-2-fill"></i></span>
+                                                            <span>{{ __('Sub Unit') }}</span>
+                                                        </a>
+                                                    @else
+                                                        <span class="form-stepper-nav-icon"><i
+                                                                class="ri-map-pin-2-fill"></i></span>
+                                                        <span>{{ __('Sub Unit') }}</span>
+                                                    @endif
                                                 </li>
                                             </ul>
                                         </div>
 
                                         <!-- Property Selection Box -->
                                         <div class="select-property-box bg-white theme-border radius-4 p-20 mb-25">
-                                            <form action="{{ route('owner.property.sub_unit.store', ['propertyId' => $propertyId]) }}"
+                                            <form
+                                                action="{{ route('owner.property.sub_unit.store', ['propertyId' => $propertyId]) }}"
                                                 method="POST">
                                                 @csrf
 

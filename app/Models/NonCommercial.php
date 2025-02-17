@@ -15,7 +15,9 @@ class NonCommercial extends Model
     protected $fillable = [
         'property_type',  
         'property_name',
-        'property_address',
+        'region',
+        'district',
+        'street',
         'description',
         'number_of_units',
         'conference_room',

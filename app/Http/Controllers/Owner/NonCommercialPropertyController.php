@@ -16,7 +16,9 @@ class NonCommercialPropertyController extends Controller
         $request->validate([
             'property_type' => 'required|in:office,resident',
             'property_name' => 'required|string|max:255',
-            'property_address' => 'required|string|max:255',
+            'region' => 'required|string|max:255',
+            'district' => 'required|string|max:255',
+            'street' => 'required|string|max:255',
             'description' => 'nullable|string',
             'number_of_units' => 'nullable|integer', // For offices
             'number_of_unit' => 'nullable|integer', // For residents
@@ -26,7 +28,9 @@ class NonCommercialPropertyController extends Controller
         $property = NonCommercial::create([
             'property_type' => $request->property_type,
             'property_name' => $request->property_name,
-            'property_address' => $request->property_address,
+            'region' => $request->region,
+            'district' => $request->district,
+            'street' => $request->street,
             'description' => $request->description,
             'number_of_units' => $request->number_of_units, // For offices
             'number_of_unit' => $request->number_of_unit, // For residents
@@ -40,7 +44,7 @@ class NonCommercialPropertyController extends Controller
     public function showNonCommercialProperty($id)
 {
     $property = NonCommercial::findOrFail($id);
-    return view('ownerr.property.showNonCommercial', compact('property'));
+    return view('owner.property.showNonCommercial', compact('property'));
 }
 
     public function propertyUnit($propertyId)
@@ -51,7 +55,6 @@ class NonCommercialPropertyController extends Controller
 
     public function storeUnitDetails(Request $request, $propertyId)
     {
-        // Validate input
         $validatedData = $request->validate([
             'multiple.unit_name' => 'required|array',
             'multiple.unit_name.*' => 'required|string',
@@ -118,34 +121,7 @@ class NonCommercialPropertyController extends Controller
     }
     
     
-    
-    // public function storeSubUnitDetails(Request $request, $unitId)
-    // {
-    //     dd($request->all());
-    //     $validatedData = $request->validate([
-    //         'unit_name' => 'required|string',
-    //         'amenities' => 'nullable|string',
-    //     ]);
-    
-    //     // Find the NonCommercialUnit
-    //     $unit = NonCommercialUnit::find($unitId);
-    
-    //     // Check if the unit exists
-    //     if (!$unit) {
-    //         return redirect()->back()->with('error', 'Unit not found.');
-    //     }
-    
-    //     // Store the sub-unit associated with the unit
-    //     NonCommercialSubUnit::create([
-    //         'non_commercial_unit_id' => $unit->id, // Foreign key linking to the unit
-    //         'unit_name' => $validatedData['unit_name'],
-    //         'amenities' => $validatedData['amenities'] ?? null,
-    //     ]);
-    
-    //     return redirect()->route('owner.property.nonCommercial', ['propertyId' => $unit->noncommercial->id])
-    //         ->with('success', 'Sub-unit added successfully!');
-    // }
-    
+ 
     public function storeSubUnitDetails(Request $request, $propertyId)
 {
     // Validate the input for the multiple sub-units

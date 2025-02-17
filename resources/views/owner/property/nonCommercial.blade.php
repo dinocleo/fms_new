@@ -46,42 +46,62 @@
 
                             </div>
                         </div> --}}
-                        <div class="properties-item-wrap">
-                            <div class="row">
-                                @foreach ($properties as $property)
-                                    <div class="col-md-4 mb-4">
-                                        <div class="card shadow-lg border-0 rounded-3">
-                                            <div class="card-body">
-                                                <h5 class="card-title text-primary fw-bold">{{ $property->property_name }}
-                                                </h5>
-                                                <p class="card-text"><strong>Type:</strong> <span
-                                                        class="text-secondary">{{ ucfirst($property->property_type) }}</span>
-                                                </p>
-                                                <p class="card-text"><strong>Address:</strong> <span
-                                                        class="text-muted">{{ $property->property_address }}</span></p>
-                                                <p class="card-text"><strong>Description:</strong> <span
-                                                        class="text-muted">{{ Str::limit($property->description, 50) ?? 'N/A' }}</span>
-                                                </p>
-                                                <p class="card-text">
-                                                    <strong>Units:</strong>
-                                                    <span class="text-dark">
-                                                        @if ($property->property_type == 'office')
-                                                            {{ $property->number_of_units ?? 'N/A' }}
-                                                        @else
-                                                            {{ $property->number_of_unit ?? 'N/A' }}
-                                                        @endif
-                                                    </span>
-                                                </p>
-                                                <a href="{{ route('owner.property.show', $property->id) }}"
-                                                    class="btn btn-outline-primary w-100 fw-bold">
-                                                    <i class="fas fa-eye"></i> View Details
-                                                </a>
+                        <div class="container">
+                            <!-- Search Form -->
+                            <form method="GET" action="{{ route('owner.property.nonCommercial') }}" class="mb-4 text-end">
+                                <div class="input-group d-inline-flex">
+                                    <input type="text" name="search" class="form-control form-control-sm"
+                                        placeholder="Search properties..." value="{{ request('search') }}">
+                                    <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                                </div>
+                            </form>
+
+
+                            <!-- Properties List -->
+                            <div class="properties-item-wrap">
+                                <div class="row">
+                                    @foreach ($properties as $property)
+                                        <div class="col-md-4 mb-4">
+                                            <div class="card shadow-lg border-0 rounded-3">
+                                                <div class="card-body">
+                                                    <h5 class="card-title text-primary fw-bold">
+                                                        {{ $property->property_name }}</h5>
+                                                    <p class="card-text"><strong>Type:</strong>
+                                                        <span
+                                                            class="text-secondary">{{ ucfirst($property->property_type) }}</span>
+                                                    </p>
+                                                    <p class="card-text"><strong>Address:</strong>
+                                                        <span class="text-muted">
+                                                            {{ $property->region }}, {{ $property->district }},
+                                                            {{ $property->street }}
+                                                        </span>
+                                                    </p>
+                                                    <p class="card-text"><strong>Description:</strong>
+                                                        <span
+                                                            class="text-muted">{{ Str::limit($property->description, 50) ?? 'N/A' }}</span>
+                                                    </p>
+                                                    <p class="card-text"><strong>Units:</strong>
+                                                        <span class="text-dark">
+                                                            {{ $property->number_of_units ?? ($property->number_of_unit ?? 'N/A') }}
+                                                        </span>
+                                                    </p>
+                                                    <a href="{{ route('owner.property.show', $property->id) }}"
+                                                        class="btn btn-outline-primary w-100 fw-bold">
+                                                        <i class="fas fa-eye"></i> View Details
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                </div>
+
+                                <!-- Pagination Links -->
+                                <div class="d-flex justify-content-center mt-4">
+                                    {{ $properties->appends(['search' => request('search')])->links() }}
+                                </div>
                             </div>
                         </div>
+
 
 
                     </div>

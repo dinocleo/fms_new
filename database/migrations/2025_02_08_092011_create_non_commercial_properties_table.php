@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->enum('property_type', ['office', 'resident']);
             $table->string('property_name')->nullable();
-            $table->string('property_address')->nullable();
+            $table->string('region')->nullable();
+            $table->string('district')->nullable();
+            $table->string('street')->nullable();
             $table->text('description')->nullable();
             $table->integer('number_of_units')->nullable(); // For Office
             $table->integer('number_of_unit')->nullable(); // For Resident

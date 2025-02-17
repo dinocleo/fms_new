@@ -39,12 +39,23 @@ class PropertyController extends Controller
     }
 
 
-    public function nonCommercialProperty()
-    {
-        $properties = NonCommercial::all(); // Fetch all properties
-    return view('owner.property.nonCommercial', compact('properties'));
-        // return view('owner.property.nonCommercial');
+    public function nonCommercialProperty(Request $request)
+{
+    $query = NonCommercial::query();
+
+    // Search functionality (by name or type)
+    if ($request->has('search')) {
+        $search = $request->input('search');
+        $query->where('property_name', 'like', "%{$search}%")
+              ->orWhere('property_type', 'like', "%{$search}%");
     }
+
+    // Paginate results (show 6 per page)
+    $properties = $query->paginate(6);
+
+    return view('owner.property.nonCommercial', compact('properties'));
+}
+
 
     public function nonCommercialPropertyAdd()
     {
@@ -58,30 +69,7 @@ class PropertyController extends Controller
         return view('owner.property.add-non'); // Property Information Step
     }
 
-    // public function storeProperty(Request $request)
-    // {
-    //     $request->validate([
-    //         'property_type' => 'required|in:office,resident',
-    //         'property_name' => 'required|string|max:255',
-    //         'description' => 'required|string',
-    //         'workspaces' => 'nullable|integer',
-    //         'conference_room' => 'nullable|string|in:yes,no',
-    //         'bedrooms' => 'nullable|integer',
-    //         'bathrooms' => 'nullable|integer',
-    //     ]);
 
-    //     Property::create([
-    //         'property_type' => $request->property_type,
-    //         'property_name' => $request->property_name,
-    //         'description' => $request->description,
-    //         'workspaces' => $request->workspaces,
-    //         'conference_room' => $request->conference_room,
-    //         'bedrooms' => $request->bedrooms,
-    //         'bathrooms' => $request->bathrooms,
-    //     ]);
-
-    //     return redirect()->route('owner.property.location')->with('success', 'Property information saved successfully.');
-    // }
 
     public function propertyLocation()
     {

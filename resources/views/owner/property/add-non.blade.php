@@ -12,7 +12,7 @@
                             <div
                                 class="page-title-box d-sm-flex align-items-center justify-content-between border-bottom mb-20">
                                 <div class="page-title-left">
-                                    <h3 class="mb-sm-0">Add Non-Commercial Property</h3>
+                                    <h3 class="mb-sm-0">Add Property</h3>
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
@@ -40,30 +40,56 @@
 
                                         <div class="stepper-progressbar-wrap radius-10 theme-border p-25 mb-25">
                                             <ul id="progressbar" class="text-center">
-                                                <li class="active">
-                                                    <a href="{{ route('owner.property.information') }}">
+                                                <!-- Property Information Step -->
+                                                <li
+                                                    class="{{ request()->routeIs('owner.property.nonCommercialAdd') ? 'active' : '' }}">
+                                                    <a href="{{ route('owner.property.nonCommercialAdd') }}">
                                                         <span class="form-stepper-nav-icon"><i
                                                                 class="ri-home-4-fill"></i></span>
                                                         <span>{{ __('Property Information') }}</span>
                                                     </a>
                                                 </li>
-                                                <li>
-                                                    <a href="#">
+
+                                                @php
+                                                    $propertyId =
+                                                        request()->route('propertyId') ?? request()->route('id'); // Get the property ID from the route
+                                                @endphp
+
+                                                <!-- Unit Step (Requires propertyId) -->
+                                                <li class="{{ request()->routeIs('owner.property.unit') ? 'active' : '' }}">
+                                                    @if ($propertyId)
+                                                        <a
+                                                            href="{{ route('owner.property.unit', ['propertyId' => $propertyId]) }}">
+                                                            <span class="form-stepper-nav-icon"><i
+                                                                    class="ri-layout-4-fill"></i></span>
+                                                            <span>{{ __('Unit') }}</span>
+                                                        </a>
+                                                    @else
                                                         <span class="form-stepper-nav-icon"><i
                                                                 class="ri-layout-4-fill"></i></span>
                                                         <span>{{ __('Unit') }}</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="form-stepper-nav-icon"><i
-                                                                class="ri-map-pin-2-fill"></i></span>
-                                                        <span>{{ __('Sub Units') }}</span>
-                                                    </a>
+                                                    @endif
                                                 </li>
 
+                                                <!-- Sub Unit Step (Requires id, which we assume is the same as propertyId) -->
+                                                <li
+                                                    class="{{ request()->routeIs('owner.property.subUnits') ? 'active' : '' }}">
+                                                    @if ($propertyId)
+                                                        <a
+                                                            href="{{ route('owner.property.subUnits', ['id' => $propertyId]) }}">
+                                                            <span class="form-stepper-nav-icon"><i
+                                                                    class="ri-map-pin-2-fill"></i></span>
+                                                            <span>{{ __('Sub Unit') }}</span>
+                                                        </a>
+                                                    @else
+                                                        <span class="form-stepper-nav-icon"><i
+                                                                class="ri-map-pin-2-fill"></i></span>
+                                                        <span>{{ __('Sub Unit') }}</span>
+                                                    @endif
+                                                </li>
                                             </ul>
                                         </div>
+
 
                                         <form action="{{ route('owner.property.property.store') }}" method="POST">
                                             @csrf
@@ -110,12 +136,24 @@
                                                             <input type="text" class="form-control" name="property_name"
                                                                 placeholder="Enter property name" required>
                                                         </div>
-                                                        <div class="col-md-6 mb-3">
-                                                            <label class="form-label">Property Address</label>
-                                                            <input type="text" class="form-control"
-                                                                name="property_address" placeholder="Enter property Address"
-                                                                required>
+                                                        <div class="col-md-4 mb-3">
+                                                            <label class="form-label">Region</label>
+                                                            <input type="text" class="form-control" name="region"
+                                                                placeholder="Enter region" required>
                                                         </div>
+
+                                                        <div class="col-md-4 mb-3">
+                                                            <label class="form-label">District</label>
+                                                            <input type="text" class="form-control" name="district"
+                                                                placeholder="Enter district" required>
+                                                        </div>
+
+                                                        <div class="col-md-4 mb-3">
+                                                            <label class="form-label">Street</label>
+                                                            <input type="text" class="form-control" name="street"
+                                                                placeholder="Enter street" required>
+                                                        </div>
+
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">Description</label>
