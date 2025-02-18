@@ -3,6 +3,7 @@
 // use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Owner\AssetController;
+use App\Http\Controllers\Owner\FleetController;
 use App\Http\Controllers\Owner\ReportController;
 use App\Http\Controllers\Owner\TenantController;
 use App\Http\Controllers\Owner\TicketController;
@@ -102,6 +103,11 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         // Route::get('compliance/{id}/edit', [ComplianceController::class, 'edit'])->name('compliance.edit');
         // Route::put('compliance/{id}', [ComplianceController::class, 'update'])->name('compliance.update');
         // Route::delete('compliance/{id}', [ComplianceController::class, 'destroy'])->name('compliance.destroy');
+
+
+        Route::get('fleet-management', [FleetController::class, 'index'])
+    ->name('fleetManagement');
+
 
         Route::get('all-unit', [PropertyController::class, 'allUnit'])->name('allUnit')->middleware('can:Manage Property');
         Route::get('own-property', [PropertyController::class, 'ownProperty'])->name('ownProperty')->middleware('can:Manage Property');
