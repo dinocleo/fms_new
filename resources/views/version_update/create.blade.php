@@ -130,7 +130,7 @@
                                                     <td>
                                                         {{ __('Latest Version') }}
                                                         <a class="text-link" target="_blank"
-                                                            href="https://codecanyon.net/item/zaiproty-property-management-laravel-script/43413718">{{ __('Download Latest') }}</a>
+                                                            href="https://codecanyon.net/item/fms-property-management-laravel-script/43413718">{{ __('Download Latest') }}</a>
                                                     </td>
                                                     <td>{{ $latestVersion }}</td>
                                                 </tr>
@@ -268,7 +268,7 @@
                             <div class="tenants-top-bar border-bottom pb-25">
                                 <div class="row align-items-center">
                                     <div class="col-xl-12 col-xxl-6 tenants-top-bar-left">
-                                        <h4>{{ __('Zaiproty Official Addons') }}</h4>
+                                        <h4>{{ __('fms Official Addons') }}</h4>
                                     </div>
                                 </div>
                             </div>
