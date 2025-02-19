@@ -67,13 +67,13 @@
                                                         <label
                                                             class="label-text-title color-heading font-medium mb-2">{{ __('Property') }}</label>
                                                             <input type="text" class="form-control" name="tag"
-                                                            placeholder="Current Property" readonly>
+                                                            placeholder="" readonly id="current_property">
                                                     </div>
                                                     <div class="col-md-6 mb-25">
                                                         <label
                                                             class="label-text-title color-heading font-medium mb-2">{{ __('Unit') }}</label>
                                                             <input type="text" class="form-control" name="tag"
-                                                            placeholder="Current Unit" readonly>
+                                                            placeholder="" id="current_unit" readonly>
                                                     </div>
 
                                                 </div>
@@ -84,7 +84,7 @@
                                                         <label
                                                             class="label-text-title color-heading font-medium mb-2">{{ __('Sub Unit') }}</label>
                                                             <input type="text" class="form-control" name="tag"
-                                                            placeholder="Current Sub Unit" readonly>
+                                                            placeholder="" id="current_sub_unit" readonly>
                                                     </div>
 
                                                 </div> 
@@ -100,10 +100,12 @@
                                         <h4 class="modal-title" id="addModalLabel">{{ __('New Location') }}</h4>
 
                                     </div>
-                                    <form action="{{ route('owner.assets.save-asset') }}" method="POST"
+                                    <form action="{{ route('owner.assets.replacement.updateLocation') }}" method="POST" id="updateLocationForm"
                                         data-handler="getShowMessage">
 
                                         @csrf
+                                        <input type="hidden" name="asset_id" id="asset_id">
+
                                         <div class="modal-body">
                                             <!-- Modal Inner Form Box Start -->
                                             <div class="modal-inner-form-box">
@@ -151,7 +153,7 @@
 
                                         <div class="modal-footer justify-content-start" style="padding-top: 0px;">
 
-                                            <button type="button" class="theme-btn me-3"
+                                            <button type="button" id="submit_button_id" class="theme-btn submit_button_id me-3 updateLocation"
                                                 title="{{ __('Save Asset') }}">{{ __('Save Changes') }}</button>
                                         </div>
                                     </form>
@@ -178,9 +180,15 @@
 
 <!-- Add Information Modal End -->
 <input type="hidden" id="getReplacementRoute" value="{{ route('owner.assets.replacement.fetchLocation') }}">
+
+<input type="hidden" id="getPropertyUnitsRoute" value="{{ route('owner.property.getPropertyUnits') }}">
 <input type="hidden" id="getInfoRoute" value="{{ route('owner.maintenance-request.get.info') }}">
 <input type="hidden" id="route" value="{{ route('owner.maintenance-request.index') }}">
-<input type="hidden" id="getPropertyUnitsRoute" value="{{ route('owner.property.getPropertyUnits') }}">
+<input type="hidden" id="getUnitsRoute" value="{{ route('owner.property.sub-unit.getSubUnits') }}">
+<input type="hidden" id="newLocationInfo" value="{{ route('owner.assets.replacement.updateLocation') }}">
+
+
+
 @endsection
 @push('style')
 @include('common.layouts.datatable-style')

@@ -35,6 +35,8 @@ use App\Http\Controllers\Owner\InvoiceRecurringController;
 use App\Http\Controllers\Owner\MaintenanceIssueController;
 use App\Http\Controllers\Owner\MaintenanceRequestController;
 use App\Http\Controllers\Owner\NonCommercialPropertyController;
+use App\Http\Controllers\Owner\SubUnitController;
+
 
 Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'owner']], function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
@@ -105,8 +107,7 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         // Route::delete('compliance/{id}', [ComplianceController::class, 'destroy'])->name('compliance.destroy');
 
 
-        Route::get('fleet-management', [FleetController::class, 'index'])
-    ->name('fleetManagement');
+        Route::get('fleet-management', [FleetController::class, 'index'])    ->name('fleetManagement');
 
 
         Route::get('all-unit', [PropertyController::class, 'allUnit'])->name('allUnit')->middleware('can:Manage Property');
@@ -129,8 +130,6 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
             // Route::get('sub-unit-list', [SubUnitController::class, 'subUnitList'])->name('index')->middleware('can:Manage Property');
             Route::post('store', [SubUnitController::class, 'store'])->name('store');
             Route::get('getSubUnits', [SubUnitController::class, 'getSubUnits'])->name('getSubUnits');
-
-            
         });
         
         Route::post('rent-charge/store', [PropertyController::class, 'rentChargeStore'])->name('rentCharge.store');
@@ -280,6 +279,7 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         Route::group(['prefix' => 'vendor', 'as' => 'replacement.'], function () {
             Route::get('replacement', [AssetController::class, 'replacement'])->name('replacement')->middleware('can:Manage Asset');
             Route::post('fetchLocation', [AssetController::class, 'fetchLocation'])->name('fetchLocation')->middleware('can:Manage Asset');
+            Route::post('updateLocation', [AssetController::class, 'updateLocation'])->name('updateLocation')->middleware('can:Manage Asset');
         });
 
         Route::group(['prefix' => 'vendor', 'as' => 'vendor.'], function () {

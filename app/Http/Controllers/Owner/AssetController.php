@@ -29,6 +29,29 @@ class AssetController extends Controller
         $this->depreciationClassService = new DepreciationClass;
     }
 
+    public function updateLocation(Request $request){
+
+        // return $request->asset_id;
+
+        $asset = Asset::where('id', $request->asset_id)->first();
+
+        if( $asset!=null){
+        // $item = Asset::where('id',$id)->first();
+        $asset->property_id = $request->property_id;
+        $asset->unit_id = $request->unit_id;
+        $asset->sub_unit_id = $request->sub_unit_id;
+        $asset->save();
+        }
+
+        if($asset){
+            return response(array("message"=>"success"));
+        }else{
+            return response(array("message"=>"fail"));
+
+        }
+
+    }
+
     public function fetchLocation(Request $request){
         $tag = $request->tag;
         return $this->assetsService->fetchAssetLocationByTag($tag);
