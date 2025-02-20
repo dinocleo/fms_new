@@ -10,6 +10,27 @@ use Exception;
 class AssetService{
     use ResponseTrait;
 
+    public function saveBulkAsset($request){
+
+        // $tag
+
+        DB::beginTransaction();
+        try {
+            $item = Asset::where('id',$id)->first();
+            $item->status_id = 10;
+            $item->save();
+            DB::commit();
+            $message = __(DELETED_SUCCESSFULLY);
+            return redirect()->back()->with('success', __(DELETED_SUCCESSFULLY));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $message = getErrorMessage($e, $e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+
+
+    }
+
     public function fetchAssetLocationByTag($tag){
         // DB::beginTransaction();
         try {

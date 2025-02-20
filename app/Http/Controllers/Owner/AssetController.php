@@ -29,6 +29,11 @@ class AssetController extends Controller
         $this->depreciationClassService = new DepreciationClass;
     }
 
+
+    public function saveBulkAsset(Request $request){
+        return $this->assetsService->saveBulkAsset($request);
+
+    }
     public function updateLocation(Request $request){
 
         // return $request->asset_id;

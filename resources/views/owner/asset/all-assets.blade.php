@@ -330,19 +330,45 @@
                     <div class="modal-body">
                         <!-- Modal Inner Form Box Start -->
                         <div class="modal-inner-form-box">
-
                             
-
-                       
-                           
                             <div class="row">
                                 <div class="col-md-12 mb-25">
                                     <label
-                                        class="label-text-title color-heading font-medium mb-2">{{ __('Select File') }}</label>
+                                        class="label-text-title color-heading font-medium mb-2">{{ __('                                                                                                                                     ') }}</label>
                                     <input type="file" id="asset_file" class="form-control details"  ></textarea>
                                 </div>
                               
                             </div>
+
+
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table theme-border p-20">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{ __('New Column') }}</th>
+                                                    <th>{{ __('System Column') }}</th> 
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>                                                     
+                                                    <td>sfsdfdsf</td>
+                                                    <td>Tag</td>
+                                                </tr>
+                                            
+                                            </tbody>
+                                        </table>
+
+                                      
+
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
                         <!-- Modal Inner Form Box End -->
                     </div>

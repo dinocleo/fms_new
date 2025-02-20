@@ -259,6 +259,7 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         Route::get('all_assets', [AssetController::class, 'getList'])->name('getList')->middleware('can:Manage Asset');
         // Route::get('all_assets', [AssetController::class, 'all_assets'])->name('all_assets')->middleware('can:Manage Asset');
         Route::post('save-asset', [AssetController::class, 'save_asset'])->name('save-asset')->middleware('can:Manage Asset');
+        Route::post('save-bulk-asset', [AssetController::class, 'saveBulkAsset'])->name('save-bulk-asset')->middleware('can:Manage Asset');
         Route::get('replacement', [AssetController::class, 'replacement'])->name('replacement')->middleware('can:Manage Asset');
         Route::get('dispose', [AssetController::class, 'dispose'])->name('dispose')->middleware('can:Manage Asset');
         Route::post('disposeAsset', [AssetController::class, 'disposeAsset'])->name('disposeAsset')->middleware('can:Manage Asset');
@@ -271,6 +272,10 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         Route::get('manufacturer', [AssetController::class, 'manufacturer'])->name('manufacturer')->middleware('can:Manage Asset');
         Route::get('depreciation_class', [AssetController::class, 'depreciation_class'])->name('depreciation_class')->middleware('can:Manage Asset');
     
+
+        
+
+
         Route::group(['prefix' => 'vendor', 'as' => 'replacement.'], function () {
             Route::get('replacement', [AssetController::class, 'replacement'])->name('replacement')->middleware('can:Manage Asset');
             // Route::delete('vendor/delete/{id}', [VendorController::class, 'destroy'])->name('delete');

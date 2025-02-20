@@ -47,8 +47,6 @@
 })(jQuery)
 
 
-
-
 $(document).on("click", ".save_bulk", function () {
     //  alert("amhere")
         var asset_file = $('#asset_file').val();
