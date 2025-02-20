@@ -323,7 +323,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
                             class="iconify" data-icon="akar-icons:cross"></span></button>
                 </div>
-                <form   action="{{ route('owner.assets.save-asset') }}" method="POST"
+                <form id="bulkAssetForm"   action="{{ route('owner.assets.save-bulk-asset') }}" method="POST"
                     data-handler="getShowMessage">
 
                     @csrf
@@ -339,7 +339,7 @@
                                 <div class="col-md-12 mb-25">
                                     <label
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Select File') }}</label>
-                                    <input type="file" class="form-control details"  ></textarea>
+                                    <input type="file" id="asset_file" class="form-control details"  ></textarea>
                                 </div>
                               
                             </div>
@@ -350,8 +350,8 @@
                     <div class="modal-footer justify-content-start">
                         <button type="button" class="theme-btn-back me-3" data-bs-dismiss="modal"
                             title="{{ __('Back') }}">{{ __('Back') }}</button>
-                        <button type="submit" class="theme-btn me-3"
-                            title="{{ __('Save Asset') }}">{{ __('Save Asset') }}</button>
+                        <button type="button" class="theme-btn me-3 save_bulk"
+                            title="{{ __('Save Bulk') }}">{{ __('Save Bulk') }}</button>
                     </div>
                 </form>
             </div>
