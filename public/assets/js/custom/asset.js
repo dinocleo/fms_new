@@ -6,7 +6,7 @@
         oTable.search($(this).val()).draw();
     })
 
-    oTable = $('#allMaintainerDataTable').DataTable({
+    oTable = $('#allAssetsDataTable').DataTable({
         processing: true,
         serverSide: true,
         pageLength: 25,
@@ -47,22 +47,21 @@
 })(jQuery)
 
 
-$(document).on("click", ".save_bulk", function () {
+$(document).on("click", ".save_ulk", function () {
     //  alert("amhere")
-        var asset_file = $('#asset_file').val();
-        if(asset_file){
+    
             // console.log("Suceeess:");
     
-            var formElement = document.getElementById('fetchLocationFormID'); // Get form element
+            var formElement = document.getElementById('bulkAssetForm'); // Get form element
             var formData = new FormData(formElement);
-                    var getReplacementRoute = $('#getReplacementRoute').val();
+                    var bulkLink = $('#bulkLink').val();
     
             // Start NProgress before making the AJAX request
             NProgress.start();
     
             $.ajax({
                 type: 'POST',
-                url: getReplacementRoute,
+                url: bulkLink,
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -142,36 +141,20 @@ $(document).on("click", ".save_bulk", function () {
                 }
             });
           
-        
-        }else{
-            Swal.fire({
-                title: 'Select file first!',
-                // text: tag,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                // confirmButtonText: 'No tag specified!'
-            }).then((result) => {
-                // if (result.value) {
-                //     $("#" + form_id).submit();
-                // }
-            })
-        }
+     
     
      
     });
 
 
-
-
-$(document).on('click', '#add2', function () {
-    var selector = $('#addModal2');
-    selector.find('.is-invalid').removeClass('is-invalid');
-    selector.find('.error-message').remove();
-    selector.modal('show');
-    selector.find('form').trigger("reset");
-});
+    $(document).on('click', '#add2', function () {
+        var selector = $('#addModal2');
+        selector.find('.is-invalid').removeClass('is-invalid');
+        selector.find('.error-message').remove();
+        selector.modal('show');
+        selector.find('form').trigger("reset");
+    });
+ 
 
 $(document).on('click', '#add', function () {
     var selector = $('#addModal');
