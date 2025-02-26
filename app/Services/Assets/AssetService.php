@@ -4,11 +4,97 @@ namespace App\Services\Assets;
 use App\Models\Asset;
 use Illuminate\Support\Facades\DB;
 use App\Traits\ResponseTrait;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 use Exception;
 
 class AssetService{
     use ResponseTrait;
+
+    public function saveBulkAsset($request){
+
+        // $tag
+
+        DB::beginTransaction();
+        try {
+
+            
+
+            // Get the uploaded file
+            // $file = $request->file('bulk_asset_file');
+            // $columns = json_decode($request , true);
+$name = $request->input('column1');
+$tag = $request->input('column2');
+$category = $request->input('column3');
+$manufacturer = $request->input('column4');
+$purchase_date = $request->input('column5');
+$Condition = $request->input('column6');
+$Property = $request->input('column7');
+$Unit = $request->input('column8');
+$sub_unit = $request->input('column9');
+$Vendor = $request->input('column10');
+$depreciation_class = $request->input('column12');
+$Status = $request->input('column13');
+$missing_description = $request->input('column14');
+ 
+$data = json_decode($request->input('columns'),true);
+
+// Loop through the "Name" array and print its corresponding values
+
+for ($i = 0; $i < count($data['Name']); $i++) {
+
+    if(isset($tag) && $tag!=null){
+
+        $asset_tag_check = Asset::where('tag', $data[$tag][$i])->first();
+            if($asset_tag_check==null){
+                $asset = new Asset();
+
+                if(isset($name) && $name!=null){
+                    $asset->name = $data[$name][$i];
+                }
+                if(isset($tag) && $tag!=null){
+                    $asset->tag = $data[$tag][$i];
+                }
+                $asset->status_id = 8;
+                $asset->category_id = 1;
+                $asset->manufacturer_id = 1;
+
+                $asset->save();
+
+            }
+   
+    }
+    // return $data['Name']
+   // return $data[$name][$i];
+    // echo "Name: " . $data['Name'][$i] . "\n";
+    // echo "Tag: " . $data['Tag'][$i] . "\n";
+    // echo "Property: " . $data['Property'][$i] . "\n";
+    // echo "Unit: " . $data['Unit'][$i] . "\n";
+    // echo "SubUnit: " . $data['SubUnit'][$i] . "\n";
+    // echo "Action: " . $data['Action'][$i] . "\n";
+    // echo "-----------------------\n";
+}
+
+            // return response()->json(['success' => true]);
+
+
+            // $item = Asset::where('id',$id)->first();
+            // $item->status_id = 10;
+            // $item->save();
+
+
+
+            DB::commit();
+            $message = __(DELETED_SUCCESSFULLY);
+            return redirect()->back()->with('success', __(DELETED_SUCCESSFULLY));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $message = getErrorMessage($e, $e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+
+
+    }
 
     public function fetchAssetLocationByTag($tag){
         // DB::beginTransaction();

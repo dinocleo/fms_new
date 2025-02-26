@@ -27,12 +27,13 @@ class SubUnitController extends Controller
 
     public function getSubUnits(Request $request){
 
-        $validated = $request->validate([
-            'unit_id' => 'required|integer|exists:property_units,id',
-        ]);
+        // $validated = $request->validate([
+        //     'unit_id' => 'required|integer|exists:property_units,id',
+        // ]);
 
         // Fetch sub-units from service
-        $subUnits = $this->subUnitService->getSubUnitsByUnitId($validated['unit_id']);
+        
+        $subUnits = $this->subUnitService->getSubUnitsByUnitId($request['unit_id']);
 
         // Return a JSON response
         return response()->json([

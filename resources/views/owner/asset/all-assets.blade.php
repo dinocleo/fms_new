@@ -1,5 +1,102 @@
 @extends('owner.layouts.app')
+@push('script')
+<script>
 
+document.addEventListener('DOMContentLoaded', function() {
+    // Your script goes here
+    $('.save_bulk').hide(); // Show loading spinner
+
+    
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const bulkAssetFile = document.getElementById('bulk_asset_file');
+    const mainBulkField = document.getElementById('main_bulk_field');
+    const saveBulkButton = document.querySelector('.save_bulk');
+
+    bulkAssetFile.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            if (file.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' && file.type !== 'application/vnd.ms-excel') {
+                alert('Please upload a valid Excel file.');
+                bulkAssetFile.value = '';
+                mainBulkField.style.display = 'none';
+                return;
+            }
+
+            $('.save_bulk').show();
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                const json = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+                const headers = json[0];
+                const rows = json.slice(1);
+
+                const selectOptions = headers.map(header => `<option value="${header}">${header}</option>`).join('');
+
+                // Populate the selects with options dynamically
+                document.querySelectorAll('#main_bulk_field select').forEach(select => {
+                    select.innerHTML = `<option value="" selected>--Select Column--</option>${selectOptions}`;
+                });
+
+                mainBulkField.style.display = 'block';
+
+                // Now store the data for each column as an array
+                const columnsData = {};
+
+                headers.forEach((header, index) => {
+                    columnsData[header] = rows.map(row => row[index]);
+                });
+
+                // Store the array of data in a hidden input field, or prepare it for submission
+                saveBulkButton.addEventListener('click', function() {
+                    const formData = new FormData(document.getElementById('bulkAssetForm'));
+                    const columns = {};
+
+                    // For each column, add the corresponding row data to the FormData
+                    for (const [column, data] of Object.entries(columnsData)) {
+                        columns[column] = data; // Assign the column array
+                    }
+
+                    formData.append('columns', JSON.stringify(columns));
+
+                    fetch(bulkAssetForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data)
+                        if (data.success) {
+                            alert('Bulk assets saved successfully!');
+                            location.reload();
+                        } else {
+                            // alert('Error saving bulk assets.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                });
+            };
+
+            reader.readAsArrayBuffer(file);
+        }
+    });
+});
+
+    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+@endpush
 @section('content')
     <div class="main-content">
 
@@ -45,7 +142,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="property-top-search-bar-right text-md-end">
-                                            <button type="button" class="theme-btn" id="fetchLocation"
+                                            <button type="button" class="theme-btn" id="add"
                                                 style="" title="{{ __('Add Asset') }}">{{ __('Add Asset') }}</button>
                                             <button type="button" class="default-btn theme-btn-purple w-auto" id="add2"
                                                 title="{{ __('Add In Bulk') }}">{{ __('Add In Bulk') }}</button>
@@ -60,7 +157,7 @@
                         <div class="all-maintainer-table-area">
                             <!-- datatable Start -->
                             <div class="bg-off-white theme-border radius-4 p-25">
-                                <table id="allMaintainerDataTable"
+                                <table id="allAssetsDataTable1"
                                     class="table bg-off-white aaa theme-border dt-responsive">
                                     <thead>
                                         <tr>
@@ -69,9 +166,6 @@
                                             {{-- <th>{{ __('Name') }}</th> --}}
                                             <th>{{ __('Tag') }}</th>
                                             <th>{{ __('Name') }}</th>
-                                            {{-- <th>{{ __('Category') }}</th> --}}
-                                            {{-- <th>{{ __('Vendor') }}</th> --}}
-                                            {{-- <th>{{ __('Manufacturer') }}</th> --}}
                                             <th>{{ __('Property') }}</th>
                                             {{-- <th>{{ __('Property') }}</th> --}}
                                             {{-- <th>{{ __('Property') }}</th> --}}
@@ -323,26 +417,153 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
                             class="iconify" data-icon="akar-icons:cross"></span></button>
                 </div>
-                <form   action="{{ route('owner.assets.save-asset') }}" method="POST"
+                <form id="bulkAssetForm" enctype="multipart/form-data"   action="{{ route('owner.assets.save-bulk-asset') }}" method="POST"
                     data-handler="getShowMessage">
 
                     @csrf
                     <div class="modal-body">
                         <!-- Modal Inner Form Box Start -->
                         <div class="modal-inner-form-box">
-
                             
-
-                       
-                           
                             <div class="row">
                                 <div class="col-md-12 mb-25">
                                     <label
-                                        class="label-text-title color-heading font-medium mb-2">{{ __('Select File') }}</label>
-                                    <input type="file" class="form-control details"  ></textarea>
+                                        class="label-text-title color-heading font-medium mb-2">{{ __('                                                                                                                                     ') }}</label>
+                                    <input type="file" id="bulk_asset_file" name="bulk_asset_file" class="form-control details"  ></textarea>
                                 </div>
                               
                             </div>
+
+ 
+                            <div class="row" id="main_bulk_field" style="display: none"> 
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table theme-border p-20">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{ __('Imported Column') }}</th>
+                                                    <th>{{ __('System Column') }}</th> 
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>                                                     
+                                                    <td> <select class="form-select flex-shrink-0 " name="column1" id="column1">
+                                                        <option value="" selected>{{ __('--Select Name Field--') }}</option>
+                                                    </select>
+                                                    </td>
+                                                    <td>Name</td>
+                                                </tr>
+                                            
+                                                <tr>                                                     
+                                                    <td> <select class="form-select flex-shrink-0 "  name="column2"  id="column2">
+                                                        <option value="" selected>{{ __('--Select Tag Field--') }}</option>
+                                                    </select>
+                                                    </td>
+                                                    <td>Tag</td>
+                                                </tr>
+                                            
+                                                <tr>                                                     
+                                                    <td> <select class="form-select flex-shrink-0 " name="column3"  id="column3">
+                                                        <option value="" selected>{{ __('--Select Category Field--') }}</option>
+                                                    </select>
+                                                    </td>
+                                                    <td>Category</td>
+                                                </tr>
+                                            
+                                                <tr>                                                     
+                                                    <td> <select class="form-select flex-shrink-0 " name="column4"  id="column4">
+                                                        <option value="" selected>{{ __('--Select Manufacturer Field--') }}</option>
+                                                    </select>
+                                                    </td>
+                                                    <td>Manufacturer</td>
+                                                </tr>
+                                            
+                                                <tr>                                                     
+                                                    <td> <select class="form-select flex-shrink-0 " name="column5"  id="column5">
+                                                        <option value="" selected>{{ __('--Select Purchase Date Field--') }}</option>
+                                                    </select>
+                                                    </td>
+                                                    <td>Purchase Date</td>
+                                                </tr>
+                                            
+                                                <tr>                                                     
+                                                    <td> <select class="form-select flex-shrink-0 " name="column6"  id="column6">
+                                                        <option value="" selected>{{ __('--Select Condition Field--') }}</option>
+                                                    </select>
+                                                    </td>
+                                                    <td>Condition</td>
+                                                </tr>
+                                            
+                                                <tr>                                                     
+                                                    <td> <select class="form-select flex-shrink-0 "  name="column7" id="column7">
+                                                        <option value="" selected>{{ __('--Select Property Field--') }}</option>
+                                                    </select>
+                                                    </td>
+                                                    <td>Property</td>
+                                                </tr>
+                                            
+                                                <tr>                                                      
+                                                    <td> <select class="form-select flex-shrink-0 " name="column8"  id="column8">
+                                                        <option value="" selected>{{ __('--Select Unit Field--') }}</option>
+                                                    </select>
+                                                    </td>
+                                                    <td>Unit</td>
+                                                </tr>
+                                            
+                                                <tr>                                                     
+                                                    <td> <select class="form-select flex-shrink-0 " name="column9"  id="column9">
+                                                        <option value="" selected>{{ __('--Select Sub Unit Field--') }}</option>
+                                                    </select>
+                                                    </td>
+                                                    <td>Sub Unit</td>
+                                                </tr>
+                                            
+                                                <tr>                                                     
+                                                    <td> <select class="form-select flex-shrink-0 " name="column10"  id="column10">
+                                                        <option value="" selected>{{ __('--Select Vendor Field--') }}</option>
+                                                    </select>
+                                                    </td>
+                                                    <td>Vendor</td>
+                                                </tr>
+                                               
+
+
+                                                <tr>                                                     
+                                                    <td> <select class="form-select flex-shrink-0 " name="column12"  id="column12">
+                                                        <option value="" selected>{{ __('--Select Depreciation Class Field--') }}</option>
+                                                    </select>
+                                                    </td>
+                                                    <td>Depreciation Class</td>
+                                                </tr>
+
+
+                                                
+
+                                                <tr>                                                     
+                                                    <td> <select class="form-select flex-shrink-0 " name="column13"  id="column13">
+                                                        <option value="" selected>{{ __('--Select Status Field--') }}</option>
+                                                    </select>
+                                                    </td>
+                                                    <td>Status</td>
+                                                </tr>
+
+                                                <tr>                                                     
+                                                    <td> <select class="form-select flex-shrink-0 " name="column14"  id="column14">
+                                                        <option value="" selected>{{ __('--Select Missing Descpt Field--') }}</option>
+                                                    </select>
+                                                    </td>
+                                                    <td>Missing Desription</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                      
+
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
                         <!-- Modal Inner Form Box End -->
                     </div>
@@ -350,8 +571,8 @@
                     <div class="modal-footer justify-content-start">
                         <button type="button" class="theme-btn-back me-3" data-bs-dismiss="modal"
                             title="{{ __('Back') }}">{{ __('Back') }}</button>
-                        <button type="submit" class="theme-btn me-3"
-                            title="{{ __('Save Asset') }}">{{ __('Save Asset') }}</button>
+                        <button type="button" class="theme-btn me-3 save_bulk"
+                            title="{{ __('Save Bulk') }}">{{ __('Save Bulk') }}</button>
                     </div>
                 </form>
             </div>
@@ -359,8 +580,9 @@
     </div>
     <input type="hidden" id="getPropertyUnitsRoute" value="{{ route('owner.property.getPropertyUnits') }}">
     <input type="hidden" id="getUnitsRoute" value="{{ route('owner.property.sub-unit.getSubUnits') }}">
-    <input type="hidden" id="route" value="{{ route('owner.assets.getList') }}">
-
+    <input type="hidden" id="Assetroute" value="{{ route('owner.assets.getList') }}">
+    <input type="hidden" id="bulkLink" value="{{ route('owner.assets.save-bulk-asset') }}">
+    {{-- getReplacementRoute --}}
     {{-- <input type="hidden" id="getSubUnitsRoute" value="{{ route('owner.property.getSubUnits') }}"> --}}
 
 @endsection
