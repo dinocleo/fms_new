@@ -89,17 +89,26 @@
 
                 @can('Manage Asset')
                     <li>
-                        <a href="javascript: void(0);" class="has-arrow">
+                        <a href="{{ route('owner.property.energy.index') }}">
                             <i class="ri-flashlight-line"></i>
-                            <span>{{ __('Manage Utilities') }}</span>
+                            <span>{{ __('Utilities') }}</span>
                         </a>
-                        <ul class="sub-menu">
-                            <li><a href="{{ route('owner.property.energy.index') }}">{{ __('Energy Usage') }}</a></li>
-                            {{-- <li><a href="{{ route('owner.property.energy.create') }}">{{ __('Add Energy Data') }}</a></li> --}}
+                    </li>
+                @endcan
+                @can('Manage Maintains')
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i class="ri-account-circle-line"></i>
+                            <span>{{ __('Maintains') }}</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{ route('owner.maintainer.index') }}">{{ __('Maintainers') }}</a></li>
+                            <li><a
+                                    href="{{ route('owner.maintenance-request.index') }}">{{ __('Maintenance Request') }}</a>
+                            </li>
                         </ul>
                     </li>
                 @endcan
-
                 @if (isAddonInstalled('PROTYSAAS') < 1 || ownerCurrentPackage(getOwnerUserId())?->ticket_support == ACTIVE)
                     @can('Manage Ticket')
                         <li>
@@ -110,16 +119,14 @@
                         </li>
                     @endcan
                 @endif
-
                 @can('Manage Vendor')
                     <li>
                         <a href="javascript: void(0);" class="has-arrow">
                             <i class="ri-group-line"></i>
-                            <span>{{ __('Contractors') }}</span>
+                            <span>{{ __('Contracts') }}</span>
                         </a>
                         <ul class="sub-menu">
                             <li><a href="{{ route('owner.property.vendor.index') }}">{{ __('Vendor List') }}</a></li>
-                            {{-- <li><a href="{{ route('owner.property.vendor.create') }}">{{ __('Add Vendor') }}</a></li> --}}
                             <li>
                                 <a href="{{ route('owner.agreement.index') }}">
                                     <span>{{ __(' Agreement') }}</span> </a>
@@ -128,7 +135,14 @@
                         </ul>
                     </li>
                 @endcan
-
+                @can('Manage Asset')
+                    <li>
+                        <a href="#" target="_blank">
+                            <i class="ri-projector-line"></i> <!-- You can change this icon if you prefer -->
+                            <span>{{ __('Project Management') }}</span>
+                        </a>
+                    </li>
+                @endcan
 
                 @can('Manage Report')
                     <li>
@@ -139,6 +153,7 @@
                     </li>
                 @endcan
 
+
                 @can('Manage Report')
                     <li>
                         <a href="javascript: void(0);" class="has-arrow">
@@ -146,19 +161,19 @@
                             <span>{{ __('Report') }}</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            {{-- <li>
-                            <a href="{{ route('owner.reports.earning') }}">{{ __('Earning') }}</a>
-                        </li>
-                        <li>
-                            <a
-                                href="{{ route('owner.reports.loss-profit.by.month') }}">{{ __('Loss / Profit By Month') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('owner.reports.expenses') }}">{{ __('Expenses') }}</a>
-                        </li> --}}
-                            {{-- <li>
-                            <a href="{{ route('owner.reports.lease') }}">{{ __('Lease') }}</a>
-                        </li> --}}
+                            <li>
+                                <a href="{{ route('owner.reports.earning') }}">{{ __('Earning') }}</a>
+                            </li>
+                            <li>
+                                <a
+                                    href="{{ route('owner.reports.loss-profit.by.month') }}">{{ __('Loss / Profit By Month') }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('owner.reports.expenses') }}">{{ __('Expenses') }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('owner.reports.lease') }}">{{ __('Lease') }}</a>
+                            </li>
                             <li>
                                 <a href="{{ route('owner.reports.occupancy') }}">{{ __('Occupancy') }}</a>
                             </li>
@@ -193,7 +208,7 @@
                                         stroke="#737C91" stroke-width="1.5" />
                                 </svg>
                             </i>
-                            <span>{{ __('Manage Staff') }}</span>
+                            <span>{{ __('Manage Users') }}</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             <li>
