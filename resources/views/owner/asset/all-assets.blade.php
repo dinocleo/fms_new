@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
 document.addEventListener('DOMContentLoaded', function() {
     const bulkAssetFile = document.getElementById('bulk_asset_file');
     const mainBulkField = document.getElementById('main_bulk_field');
@@ -158,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="all-maintainer-table-area">
                             <!-- datatable Start -->
                             <div class="bg-off-white theme-border radius-4 p-25">
-                                <table id="allAssetsDataTable"
+                                <table id="allAssetsDataTable1"
                                     class="table bg-off-white aaa theme-border dt-responsive">
                                     <thead>
                                         <tr>
@@ -581,7 +580,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <input type="hidden" id="getPropertyUnitsRoute" value="{{ route('owner.property.getPropertyUnits') }}">
     <input type="hidden" id="getUnitsRoute" value="{{ route('owner.property.sub-unit.getSubUnits') }}">
-    <input type="hidden" id="route" value="{{ route('owner.assets.getList') }}">
+    <input type="hidden" id="Assetroute" value="{{ route('owner.assets.getList') }}">
     <input type="hidden" id="bulkLink" value="{{ route('owner.assets.save-bulk-asset') }}">
     {{-- getReplacementRoute --}}
     {{-- <input type="hidden" id="getSubUnitsRoute" value="{{ route('owner.property.getSubUnits') }}"> --}}
