@@ -98,6 +98,27 @@ button,
 .slow-transition {
     transition: all 0.7s ease-in-out;
 }
+.theme-btn {
+    padding: 6px 16px; /* Adjust the padding to make the button smaller */
+    height: 36px; /* Adjust the height if needed */
+    line-height: 36px; /* Ensure the text is vertically centered */
+}
+
+/* For the input field */
+.input-group .form-control {
+    padding: 6px 12px; /* Reduce the padding to shrink the input */
+    font-size: 14px; /* Optional: adjust font size */
+    height: 36px; /* Set height to make the input shorter */
+    line-height: 36px; /* Ensure the text is vertically centered */
+}
+
+/* For the button */
+.input-group .theme-btn.btn-sm {
+    padding: 6px 12px; /* Reduce padding for smaller button */
+    font-size: 14px; /* Optional: adjust font size */
+    height: 36px; /* Set button height */
+    line-height: 36px; /* Ensure the text is vertically centered */
+}
 
 ul li {
     margin: 0;
@@ -297,6 +318,125 @@ label {
     opacity: 1;
     -webkit-transform: scale(1);
     transform: scale(1);
+}
+
+/* For all input fields inside .input-group */
+.input-group .form-control,
+.input-group .form-control-sm {
+    padding: 6px 12px; /* Adjust padding for smaller input fields */
+    font-size: 14px; /* Optional: Set font size to 14px */
+    height: 36px; /* Reduce height of the input field */
+    line-height: 36px; /* Center the text vertically */
+}
+
+/* For buttons inside .input-group */
+.input-group .theme-btn,
+.input-group .btn-sm,
+.input-group .edit-btn {
+    padding: 6px 12px; /* Adjust padding for smaller buttons */
+    font-size: 14px; /* Optional: Reduce the font size */
+    height: 36px; /* Set button height */
+    line-height: 36px; /* Ensure text is vertically centered */
+    border-radius: 4px; /* Optional: Adjust button border radius */
+}
+
+/* Optional: If you have an edit-btn class globally */
+.edit-btn {
+    padding: 6px 12px; /* Adjust padding */
+    font-size: 14px; /* Font size */
+    height: 36px; /* Height */
+    line-height: 36px; /* Vertically centered */
+    border-radius: 4px; /* Optional: rounded corners */
+}
+
+/* Customize form-control input field */
+.form-control {
+    padding: 6px 12px; /* Reduce padding to make the input smaller */
+    font-size: 14px; /* Adjust font size for the input */
+    height: 36px; /* Set the height of the input field */
+    line-height: 36px; /* Center the text vertically */
+    border-radius: 4px; /* Optional: Adjust the border radius for rounded corners */
+    border: 1px solid #ccc; /* Optional: Change the border color */
+}
+/* Customize the theme-btn-back button */
+.theme-btn-back {
+    padding: 6px 12px; /* Reduce padding for a smaller button */
+    font-size: 14px; /* Adjust font size to make it smaller */
+    height: 36px; /* Set the height of the button */
+    line-height: 36px; /* Vertically center the text */
+    border-radius: 4px; /* Optional: Adjust the border radius for rounded corners */
+    border: 1px solid #ccc; /* Optional: Change the border color */
+}
+
+/* For spacing (me-3 is a margin class) */
+.theme-btn-back.me-3 {
+    margin-right: 12px; /* Adjust the margin-right (optional, depending on your design needs) */
+}
+
+/* Customize filter-option-inner-inner for a smaller appearance */
+.filter-option-inner-inner {
+    padding: 4px 8px; /* Reduce the padding to make it more compact */
+    font-size: 14px; /* Adjust the font size */
+    line-height: 20px; /* Set line height for vertical alignment */
+    border-radius: 4px; /* Optional: Add border radius for rounded corners */
+    color: #333; /* Change text color */
+    background-color: #f8f9fa; /* Optional: Change background color */
+}
+
+/* Adjust select dropdown button appearance (if part of dropdown) */
+.select-dropdown {
+    padding: 6px 10px; /* Adjust padding for dropdown items */
+    font-size: 14px; /* Adjust font size */
+    height: 36px; /* Set button height */
+    line-height: 36px; /* Center the text vertically */
+    border-radius: 4px; /* Rounded corners */
+    border: 1px solid #ccc; /* Set border color */
+}
+
+/* Additional customization for dropdown */
+.select-dropdown li {
+    padding: 8px 10px; /* Adjust padding for list items */
+    font-size: 14px; /* Adjust font size for dropdown items */
+    color: #333; /* Set text color for dropdown items */
+    background-color: #fff; /* Background color for items */
+}
+
+.select-dropdown li:hover {
+    background-color: #007bff; /* Change background on hover */
+    color: white; /* Change text color on hover */
+}
+/* Style for default-btn class */
+.default-btn {
+    padding: 6px 16px; /* Adjust padding for smaller buttons */
+    font-size: 14px; /* Smaller font size */
+    font-weight: 500; /* Font weight to make the text bold */
+    border-radius: 4px; /* Rounded corners */
+    border: 1px solid #ccc; /* Border color */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Style for theme-btn-purple class */
+.theme-btn-purple {
+    background-color: #6f42c1; /* Purple background color */
+    color: #fff; /* White text color */
+    border-color: #6f42c1; /* Border color same as background */
+}
+
+.theme-btn-purple:hover {
+    background-color: #5a2d91; /* Darken the background color on hover */
+    border-color: #5a2d91; /* Darken the border color on hover */
+}
+
+/* Style for w-auto class */
+.w-auto {
+    width: auto; /* Set the width to auto for flexible size */
+}
+
+/* Optional: Focus styles for better accessibility */
+.default-btn:focus,
+.theme-btn-purple:focus {
+    outline: none; /* Remove the default outline */
+    box-shadow: 0 0 0 3px rgba(111, 66, 193, 0.5); /* Custom focus outline */
 }
 
 /* Custom Radio Button End */

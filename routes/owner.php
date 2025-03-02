@@ -77,12 +77,12 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
 
             // Energy Management
         Route::get('energy-management', [EnergyManagementController::class, 'index'])->name('energy.index');
-        // Route::get('energy-management/create', [EnergyManagementController::class, 'create'])->name('energy.create');
-        // Route::post('energy-management/store', [EnergyManagementController::class, 'store'])->name('energy.store');
-        // Route::get('energy-management/{id}', [EnergyManagementController::class, 'show'])->name('energy.show');
-        // Route::get('energy-management/{id}/edit', [EnergyManagementController::class, 'edit'])->name('energy.edit');
-        // Route::put('energy-management/{id}', [EnergyManagementController::class, 'update'])->name('energy.update');
-        // Route::delete('energy-management/{id}', [EnergyManagementController::class, 'destroy'])->name('energy.destroy');
+        Route::get('energy-management/create', [EnergyManagementController::class, 'create'])->name('energy.create');
+        Route::post('energy-management/store', [EnergyManagementController::class, 'store'])->name('energy.store');
+        Route::get('energy-management/{id}', [EnergyManagementController::class, 'show'])->name('energy.show');
+        Route::get('energy-management/{id}/edit', [EnergyManagementController::class, 'edit'])->name('energy.edit');
+        Route::put('energy-management/{id}', [EnergyManagementController::class, 'update'])->name('energy.update');
+        Route::delete('energy-management/{id}', [EnergyManagementController::class, 'destroy'])->name('energy.destroy');
 
 
          // Vendor and Contractor Management

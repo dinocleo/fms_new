@@ -53,7 +53,7 @@ class PropertyController extends Controller
     }
 
     // Paginate results (show 6 per page)
-    $properties = $query->paginate(6);
+    $properties = $query->paginate(12);
 
     return view('owner.property.nonCommercial', compact('properties'));
 }

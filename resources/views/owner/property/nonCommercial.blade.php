@@ -52,41 +52,53 @@
                                 <div class="input-group d-inline-flex">
                                     <input type="text" name="search" class="form-control form-control-sm"
                                         placeholder="Search properties..." value="{{ request('search') }}">
-                                    <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                                    <button type="submit" class="theme-btn btn-sm">Search</button>
                                 </div>
                             </form>
-
 
                             <!-- Properties List -->
                             <div class="properties-item-wrap">
                                 <div class="row">
                                     @foreach ($properties as $property)
-                                        <div class="col-md-4 mb-4">
-                                            <div class="card shadow-lg border-0 rounded-3">
-                                                <div class="card-body">
-                                                    <h5 class="card-title text-primary fw-bold">
-                                                        {{ $property->property_name }}</h5>
-                                                    <p class="card-text"><strong>Type:</strong>
-                                                        <span
-                                                            class="text-secondary">{{ ucfirst($property->property_type) }}</span>
-                                                    </p>
-                                                    <p class="card-text"><strong>Address:</strong>
-                                                        <span class="text-muted">
-                                                            {{ $property->region }}, {{ $property->district }},
-                                                            {{ $property->street }}
-                                                        </span>
-                                                    </p>
-                                                    <p class="card-text"><strong>Description:</strong>
-                                                        <span
-                                                            class="text-muted">{{ Str::limit($property->description, 50) ?? 'N/A' }}</span>
-                                                    </p>
-                                                    <p class="card-text"><strong>Units:</strong>
-                                                        <span class="text-dark">
-                                                            {{ $property->number_of_units ?? ($property->number_of_unit ?? 'N/A') }}
-                                                        </span>
-                                                    </p>
+                                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                                            <!-- 1 column on small screens, 2 on medium, 3 on large, 4 on xl -->
+                                            <div
+                                                class="property-item bg-off-white theme-border radius-10 position-relative mb-25">
+                                                <div class="property-item-content p-20">
+                                                    <h4 class="property-item-title position-relative">
+                                                        <a href="{{ route('owner.property.show', $property->id) }}"
+                                                            class="color-heading link-hover-effect me-3">{{ substr_replace($property->property_name, '...', 20) }}</a>
+                                                    </h4>
+
+                                                    <div
+                                                        class="property-item-info d-flex mt-15 flex-wrap bg-white theme-border py-3 px-2 radius-4">
+                                                        <div class="property-info-item font-13">
+                                                            <strong>Type:</strong>
+                                                            <span
+                                                                class="text-secondary">{{ ucfirst($property->property_type) }}</span>
+                                                        </div>
+                                                        <div class="property-info-item font-13">
+                                                            <strong>Address:</strong>
+                                                            <span class="text-muted">
+                                                                {{ $property->region }}, {{ $property->district }},
+                                                                {{ $property->street }}
+                                                            </span>
+                                                        </div>
+                                                        <div class="property-info-item font-13">
+                                                            <strong>Description:</strong>
+                                                            <span
+                                                                class="text-muted">{{ Str::limit($property->description, 50) ?? 'N/A' }}</span>
+                                                        </div>
+                                                        <div class="property-info-item font-13">
+                                                            <strong>Units:</strong>
+                                                            <span class="text-dark">
+                                                                {{ $property->number_of_units ?? ($property->number_of_unit ?? 'N/A') }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
                                                     <a href="{{ route('owner.property.show', $property->id) }}"
-                                                        class="btn btn-outline-primary w-100 fw-bold">
+                                                        class="theme-btn mt-20 w-100" title="{{ __('View Details') }}">
                                                         <i class="fas fa-eye"></i> View Details
                                                     </a>
                                                 </div>
@@ -101,6 +113,10 @@
                                 </div>
                             </div>
                         </div>
+
+
+
+
 
 
 
