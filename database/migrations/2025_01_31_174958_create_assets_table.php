@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('unit_id')->nullable();
             $table->string('sub_unit_id')->nullable();
             $table->string('vendor_id')->nullable();
-            $table->string('depreciation_class_id');
+            $table->string('depreciation_class_id')->nullable();
             $table->string('purchase_cost')->nullable();
             $table->string('currency')->nullable();
             $table->longtext('missing_description')->nullable();

@@ -42,6 +42,13 @@ function getDataEditRes(response) {
         oTable.search($(this).val()).draw();
     })
 
+
+    if ($.fn.DataTable.isDataTable('#allMaintainerDataTable')) {
+        $('#allMaintainerDataTable').DataTable().destroy();
+    }
+
+    
+    
     oTable = $('#allMaintainerDataTable').DataTable({
         processing: true,
         serverSide: true,

@@ -46,7 +46,7 @@
                                     <div class="col-md-6">
                                         <div class="property-top-search-bar-right text-md-end">
                                             <button type="button" class="theme-btn" id="add"
-                                                title="{{ __('Add Maintenance Request') }}">{{ __('Add Maintenance Request') }}</button>
+                                                title="{{ __('Add Maintenance Request') }}">{{ __('Create Maintenance Request') }}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -91,7 +91,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="addModalLabel">{{ __('Add Maintenance Request') }}</h4>
+                    <h4 class="modal-title" id="addModalLabel">{{ __('Create Maintenance Request') }}</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
                             class="iconify" data-icon="akar-icons:cross"></span></button>
                 </div>
@@ -120,6 +120,31 @@
                                 </div>
                             </div>
 
+
+                            <div class="row">
+                                
+                                <div class="col-md-6 mb-25">
+                                    <label
+                                        class="label-text-title color-heading font-medium mb-2">{{ __('Sub Unit') }}</label>
+                                    <select class="form-select flex-shrink-0 unit_id" name="sub_unit_id">
+                                        <option value="">--{{ __('Select Sub Unit') }}--</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-25">
+                                    <label
+                                        class="label-text-title color-heading font-medium mb-2">{{ __('Created Date') }}</label>
+                                    <div class="custom-datepicker">
+                                        <div class="custom-datepicker-inner position-relative">
+                                            <input type="text" class="datepicker form-control start_date"
+                                                   name="created_date" autocomplete="off" placeholder="dd-mm-yy" required>
+                                            <i class="ri-calendar-2-line"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
                             <div class="row">
                                 <div class="col-md-6 mb-25">
                                     <label
@@ -141,17 +166,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-25">
-                                <label
-                                    class="label-text-title color-heading font-medium mb-2">{{ __('Created Date') }}</label>
-                                <div class="custom-datepicker">
-                                    <div class="custom-datepicker-inner position-relative">
-                                        <input type="text" class="datepicker form-control start_date"
-                                               name="created_date" autocomplete="off" placeholder="dd-mm-yy" required>
-                                        <i class="ri-calendar-2-line"></i>
-                                    </div>
-                                </div>
-                            </div>
+                          
                             <div class="row">
                                 <div class="col-md-12 mb-25">
                                     <label

@@ -63,7 +63,7 @@
     <!-- App Custom js -->
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <input type="hidden" id="topSearchRoute" value="{{ route('owner.top.search') }}">
-    @stack('script')
+    {{-- @stack('script') --}}
 </body>
 
 </html>

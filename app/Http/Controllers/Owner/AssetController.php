@@ -31,6 +31,7 @@ class AssetController extends Controller
 
 
     public function saveBulkAsset(Request $request){
+        // return "sdfs";
         return $this->assetsService->saveBulkAsset($request);
 
     }

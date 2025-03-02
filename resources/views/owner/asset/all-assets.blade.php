@@ -75,16 +75,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     })
                     .then(response => response.json())
                     .then(data => {
-                        alert(data)
-                        if (data.success) {
-                            alert('Bulk assets saved successfully!');
+                        // alert(data)
+                        if (data.message = 'success') {
+                            alert('Bulk imported successfully!');
                             location.reload();
                         } else {
                             // alert('Error saving bulk assets.');
                         }
                     })
                     .catch(error => {
-                        console.error('Error:', error);
+                        alret(data);
+                        alert(error)
+                        // console.error('Error:', error);
                     });
                 });
             };
@@ -211,13 +213,13 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <div class="col-md-6 mb-25">
                                     <label
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Name') }}</label>
-                                        <input type="text" class="form-control" name="name">
+                                        <input required type="text" class="form-control" name="name">
 
                                 </div>
                                 <div class="col-md-6 mb-25">
                                     <label
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Tag') }}</label>
-                                        <input type="text" class="form-control" name="tag">
+                                        <input required type="text" class="form-control" name="tag">
 
                                 </div>
                             </div>
@@ -338,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <div class="col-md-6 mb-25">
                                     <label
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Depreciation Class') }}</label>
-                                    <select class="form-select flex-shrink-0 depreciation_class_id" name="depreciation_class_id">
+                                    <select required class="form-select flex-shrink-0 depreciation_class_id" name="depreciation_class_id">
                                         <option value="">--{{ __('Select Depreciation Class') }}--</option>
                                         @if(count($depreciation_class)>0)
                                         @foreach ($depreciation_class as $item)
@@ -357,7 +359,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <div class="col-md-6 mb-25">
                                     <label
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Status') }}</label>
-                                        <select class="form-select flex-shrink-0 status_id" name="status_id">
+                                        <select required class="form-select flex-shrink-0 status_id" name="status_id">
                                             <option value="">--{{ __('Select Status Class') }}--</option>
                                             @if(count($status)>0)
                                             @foreach ($status as $item)

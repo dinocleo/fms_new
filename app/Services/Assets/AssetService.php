@@ -55,7 +55,7 @@ for ($i = 0; $i < count($data['Name']); $i++) {
                 if(isset($tag) && $tag!=null){
                     $asset->tag = $data[$tag][$i];
                 }
-                $asset->status_id = 8;
+                $asset->status= 8;
                 $asset->category_id = 1;
                 $asset->manufacturer_id = 1;
 
@@ -64,33 +64,24 @@ for ($i = 0; $i < count($data['Name']); $i++) {
             }
    
     }
-    // return $data['Name']
-   // return $data[$name][$i];
-    // echo "Name: " . $data['Name'][$i] . "\n";
-    // echo "Tag: " . $data['Tag'][$i] . "\n";
-    // echo "Property: " . $data['Property'][$i] . "\n";
-    // echo "Unit: " . $data['Unit'][$i] . "\n";
-    // echo "SubUnit: " . $data['SubUnit'][$i] . "\n";
-    // echo "Action: " . $data['Action'][$i] . "\n";
-    // echo "-----------------------\n";
+    
 }
-
-            // return response()->json(['success' => true]);
-
-
-            // $item = Asset::where('id',$id)->first();
-            // $item->status_id = 10;
-            // $item->save();
-
-
 
             DB::commit();
             $message = __(DELETED_SUCCESSFULLY);
-            return redirect()->back()->with('success', __(DELETED_SUCCESSFULLY));
+            $response = ['response' => true, 'error' => false, 'message' => 'success'];
+            return response()->json($response, 200);
+
+            
+            // return redirect()->back()->with('success', __(DELETED_SUCCESSFULLY));
+            
         } catch (\Exception $e) {
             DB::rollBack();
             $message = getErrorMessage($e, $e->getMessage());
-            return redirect()->back()->with('error', $e->getMessage());
+            $response = ['response' => true, 'error' => false, 'message' => 'fail', 'data'=>$e->getMessage()];
+            return response()->json($response, 200);
+
+
         }
 
 
@@ -133,7 +124,7 @@ for ($i = 0; $i < count($data['Name']); $i++) {
     public function getAllData()
     {
 
-        $assets = Asset::orderBy('updated_at', 'desc')->where('status_id', 8)->get();
+        $assets = Asset::orderBy('updated_at', 'desc')->where('status', 8)->get();
 
         return datatables($assets)
             ->addIndexColumn()
@@ -190,23 +181,25 @@ for ($i = 0; $i < count($data['Name']); $i++) {
                 }
             })
              ->addColumn('action', function ($item) {
-                return '<button type="button class="theme-btn" style= "display: inline-flex
-;
-    align-items: center;
-    cursor: pointer;
-    outline: none;
-    z-index: 99;
-    padding: 4px 5px !important;
-    line-height: 20px;
-    justify-content: center;
-    border-radius: 4px;
-    font-weight: 500 !important;
-    color: var(--white-color);
-    border: 1px solid transparent;background-color: var(--button-primary-color);
-    border-radius: 4px;
-    padding: 3px;
-    color: white;
-    font-weight: 700;" title="Replace">View More</button>';
+             
+
+    // return '<button type="button class="theme-btn" style= "display: inline-flex
+    // ;
+    //     align-items: center;
+    //     cursor: pointer;
+    //     outline: none;
+    //     z-index: 99;
+    //     padding: 4px 5px !important;
+    //     line-height: 20px;
+    //     justify-content: center;
+    //     border-radius: 4px;
+    //     font-weight: 500 !important;
+    //     color: var(--white-color);
+    //     border: 1px solid transparent;background-color: var(--button-primary-color);
+    //     border-radius: 4px;
+    //     padding: 3px;
+    //     color: white;
+    //     font-weight: 700;" title="Replace">View More</button>';
 
             })
             ->rawColumns(['image', 'name', 'category', 'manufacturer','property','unit','sub_unit','status', 'action'])
