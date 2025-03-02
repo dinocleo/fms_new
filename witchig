@@ -1,3 +1,6 @@
 #Account:
-username/email: onassiskenan10@gmail.com
-password: 12345678
+    username/email: onassiskenan10@gmail.com
+    password: 12345678
+
+#create import
+    php artisan make:import AssetBulkImport --model=Asset

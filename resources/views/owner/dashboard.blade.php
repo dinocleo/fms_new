@@ -7,8 +7,7 @@
                 <div class="page-content-wrapper bg-white p-30 radius-20">
                     <div class="row">
                         <div class="col-12">
-                            <div
-                                class="page-title-box d-flex flex-column flex-sm-row align-items-sm-center justify-content-between g-20">
+                            <div class="page-title-box d-flex flex-column flex-sm-row align-items-sm-center justify-content-between g-20">
                                 <div class="page-title-left">
                                     <h2 class="mb-sm-0">{{ __('Dashboard') }}</h2>
                                     <p>{{ __('Welcome back') }}, {{ auth()->user()->name }} <span class="iconify font-24"
@@ -88,6 +87,21 @@
                             </div>
                         </div>
 
+                    <!-- Chart row -->
+                    {{-- <div class="row">
+                        <div class="col-12 col-lg-12 col-xl-12">
+                            <div class="bg-off-white radius-4 mb-25 theme-border p-20 w-100">
+                                <div class="bg-transparent">
+                                    <div class="row align-items-center">
+                                        <div class="col-12">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <h4 class="mb-0">{{ __('Rent Overview') }}</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <h2>{{ currencyPrice($yearlyTotalAmount) }}</h2>
+                                        </div>
+                                    </div>
                         {{-- <div class="col-sm-6 col-lg-4 col-xl-3">
                             <div class="dashboard-feature-item bg-off-white theme-border radius-4 p-20 mb-25">
                                 <div
@@ -113,11 +127,13 @@
                                 <div class="mt-2">
                                     <h4 class="mb-0">{{ __('Utility Usage Trends') }}</h4>
                                 </div>
-                                <div>
-                                    <canvas id="utilitiesChart"></canvas>
+                                <div class="">
+                                    <div id="chart1"></div>
                                 </div>
                             </div>
                         </div>
+                    </div> --}}
+                    <!-- Chart row -->
 
 
                         <!-- Assets Management Summary -->

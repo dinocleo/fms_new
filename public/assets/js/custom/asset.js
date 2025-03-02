@@ -1,17 +1,15 @@
+ 
 
 (function ($) {
     "use strict";
     var oTable;
-    $('#search_property').on('change', function () {
-        oTable.search($(this).val()).draw();
-    })
-
-    oTable = $('#allMaintainerDataTable').DataTable({
+    
+    oTable = $('#allAssetsDataTable1').DataTable({
         processing: true,
         serverSide: true,
         pageLength: 25,
         responsive: true,
-        ajax: $('#route').val(),
+        ajax: $('#Assetroute').val(),
         order: [1, 'desc'],
         ordering: false,
         autoWidth: false,
@@ -25,41 +23,26 @@
             }
         },
         columns: [
-            { "data":"image", "image": 'DT_RowIndex' },
-            // { "data": "name" },
-            // { "data": "name", "name": "users.first_name" },
-            // { "data": "name", "visible": false, "name": "users.last_name" },
-            // { "data": "email", "name": "users.email" },
+            { "data": "image", "image": 'DT_RowIndex' },
             { "data": "tag", "tag": "users.tag" },
-            { "data": "name"  },
-            // { "data": "property", "property": "users.contact_number" },
-            // { "data": "property", "property": "users.contact_number" },
-            // { "data": "category", },
-            // { "data": "manufacturer",  },
-            // { "data": "property", "property": "users.contact_number" },
-            { "data": "property",   },
-            { "data": "unit",  },
-            // { "data": "property", "name": "properties.name" },
+            { "data": "name" },
+            { "data": "property" },
+            { "data": "unit" },
             { "data": "sub_unit" },
             { "data": "action", "class": "text-end" },
         ]
     });
-})(jQuery)
+})(jQuery);
 
 
-
-
-
-
-
-
-$(document).on('click', '#add2', function () {
-    var selector = $('#addModal2');
-    selector.find('.is-invalid').removeClass('is-invalid');
-    selector.find('.error-message').remove();
-    selector.modal('show');
-    selector.find('form').trigger("reset");
-});
+    $(document).on('click', '#add2', function () {
+        var selector = $('#addModal2');
+        selector.find('.is-invalid').removeClass('is-invalid');
+        selector.find('.error-message').remove();
+        selector.modal('show');
+        selector.find('form').trigger("reset");
+    });
+ 
 
 $(document).on('click', '#add', function () {
     var selector = $('#addModal');

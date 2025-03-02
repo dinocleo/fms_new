@@ -20,11 +20,11 @@ return new class extends Migration
             $table->string('tag')->nullable();
             $table->string('added_by')->nullable();
             $table->date('purchase_date')->nullable();
-            $table->string('status_id');
-            $table->string('category_id');
+            $table->string('status')->nullable();
+            $table->string('category_id')->nullable();;
             $table->string('main_propert_cat_id')->nullable();
             $table->string('manufacturer_id')->nullable();
-            $table->string('condition_id');
+            $table->string('condition_id')->nullable();;
             $table->string('property_id')->nullable();
             $table->string('unit_id')->nullable();
             $table->string('sub_unit_id')->nullable();
