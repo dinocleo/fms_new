@@ -118,6 +118,8 @@ class AssetController extends Controller
         if ($request->ajax()) {
             return $this->assetsService->getAllData();
         }
+        // return $data;
+
         return view('owner.asset.all-assets', $data);
 
     }

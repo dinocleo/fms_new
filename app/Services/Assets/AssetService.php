@@ -137,9 +137,8 @@ for ($i = 0; $i < count($data['Name']); $i++) {
     public function getAllData()
     {
 
-        $assets = Asset::orderBy('updated_at', 'desc')->where('status', 8)->get();
-
-        return datatables($assets)
+        $assets = Asset::orderBy('updated_at', 'desc')->where('status', "active")->get();
+         return datatables($assets)
             ->addIndexColumn()
             ->addColumn('image', function ($item) {
                 return '<div class="tenants-tbl-info-object d-flex align-items-center">

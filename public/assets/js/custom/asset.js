@@ -29,7 +29,7 @@
             { "data": "property" },
             { "data": "unit" },
             { "data": "sub_unit" },
-            { "data": "action", "class": "text-end" },
+            { "data": "action"},
         ]
     });
 })(jQuery);
