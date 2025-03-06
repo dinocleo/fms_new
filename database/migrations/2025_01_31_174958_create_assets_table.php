@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('tag')->nullable();
             $table->string('added_by')->nullable();
             $table->date('purchase_date')->nullable();
-            $table->string('status')->nullable();
+            $table->enum('status', ['active', 'Inactive'])->default('active');
             $table->string('category_id')->nullable();;
             $table->string('main_propert_cat_id')->nullable();
             $table->string('manufacturer_id')->nullable();

@@ -361,11 +361,10 @@ document.addEventListener('DOMContentLoaded', function() {
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Status') }}</label>
                                         <select required class="form-select flex-shrink-0 status" name="status">
                                             <option value="">--{{ __('Select Status Class') }}--</option>
-                                            @if(count($status)>0)
-                                            @foreach ($status as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                            @endforeach
-                                            @endif
+                                         
+                                                <option value="active">Active</option>
+                                                <option value="disposed">Disposed</option>
+=                                          
                                        
                                         </select>
 

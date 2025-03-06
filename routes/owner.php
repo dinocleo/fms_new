@@ -36,6 +36,7 @@ use App\Http\Controllers\Owner\MaintenanceIssueController;
 use App\Http\Controllers\Owner\MaintenanceRequestController;
 use App\Http\Controllers\Owner\NonCommercialPropertyController;
 use App\Http\Controllers\Owner\SubUnitController;
+use App\Http\Controllers\Owner\AssetStatusController;
 
 
 Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'owner']], function () {

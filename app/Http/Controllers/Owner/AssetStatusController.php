@@ -60,6 +60,7 @@ class AssetStatusController extends Controller
 
         $status = new AssetStatus();
         $status->name = $request->name;
+        $status->status = "Inactive";
         $status->added_by = Auth::user()->id;
         $status->save();
         return redirect()->back();
