@@ -4,3 +4,7 @@
 
 #create import
     php artisan make:import AssetBulkImport --model=Asset
+
+
+#sort conflict in terminal during git merge
+    rm /c/xampp/htdocs/IO/fms_new/.git/.MERGE_MSG.swp

@@ -27,7 +27,7 @@
                                     <span class="iconify orange-color" data-icon="bxs:home-circle"></span>
                                 </div>
                                 <p class="mt-2">{{ __('Total Property') }}</p>
-                                <div class="d-flex justify-content-between align-items-center mt-1">
+                                <div class="d-flex justify-content-between align-items-center mt-1
                                     <h2>{{ $totalProperties }}</h2>
                                     <!-- View All link -->
                                     <a class="theme-link font-14 font-medium d-flex align-items-center"
