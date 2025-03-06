@@ -54,7 +54,7 @@ for ($i = 0; $i < count($data['Name']); $i++) {
                 if(isset($tag) && $tag!=null){
                     $asset->tag = $data[$tag][$i];
                 }
-                $asset->status = 8;
+                $asset->status = "active";
                 $asset->category_id = 1;
                 $asset->manufacturer_id = 1;
 
@@ -152,10 +152,10 @@ for ($i = 0; $i < count($data['Name']); $i++) {
             })
            
             
-            ->addColumn('name', function ($item) {
-                return $item->name;
+            ->addColumn('tag', function ($item) {
+                return $item->tag;
             })
-            ->addColumn('property', function ($item) {
+            ->addColumn('name', function ($item) {
                 return $item->name;
             })
             ->addColumn('category', function ($item) {
@@ -215,7 +215,7 @@ for ($i = 0; $i < count($data['Name']); $i++) {
     //     font-weight: 700;" title="Replace">View More</button>';
 
             })
-            ->rawColumns(['image', 'name', 'category', 'manufacturer','property','unit','sub_unit','status', 'action'])
+            ->rawColumns(['image', 'tag','name', 'category', 'manufacturer','property','unit','sub_unit','status', 'action'])
             ->make(true);
     }
 

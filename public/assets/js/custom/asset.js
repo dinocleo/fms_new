@@ -24,7 +24,7 @@
         },
         columns: [
             // { "data": "image", "image": 'DT_RowIndex' },
-            { "data": "tag", "tag": "users.tag" },
+            { "data": "tag" },
             { "data": "name" },
             { "data": "property" },
             { "data": "unit" },

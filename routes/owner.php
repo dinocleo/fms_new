@@ -38,7 +38,7 @@ use App\Http\Controllers\Owner\NonCommercialPropertyController;
 use App\Http\Controllers\Owner\SubUnitController;
 use App\Http\Controllers\Owner\AssetStatusController;
 use App\Http\Controllers\Owner\ConditionController;
-use App\Http\Controllers\Owner\VendorController;
+use App\Http\Controllers\Owner\AssetCategoryController;
 
 
 Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'owner']], function () {
