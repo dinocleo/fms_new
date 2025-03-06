@@ -216,7 +216,23 @@
                             </li>
                             <li>
                                 <a href="{{ route('owner.team-member.index') }}">{{ __('Staff Users') }}</a>
+
                             </li>
+
+
+                            {{-- @can('Manage Tenant') --}}
+                            
+                            <li class="{{ @$subNavAllTenantMMActiveClass }}">
+                                                <a href="{{ route('owner.tenant.index', ['type' => 'all']) }}"
+                                                    class="{{ @$subNavAllTenantActiveClass }}">{{ __('All Tenants') }}</a>
+                                            </li>
+                                            <li class="{{ @$subNavTenantHistoryMMActiveClass }}">
+                                                <a href="{{ route('owner.tenant.index', ['type' => 'history']) }}"
+                                                    class="{{ @$subNavTenantHistoryActiveClass }}">{{ __('Tenant History') }}</a>
+                                            </li>
+                                    
+                                            
+                                {{-- @endcan --}}
                         </ul>
                     </li>
                 @endcan

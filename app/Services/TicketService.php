@@ -197,6 +197,7 @@ class TicketService
                 $propertyId = $request->property_id;
                 $unitId = $request->unit_id;
             }
+            $ticket->asset_tag = $request->asset_tag;
             $ticket->user_id = $user->id;
             $ticket->owner_user_id = $user->owner_user_id;
             $ticket->property_id = $propertyId;

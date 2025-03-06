@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('assets', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id'); // Explicitly make 'id' auto-incrementing
             $table->string('name');
             // $table->string('prefix');
             $table->string('tag')->nullable();

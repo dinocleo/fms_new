@@ -171,6 +171,20 @@
                                     <p>{{ $ticket->topic->name }}</p>
                                 </div>
                                 <div class="ticket-item-content-box mb-3">
+                                    <h5 class="mb-2">{{ __('Tag') }}</h5>
+                                    <p>
+                                        @if($ticket->asset)
+                                        
+                                        {{ $ticket->asset->tag }}
+                                        @else
+                                            --
+                                        @endif
+
+
+
+                                    </p>
+                                </div>
+                                <div class="ticket-item-content-box mb-3">
                                     <h5 class="mb-2">{{ __('Property') }}</h5>
                                     <p>{{ $ticket->property->name }}</p>
                                 </div>

@@ -68,7 +68,7 @@ class AssetController extends Controller
 
             if( $asset!=null){
             // $item = Asset::where('id',$id)->first();
-            $asset->status_id = 10;
+            $asset->status = 10;
             $asset->save();
             }
                     
@@ -156,7 +156,7 @@ class AssetController extends Controller
         $asset = new Asset();
         $asset->name = $request->name;
         $asset->tag = $request->tag;
-        $asset->status_id = $request->status_id;
+        $asset->status = $request->status;
         $asset->category_id = $request->category_id;
         $asset->manufacturer_id = $request->manufacturer_id;
         $asset->condition_id = $request->condition_id;

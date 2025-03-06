@@ -9,6 +9,7 @@ use App\Services\MaintenanceRequestService;
 use App\Services\PropertyService;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
+use App\Models\Ticket;
 
 class MaintenanceRequestController extends Controller
 {
@@ -29,6 +30,7 @@ class MaintenanceRequestController extends Controller
         $data['pageTitle'] = __('Maintenance');
         $data['properties'] = $this->propertyService->getAll();
         $data['issues'] = $this->maintenanceIssueService->getActiveAll();
+        $data['tickets'] = Ticket::orderBy('updated_at', 'desc')->get();
         if ($request->ajax()) {
             return $this->maintenanceRequestService->getAllData();
         }

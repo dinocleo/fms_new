@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('details')->nullable();
             $table->tinyInteger('status')->default(MAINTENANCE_REQUEST_STATUS_PENDING);
             $table->unsignedBigInteger('attach_id')->nullable();
+            $table->unsignedBigInteger('ticket_id')->nullable();
             $table->unsignedBigInteger('invoice_id')->nullable();
             $table->decimal('amount')->default(0);
             $table->timestamps();

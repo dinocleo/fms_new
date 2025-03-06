@@ -167,6 +167,35 @@
                                 </div>
                             </div>
                           
+                            
+                            
+                            <div class="row">
+                                {{-- <div class="col-md-6 mb-25">
+                                    <label
+                                        class="label-text-title color-heading font-medium mb-2">{{ __('Issue') }}</label>
+                                    <select class="form-select flex-shrink-0 issue_id" name="issue_id">
+                                        <option value="">--{{ __('Select Issue') }}--</option>
+                                        @foreach ($issues as $issue)
+                                            <option value="{{ $issue->id }}">{{ $issue->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div> --}}
+                                <div class="col-md-6 mb-25">
+                                    <label
+                                        class="label-text-title color-heading font-medium mb-2">{{ __('Related Incident') }}</label>
+                                    <select class="form-select flex-shrink-0 status" name="ticket_id">
+                                        <option selected value="">--Select Ticket--</option>
+                                        @if(count($tickets))
+                                       @foreach($tickets as $item)
+                                        <option value="{{ $item->id }}">{{ __($item->title) }}</option>
+                                        @endforeach
+                                        @endif
+                                      
+                                    </select>
+                                </div>
+                            </div>
+
+
                             <div class="row">
                                 <div class="col-md-12 mb-25">
                                     <label
@@ -328,6 +357,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
                                 </div>
                                 <div class="row align-items-start">
                                     <div class="col-md-6">
@@ -349,6 +379,13 @@
                                     </div>
                                 </div>
                             </div>
+
+
+                            <div class="view-information-page-box mb-25">
+                                <label class="label-text-title color-heading font-medium mb-2">{{ __('Incident No') }}</label>
+                                <p class="--"></p>
+                            </div>
+
 
                             <div class="view-information-page-box mb-25">
                                 <label class="label-text-title color-heading font-medium mb-2">{{ __('Details') }}</label>

@@ -23,7 +23,7 @@
             }
         },
         columns: [
-            { "data": "image", "image": 'DT_RowIndex' },
+            // { "data": "image", "image": 'DT_RowIndex' },
             { "data": "tag", "tag": "users.tag" },
             { "data": "name" },
             { "data": "property" },
