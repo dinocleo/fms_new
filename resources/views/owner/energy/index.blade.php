@@ -58,7 +58,7 @@
                                             <td>
                                                 <!-- Edit Button -->
                                                 <a href="{{ route('owner.property.energy.edit', $utility->id) }}"
-                                                    class="btn btn-warning btn-sm">
+                                                    class="p-1 tbl-action-btn edit">
                                                     <i class="fas fa-edit"></i> <!-- Pencil icon for Edit -->
                                                 </a>
 
@@ -67,7 +67,7 @@
                                                     method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="btn btn-danger btn-sm ml-2" type="submit">
+                                                    <button class="p-1 tbl-action-btn" type="submit">
                                                         <i class="fas fa-trash-alt"></i> <!-- Trash icon for Delete -->
                                                     </button>
                                                 </form>
