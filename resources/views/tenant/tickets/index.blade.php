@@ -95,7 +95,28 @@
                                         placeholder="{{ __('Title') }}">
                                 </div>
                             </div>
+
                             <div class="row">
+                                <div class="col-md-12">
+                                    <div class=" ">
+                                        <label class="label-text-title color-heading font-medium mb-2">
+                                            {{ __('Asset Tag') }}
+                                        </label>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <input type="text" class="form-control" name="asset_tag"
+                                                placeholder="{{ __('E.g CCBRT-390239323') }}">
+                                            <button type="button" class="theme-btn"  
+                                               
+                                                title="{{ __('Create Ticket') }}">
+                                                {{ __('Scan') }}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                            <div class="row" style="margin-top:20px">
                                 <div class="col-md-12 mb-25">
                                     <label
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Details') }}</label>

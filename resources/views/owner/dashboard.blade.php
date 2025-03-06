@@ -112,6 +112,8 @@
                                 </div>
                             </div>
                         </div>
+                    </div> 
+                    <!-- Chart row -->
 
 
                         <!-- Assets Management Summary -->

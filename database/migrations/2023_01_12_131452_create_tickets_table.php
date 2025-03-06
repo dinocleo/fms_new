@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('details');
             $table->unsignedBigInteger('topic_id');
+            $table->unsignedBigInteger('asset_tag')->nullable();
             $table->tinyInteger('status')->default(TICKET_STATUS_OPEN);
             $table->string('ticket_no')->unique();;
             $table->timestamps();

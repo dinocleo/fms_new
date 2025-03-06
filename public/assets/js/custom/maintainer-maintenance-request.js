@@ -22,4 +22,6 @@ function getDataRes(response) {
     }
     $('.issue_name').text(response.data.issue_name)
     $('.view_details').text(response.data.details)
+    // $('.view_incident_no').text(response.data.view_incident_no)
+
 }

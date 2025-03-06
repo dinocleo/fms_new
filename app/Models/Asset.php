@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Asset extends Model
 {
     use HasFactory;
+    protected $fillable = ['name', 'tag', 'status', 'category_id', 'manufacturer_id'];
+
     public function AssetCategory()
     {
         return $this->belongsTo(AssetCategory::class,  'category_id','id');

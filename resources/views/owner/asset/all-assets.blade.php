@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             alert('Bulk imported successfully!');
                             location.reload();
                         } else {
-                            // alert('Error saving bulk assets.');
+                            alert('Error saving bulk assets.');
                         }
                     })
                     .catch(error => {
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     class="table bg-off-white aaa theme-border dt-responsive">
                                     <thead>
                                         <tr>
-                                            <th>{{ __('Image') }}</th>
+                                            {{-- <th>{{ __('Image') }}</th> --}}
                                             {{-- <th>{{ __('Name') }}</th> --}}
                                             {{-- <th>{{ __('Name') }}</th> --}}
                                             <th>{{ __('Tag') }}</th>
@@ -359,7 +359,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <div class="col-md-6 mb-25">
                                     <label
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Status') }}</label>
-                                        <select required class="form-select flex-shrink-0 status_id" name="status_id">
+                                        <select required class="form-select flex-shrink-0 status" name="status">
                                             <option value="">--{{ __('Select Status Class') }}--</option>
                                             @if(count($status)>0)
                                             @foreach ($status as $item)

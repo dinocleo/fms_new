@@ -151,6 +151,7 @@ class MaintenanceRequestService
             $maintenance->owner_user_id = $userId;
             $maintenance->unit_id = $request->unit_id;
             $maintenance->issue_id = $request->issue_id;
+            $maintenance->ticket_id = $request->ticket_id;
             $maintenance->details = $request->details;
             $maintenance->created_date = $request->created_date;
             $maintenance->status = in_array($request->status, [MAINTENANCE_REQUEST_STATUS_COMPLETE, MAINTENANCE_REQUEST_STATUS_INPROGRESS, MAINTENANCE_REQUEST_STATUS_PENDING]) ? $request->status : MAINTENANCE_REQUEST_STATUS_PENDING;

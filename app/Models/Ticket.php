@@ -51,4 +51,9 @@ class Ticket extends Model
             $model->save();
         });
     }
+
+    public function asset()
+    {
+        return $this->belongsTo(Asset::class, 'asset_tag', 'tag');
+    }
 }

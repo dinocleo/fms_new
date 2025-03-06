@@ -61,6 +61,7 @@ function getDataRes(response) {
     $('.unit_name').text(response.data.unit_name);
     $('.issue_name').text(response.data.issue_name);
     $('.view_details').text(response.data.details);
+    // $('.view_incident_no').text(response.data.details);
     $('.resolved_date').val(response.data.resolved_date);
     $(document).find('#statusSelect').trigger('change');
 }

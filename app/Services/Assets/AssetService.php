@@ -14,7 +14,6 @@ class AssetService{
     public function saveBulkAsset($request){
 
         // $tag
-
         DB::beginTransaction();
         try {
 
@@ -55,31 +54,45 @@ for ($i = 0; $i < count($data['Name']); $i++) {
                 if(isset($tag) && $tag!=null){
                     $asset->tag = $data[$tag][$i];
                 }
-                $asset->status= 8;
+                $asset->status = 8;
                 $asset->category_id = 1;
                 $asset->manufacturer_id = 1;
 
-                $asset->save();
+                try {
+                    $asset->save();
+                    dd("failed24");
+
+                } catch (\Exception $e) {
+                    return ('Save failed: ' . $e->getMessage());
+                }
+
+                
+ 
+            }else{
+                return "woxzrked1";
 
             }
    
+    }else{
+        return "failed";
+
     }
     
 }
 
             DB::commit();
-            $message = __(DELETED_SUCCESSFULLY);
-            $response = ['response' => true, 'error' => false, 'message' => 'success'];
-            return response()->json($response, 200);
+            // $message = __(DELETED_SUCCESSFULLY);
+            // $response = ['response' => true, 'error' => false, 'message' => 'success'];
+            // return response()->json($response, 200);
 
             
             // return redirect()->back()->with('success', __(DELETED_SUCCESSFULLY));
             
         } catch (\Exception $e) {
             DB::rollBack();
-            $message = getErrorMessage($e, $e->getMessage());
-            $response = ['response' => true, 'error' => false, 'message' => 'fail', 'data'=>$e->getMessage()];
-            return response()->json($response, 200);
+            // $message = getErrorMessage($e, $e->getMessage());
+            // $response = ['response' => true, 'error' => false, 'message' => 'fail', 'data'=>$e->getMessage()];
+            // return response()->json($response, 200);
 
 
         }
@@ -108,7 +121,7 @@ for ($i = 0; $i < count($data['Name']); $i++) {
         DB::beginTransaction();
         try {
             $item = Asset::where('id',$id)->first();
-            $item->status_id = 10;
+            $item->status = 10;
             $item->save();
             DB::commit();
             $message = __(DELETED_SUCCESSFULLY);
