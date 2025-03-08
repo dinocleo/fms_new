@@ -39,10 +39,10 @@ $missing_description = $request->input('column14');
 $data = json_decode($request->input('columns'),true);
 
 // Loop through the "Name" array and print its corresponding values
-
+// return $data;
 for ($i = 0; $i < count($data['Name']); $i++) {
 
-    if(isset($tag) && $tag!=null){
+    if(isset($tag) && $tag!=null && $name!=null){
 
         $asset_tag_check = Asset::where('tag', $data[$tag][$i])->first();
             if($asset_tag_check==null){
@@ -60,10 +60,12 @@ for ($i = 0; $i < count($data['Name']); $i++) {
 
                 try {
                     $asset->save();
-                    dd("failed24");
+                    dd($asset);
 
                 } catch (\Exception $e) {
-                    return ('Save failed: ' . $e->getMessage());
+                    // return ('Save failed: ' .  $data[$name]. $e->getMessage());
+                    $response = ['response' => true, 'error' => true, 'message' => 'Column is missing'];
+                    return response()->json($response, 200);
                 }
 
                 

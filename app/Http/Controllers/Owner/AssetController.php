@@ -15,6 +15,7 @@ use App\Models\AssetStatus;
 use App\Models\Condition;
 use App\Services\Assets\AssetService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AssetController extends Controller
 {
@@ -32,7 +33,78 @@ class AssetController extends Controller
 
     public function saveBulkAsset(Request $request){
         // return "sdfs";
-        return $this->assetsService->saveBulkAsset($request);
+
+
+         // $tag
+         DB::beginTransaction();
+         try {
+ 
+             
+ 
+             // Get the uploaded file
+             // $file = $request->file('bulk_asset_file');
+             // $columns = json_decode($request , true);
+ $name = $request->input('column1');
+ $tag = $request->input('column2');
+ $category = $request->input('column3');
+ $manufacturer = $request->input('column4');
+ $purchase_date = $request->input('column5');
+ $Condition = $request->input('column6');
+ $Property = $request->input('column7');
+ $Unit = $request->input('column8');
+ $sub_unit = $request->input('column9');
+ $Vendor = $request->input('column10');
+ $depreciation_class = $request->input('column12');
+ $Status = $request->input('column13');
+ $missing_description = $request->input('column14');
+  
+ $data = json_decode($request->input('columns'),true);
+ 
+ // Loop through the "Name" array and print its corresponding values
+ // return $data;
+ for ($i = 0; $i < count($data['Name']); $i++) {
+ 
+     if(isset($tag) && $tag!=null && $name!=null){
+ 
+         $asset_tag_check = Asset::where('tag', $data[$tag][$i])->first();
+             if($asset_tag_check==null){
+                 $asset = new Asset();
+ 
+                 if(isset($name) && $name!=null){
+                     $asset->name = $data[$name][$i];
+                 }
+                 if(isset($tag) && $tag!=null){
+                     $asset->tag = $data[$tag][$i];
+                 }
+                 $asset->status = "active";
+                 $asset->category_id = 1;
+                 $asset->manufacturer_id = 1;
+ 
+                      $asset->save();
+                    //  dd($asset);
+
+                }
+
+            }
+
+        }
+                DB::commit();
+                // $message = getErrorMessage($e, $e->getMessage());
+                $response = ['response' => true, 'error' => false, 'message' => 'success'];
+                return response()->json($response, 200);
+
+            } catch (\Exception $e) {
+                DB::rollBack();
+                // $message = getErrorMessage($e, $e->getMessage());
+                $response = ['response' => true, 'error' => true, 'message' => 'fail'];
+                return response()->json($response, 200);
+    
+    
+            }
+
+
+                     return redirect()->back();
+        // return $this->assetsService->saveBulkAsset($request);
 
     }
     public function updateLocation(Request $request){

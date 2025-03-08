@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     .then(response => response.json())
                     .then(data => {
                         // alert(data)
-                        if (data.message = 'success') {
+                        if (data.message == 'success') {
                             alert('Bulk imported successfully!');
                             location.reload();
                         } else {
@@ -196,11 +196,19 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="addModalLabel">{{ __('Add Asset') }}</h4>
+                <div class="modal-header" style="margin-bottom:10px">
+                    <h4 class="modal-title" id="addModalLabel">{{ __('Add Asset') }}</h4> 
+
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
                             class="iconify" data-icon="akar-icons:cross"></span></button>
                 </div>
+
+                @if(count($depreciation_class)==0)<p style="color:red"> Please register depreciation Class First  </p>@endif
+                @if(count($categories)==0)<p style="color:red"> Please register category First  </p>@endif
+                @if(count($manufacturer)==0)<p style="color:red"> Please register manufacturer First  </p>@endif
+                @if(count($conditions)==0)<p style="color:red"> Please asset conditions First  </p>@endif
+
+
                 <form   action="{{ route('owner.assets.save-asset') }}" method="POST"
                     data-handler="getShowMessage">
 
@@ -313,7 +321,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <div class="col-md-6 mb-25">
                                     <label
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Vendor') }}</label>
-                                    <select class="form-select flex-shrink-0 property_id" name="vendor_id">
+                                    <select class="form-select flex-shrink-0 vendor_id" name="vendor_id">
                                         <option value="" selected>--{{ __('Select Vendor') }}--</option>
                                         @if(count($vendor)>0)
                                         @foreach ($vendor as $item)

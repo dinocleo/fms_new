@@ -28,7 +28,7 @@
                     <!-- Information Page Area row Start -->
                     <div class="row">
                         <!-- Property Top Search Bar Start -->
-                        <h4 class="mb-20">{{ __('All Maintanance') }}</h4>
+                        <h4 class="mb-20">{{ __('All Pending Maintanance') }}</h4>
                         <div class="property-top-search-bar">
                             <div class="property-search-inner-bg bg-off-white theme-border radius-4 p-25 mb-25">
                                 <div class="row align-items-center rg-25">
@@ -193,6 +193,21 @@
                                       
                                     </select>
                                 </div>
+
+                                <div class="col-md-6 mb-25">
+                                    <label
+                                        class="label-text-title color-heading font-medium mb-2">{{ __('Maintainer') }}</label>
+                                    <select class="form-select flex-shrink-0 status" name="maintainer">
+                                        <option selected value="">--Select Ticket--</option>
+                                        @if(count($maintainers))
+                                       @foreach($maintainers as $item)
+                                        <option value="{{ $item->id }}">{{ __($item->user->first_name) }} {{ __($item->user->last_name) }}</option>
+                                        @endforeach
+                                        @endif
+                                      
+                                    </select>
+                                </div>
+
                             </div>
 
 
