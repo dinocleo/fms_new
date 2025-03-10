@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Owner;
 
 use App\Models\AssetCategory;
 use Illuminate\Http\Request;
-use App\Services\Assets\assetCategoryService;
+use App\Services\Assets\AssetCategoryService;
 use App\Http\Controllers\Controller;
 
 class AssetCategoryController extends Controller
@@ -17,6 +17,7 @@ class AssetCategoryController extends Controller
 
      public function __construct()
      {
+
      $this->assetCategoryService = new assetCategoryService;
 
     }
