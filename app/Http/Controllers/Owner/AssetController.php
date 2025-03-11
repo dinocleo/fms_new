@@ -16,6 +16,7 @@ use App\Models\Condition;
 use App\Services\Assets\AssetService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\propertyUnit;
 
 class AssetController extends Controller
 {

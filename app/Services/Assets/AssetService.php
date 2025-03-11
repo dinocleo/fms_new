@@ -5,6 +5,9 @@ use App\Models\Asset;
 use Illuminate\Support\Facades\DB;
 use App\Traits\ResponseTrait;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use App\Models\propertyUnit;
+use App\Models\Property;
+
 
 use Exception;
 
