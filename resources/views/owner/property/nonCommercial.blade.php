@@ -34,7 +34,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <a href="{{ route('owner.property.nonCommercialAdd') }}" class="theme-btn mb-25"
-                                        title={{ __('Add New Non Commercial') }}>{{ __('Add New Non Commercial') }}</a>
+                                        title={{ __('Add Non Commercial') }}>{{ __('Add Non Commercial') }}</a>
                                 </div>
                             </div>
                         </div>
