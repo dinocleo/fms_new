@@ -9,10 +9,17 @@ class EnergyManagement extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'date',
+        'month',
         'utility_type',
         'consumption',
         'cost',
         'notes',
+        
     ];
+
+    public function nonCommercialProperty()
+    {
+        return $this->belongsTo(NonCommercial::class, 'non_commercial_property_id');
+    }
+
 }

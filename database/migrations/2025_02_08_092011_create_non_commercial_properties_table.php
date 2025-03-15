@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('non_commercial_properties', function (Blueprint $table) {
             $table->id();
             $table->enum('property_type', ['office', 'resident']);
-            $table->string('property_name')->nullable();
+            $table->string('name')->nullable();
             $table->string('region')->nullable();
             $table->string('district')->nullable();
             $table->string('street')->nullable();

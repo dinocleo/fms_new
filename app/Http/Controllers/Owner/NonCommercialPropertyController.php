@@ -27,7 +27,7 @@ class NonCommercialPropertyController extends Controller
         // Create a new property and store it in $property
         $property = NonCommercial::create([
             'property_type' => $request->property_type,
-            'property_name' => $request->property_name,
+            'name' => $request->property_name,
             'region' => $request->region,
             'district' => $request->district,
             'street' => $request->street,

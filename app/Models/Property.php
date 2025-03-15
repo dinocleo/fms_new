@@ -54,5 +54,11 @@ class Property extends Model
     {
         return $this->hasOne(FileManager::class, 'id', 'thumbnail_image_id')->select('id', 'folder_name', 'file_name', 'origin_type', 'origin_id');
     }
+
+    public function energyManagements()
+    {
+        return $this->hasMany(EnergyManagement::class, 'non_commercial_property_id');
+    }
+    
     
 }
