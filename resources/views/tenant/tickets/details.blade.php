@@ -173,13 +173,12 @@
                                 <div class="ticket-item-content-box mb-3">
                                     <h5 class="mb-2">{{ __('Tag') }}</h5>
                                     <p>
-                                        @if($ticket->asset)
-                                        
-                                        {{ $ticket->asset->tag }}
+                                        @if($ticket->asset_tag!=null)                                        
+                                        {{ $ticket->asset_tag }}
                                         @else
                                             --
                                         @endif
-
+ 
 
 
                                     </p>

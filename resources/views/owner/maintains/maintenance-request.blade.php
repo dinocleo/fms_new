@@ -148,7 +148,7 @@
                             <div class="row">
                                 <div class="col-md-6 mb-25">
                                     <label
-                                        class="label-text-title color-heading font-medium mb-2">{{ __('Issue') }}</label>
+                                        class="label-text-title color-heading font-medium mb-2">{{ __('Issue (Type)') }}</label>
                                     <select class="form-select flex-shrink-0 issue_id" name="issue_id">
                                         <option value="">--{{ __('Select Issue') }}--</option>
                                         @foreach ($issues as $issue)
@@ -160,9 +160,11 @@
                                     <label
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Status') }}</label>
                                     <select class="form-select flex-shrink-0 status" name="status">
-                                        <option value="1">{{ __('Completed') }}</option>
+                                        <option value="4" selected>{{ __('Open') }}</option>
                                         <option value="2">{{ __('In Progress') }}</option>
                                         <option value="3">{{ __('Pending') }}</option>
+                                        {{-- <option value="1">{{ __('Completed') }}</option> --}}
+
                                     </select>
                                 </div>
                             </div>
@@ -182,12 +184,12 @@
                                 </div> --}}
                                 <div class="col-md-6 mb-25">
                                     <label
-                                        class="label-text-title color-heading font-medium mb-2">{{ __('Related Incident') }}</label>
+                                        class="label-text-title color-heading font-medium mb-2">{{ __('Related Ticket') }}</label>
                                     <select class="form-select flex-shrink-0 status" name="ticket_id">
                                         <option selected value="">--Select Ticket--</option>
                                         @if(count($tickets))
                                        @foreach($tickets as $item)
-                                        <option value="{{ $item->id }}">{{ __($item->title) }}</option>
+                                        <option value="{{ $item->id }}">{{ __($item->title) }} - <small> {{ __($item->ticket_no) }}</small></option>
                                         @endforeach
                                         @endif
                                       
@@ -397,7 +399,7 @@
 
 
                             <div class="view-information-page-box mb-25">
-                                <label class="label-text-title color-heading font-medium mb-2">{{ __('Incident No') }}</label>
+                                <label class="label-text-title color-heading font-medium mb-2">{{ __('Ticket No') }}</label>
                                 <p class="--"></p>
                             </div>
 

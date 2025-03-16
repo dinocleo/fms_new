@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Models\FileManager;
 use App\Models\MaintenanceRequest;
+use App\Models\MaintananceRequestAssignee;
+
 use App\Models\Property;
 use App\Traits\ResponseTrait;
 use Exception;
@@ -79,7 +81,11 @@ class MaintenanceRequestService
                     return '<div class="status-btn status-btn-green font-13 radius-4">Completed</div>';
                 } elseif ($maintenance->status == MAINTENANCE_REQUEST_STATUS_INPROGRESS) {
                     return '<div class="status-btn status-btn-orange font-13 radius-4">In Progress</div>';
-                } else {
+                
+            } elseif ($maintenance->status == MAINTENANCE_REQUEST_STATUS_OPEN) {
+                return '<div class="status-btn status-btn-orange font-13 radius-4">Open</div>';
+            }
+             else {
                     return '<div class="status-btn status-btn-red font-13 radius-4">Pending</div>';
                 }
             })
@@ -154,8 +160,14 @@ class MaintenanceRequestService
             $maintenance->ticket_id = $request->ticket_id;
             $maintenance->details = $request->details;
             $maintenance->created_date = $request->created_date;
-            $maintenance->status = in_array($request->status, [MAINTENANCE_REQUEST_STATUS_COMPLETE, MAINTENANCE_REQUEST_STATUS_INPROGRESS, MAINTENANCE_REQUEST_STATUS_PENDING]) ? $request->status : MAINTENANCE_REQUEST_STATUS_PENDING;
+            $maintenance->status = in_array($request->status, [MAINTENANCE_REQUEST_STATUS_COMPLETE, MAINTENANCE_REQUEST_STATUS_INPROGRESS, MAINTENANCE_REQUEST_STATUS_PENDING, MAINTENANCE_REQUEST_STATUS_OPEN]) ? $request->status : MAINTENANCE_REQUEST_STATUS_OPEN;
             $maintenance->save();
+
+            $assigned_to = new MaintananceRequestAssignee();
+            $assigned_to->maintainer_id = $request->maintainer;
+            $assigned_to->maintanance_request_id = $maintenance->id;
+            $assigned_to->save();
+
 
             /*File Manager Call upload*/
             if ($request->hasFile('attach')) {

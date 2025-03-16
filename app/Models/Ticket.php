@@ -54,6 +54,6 @@ class Ticket extends Model
 
     public function asset()
     {
-        return $this->belongsTo(Asset::class, 'asset_tag', 'tag');
+        return $this->belongsTo(Asset::class,'tag', 'asset_tag');
     }
 }

@@ -52,6 +52,9 @@
                                                     @elseif($request->status == MAINTENANCE_REQUEST_STATUS_INPROGRESS)
                                                         <div class="status-btn status-btn-orange font-13 radius-4">
                                                             {{ __('In Progress') }}</div>
+                                                    @elseif($request->status == MAINTENANCE_REQUEST_STATUS_OPEN)
+                                                            <div class="status-btn status-btn-orange font-13 radius-4">
+                                                                {{ __('Open') }}</div>
                                                     @else
                                                         <div class="status-btn status-btn-red font-13 radius-4">
                                                             {{ __('Pending') }}</div>

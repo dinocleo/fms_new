@@ -1,6 +1,11 @@
-#Account Owner:
+#Account tenant:
     username/email: onassiskenan10@gmail.com
     password: 12345678
+
+#Account Owner:
+    username/email: onassiskenangmail.com
+    password: 123456
+
 
  #Account Maintainer:
     username/email: johnlupia@gmail.com
@@ -14,6 +19,7 @@ Efms@NK2025
 
 #sort conflict in terminal during git merge
     rm /c/xampp/htdocs/IO/fms_new/.git/.MERGE_MSG.swp
+
 
 
 Test/UAT VPS. Application url: efms-test.nikanet.co.tz 
