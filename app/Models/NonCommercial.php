@@ -14,7 +14,7 @@ class NonCommercial extends Model
 
     protected $fillable = [
         'property_type',  
-        'property_name',
+        'name',
         'region',
         'district',
         'street',
@@ -33,5 +33,10 @@ class NonCommercial extends Model
 
     public function units() {
         return $this->hasMany(NonCommercialUnit::class, 'non_commercial_properties_id'); // Update this
+    }
+
+    public function energyManagements()
+    {
+        return $this->hasMany(EnergyManagement::class, 'non_commercial_property_id');
     }
 }

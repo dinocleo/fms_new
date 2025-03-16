@@ -89,7 +89,7 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         Route::get('energy-management/{id}/edit', [EnergyManagementController::class, 'edit'])->name('energy.edit');
         Route::put('energy-management/{id}', [EnergyManagementController::class, 'update'])->name('energy.update');
         Route::delete('energy-management/{id}', [EnergyManagementController::class, 'destroy'])->name('energy.destroy');
-
+        Route::post('energy-management/import', [EnergyManagementController::class, 'import'])->name('energy.import');
 
          // Vendor and Contractor Management
         Route::get('vendor', [VendorContractController::class, 'index'])->name('vendor.index');
