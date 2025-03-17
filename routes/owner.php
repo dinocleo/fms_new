@@ -7,26 +7,32 @@ use App\Http\Controllers\Owner\FleetController;
 use App\Http\Controllers\Owner\ReportController;
 use App\Http\Controllers\Owner\TenantController;
 use App\Http\Controllers\Owner\TicketController;
+use App\Http\Controllers\Owner\VendorController;
 use App\Http\Controllers\Owner\ExpenseController;
 use App\Http\Controllers\Owner\GatewayController;
 use App\Http\Controllers\Owner\InvoiceController;
 use App\Http\Controllers\Owner\SettingController;
+use App\Http\Controllers\Owner\SubUnitController;
+use App\Http\Controllers\Owner\VisitorController;
 use App\Http\Controllers\Owner\CurrencyController;
 use App\Http\Controllers\Owner\DocumentController;
 use App\Http\Controllers\Owner\LocationController;
 use App\Http\Controllers\Owner\PropertyController;
 use App\Http\Controllers\Tenancy\DomainController;
+use App\Http\Controllers\Owner\ConditionController;
 use App\Http\Controllers\Owner\DashboardController;
 use App\Http\Controllers\Owner\KycConfigController;
 use App\Http\Controllers\Owner\ComplianceController;
 use App\Http\Controllers\Owner\MaintainerController;
 use App\Http\Controllers\Owner\TeamMemberController;
+use App\Http\Controllers\Owner\AssetStatusController;
 use App\Http\Controllers\Owner\ExpenseTypeController;
 use App\Http\Controllers\Owner\InformationController;
 use App\Http\Controllers\Owner\InvoiceTypeController;
 use App\Http\Controllers\Owner\NoticeBoardController;
 use App\Http\Controllers\Owner\TicketTopicController;
 use App\Http\Controllers\Owner\ManufacturerController;
+use App\Http\Controllers\Owner\AssetCategoryController;
 use App\Http\Controllers\Owner\RolePermissionController;
 use App\Http\Controllers\Owner\VendorContractController;
 use App\Http\Controllers\Owner\SpaceManagementController;
@@ -35,11 +41,6 @@ use App\Http\Controllers\Owner\InvoiceRecurringController;
 use App\Http\Controllers\Owner\MaintenanceIssueController;
 use App\Http\Controllers\Owner\MaintenanceRequestController;
 use App\Http\Controllers\Owner\NonCommercialPropertyController;
-use App\Http\Controllers\Owner\SubUnitController;
-use App\Http\Controllers\Owner\AssetStatusController;
-use App\Http\Controllers\Owner\ConditionController;
-use App\Http\Controllers\Owner\AssetCategoryController;
-use App\Http\Controllers\Owner\VendorController;
 
 
 Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'owner']], function () {
@@ -90,6 +91,16 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         Route::put('energy-management/{id}', [EnergyManagementController::class, 'update'])->name('energy.update');
         Route::delete('energy-management/{id}', [EnergyManagementController::class, 'destroy'])->name('energy.destroy');
         Route::post('energy-management/import', [EnergyManagementController::class, 'import'])->name('energy.import');
+        Route::get('/download/sample-excel', [EnergyManagementController::class, 'downloadSampleExcel'])->name('download.sample.excel');
+
+
+        Route::get('/visitors', [VisitorController::class, 'index'])->name('visitors');
+        Route::get('/visitors/create', [VisitorController::class, 'create'])->name('visitors.create');
+        Route::post('/visitors', [VisitorController::class, 'store'])->name('visitors.store');
+        Route::get('/visitors/{visitor}', [VisitorController::class, 'show'])->name('visitors.show');
+        Route::get('/visitors/{visitor}/edit', [VisitorController::class, 'edit'])->name('visitors.edit');
+        Route::put('/visitors/{visitor}', [VisitorController::class, 'update'])->name('visitors.update');
+        Route::delete('/visitors/{visitor}', [VisitorController::class, 'destroy'])->name('visitors.destroy');
 
          // Vendor and Contractor Management
         Route::get('vendor', [VendorContractController::class, 'index'])->name('vendor.index');
