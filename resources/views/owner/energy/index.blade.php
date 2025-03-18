@@ -93,11 +93,21 @@
                                                 <td>{{ 'TSh ' . number_format($utility->cost, 2, '.', ',') }}</td>
                                                 <td>{{ $utility->notes }}</td>
                                                 <td>
-                                                    <!-- Edit Button -->
-                                                    <a href="{{ route('owner.property.energy.edit', $utility->id) }}"
-                                                        class="p-1 tbl-action-btn edit">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
+                                                 <!-- Edit Button in Index View -->
+                                                <a href="javascript:void(0);" class="p-1 tbl-action-btn edit"
+                                                data-id="{{ $utility->id }}"
+                                                data-month="{{ $utility->month }}"
+                                                data-utility_type="{{ $utility->utility_type }}"
+                                                data-property_type="{{ $utility->property_type }}"
+                                                data-property_id="{{ $utility->property_id }}"
+                                                data-cost="{{ $utility->cost }}"
+                                                data-notes="{{ $utility->notes }}"
+                                                onclick="openEditModal(this)">
+                                                <i class="fas fa-edit"></i>
+                                                </a>
+
+
+
 
                                                     <!-- Delete Button -->
                                                     <form
@@ -123,7 +133,6 @@
 
 
                     <!-- Add Utility Modal -->
-
 
                     <div class="modal fade" id="addUtilityModal" tabindex="-1" aria-labelledby="addUtilityModalLabel"
                         aria-hidden="true">
@@ -169,7 +178,8 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="property_type"
                                                     id="non_commercial" value="non_commercial">
-                                                <label class="form-check-label" for="non_commercial">Non-Commercial</label>
+                                                <label class="form-check-label"
+                                                    for="non_commercial">Non-Commercial</label>
                                             </div>
                                         </div>
 
@@ -227,6 +237,10 @@
                                             <input type="file" class="form-control" id="file" name="file"
                                                 accept=".xls,.xlsx" required>
                                         </div>
+                                        <!-- Sample Excel Template Download Link -->
+                                        <p><a href="{{ route('owner.property.download.sample.excel') }}"
+                                                class="btn btn-link">Download
+                                                Sample</a></p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="theme-btn btn-sm mb-25"
@@ -240,6 +254,7 @@
                     </div>
 
 
+
                 </div>
 
             </div>
@@ -248,10 +263,6 @@
         </div>
     </div>
 
-
-    {{-- <!-- Add Information Modal End -->
-    <input type="hidden" id="getInfoRoute" value="{{ route('owner.information.get.info') }}">
-    <input type="hidden" id="route" value="{{ route('owner.information.index') }}"> --}}
 @endsection
 @push('style')
     @include('common.layouts.datatable-style')
@@ -332,5 +343,33 @@
                 }
             });
         });
+
+        function openEditModal(button) {
+            // Retrieve data attributes from the clicked button
+            var utilityId = button.getAttribute('data-id');
+            var month = button.getAttribute('data-month');
+            var utilityType = button.getAttribute('data-utility_type');
+            var propertyType = button.getAttribute('data-property_type');
+            var propertyId = button.getAttribute('data-property_id');
+            var cost = button.getAttribute('data-cost');
+            var notes = button.getAttribute('data-notes');
+
+            // Set the values into the modal fields
+            document.getElementById('month').value = month;
+            document.getElementById('utility_type').value = utilityType;
+            document.getElementById('commercial').checked = propertyType === 'commercial';
+            document.getElementById('non_commercial').checked = propertyType === 'non_commercial';
+            document.getElementById('property_id').value = propertyId;
+            document.getElementById('cost').value = cost;
+            document.getElementById('notes').value = notes;
+
+            // Set the form action URL for editing the record
+            var form = document.querySelector('#addUtilityModal form');
+            form.action = '/owner/property/energy/' + utilityId; // Use the correct route for update
+
+            // Open the modal
+            var myModal = new bootstrap.Modal(document.getElementById('addUtilityModal'));
+            myModal.show();
+        }
     </script>
 @endpush

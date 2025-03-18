@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\Models\Property;
 use Illuminate\Http\Request;
 use App\Models\NonCommercial;
-use App\Models\EnergyManagement;
-use App\Http\Controllers\Controller;
-use App\Models\Property;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\UtilityImport;
+use App\Models\EnergyManagement;
+use App\Exports\SampleEnergyExport;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class EnergyManagementController extends Controller
@@ -102,6 +103,48 @@ class EnergyManagementController extends Controller
     }
     
 
+    // public function edit($id)
+    // {
+    //     // Find the utility record by ID
+    //     $utility = Utility::findOrFail($id);
+
+    //     // Get properties for both commercial and non-commercial
+    //     $commercialProperties = Property::all();
+    //     $nonCommercialProperties = NonCommercial::all();
+
+    //     // Return the edit view with data
+    //     return view('edit', compact('utility', 'commercialProperties', 'nonCommercialProperties'));
+    // }
+
+    // public function update(Request $request, $id)
+    // {
+    //     $utility = Utility::findOrFail($id);
+    
+    //     // Validate the input
+    //     $request->validate([
+    //         'month' => 'required|date',
+    //         'utility_type' => 'required|in:electricity,fuel,water',
+    //         'property_type' => 'required|in:commercial,non_commercial',
+    //         'property_id' => 'required|exists:properties,id',
+    //         'cost' => 'required|numeric|min:0',
+    //         'notes' => 'nullable|string',
+    //     ]);
+    
+    //     // Update the utility record
+    //     $utility->update([
+    //         'month' => $request->month,
+    //         'utility_type' => $request->utility_type,
+    //         'property_type' => $request->property_type,
+    //         'property_id' => $request->property_id,
+    //         'cost' => $request->cost,
+    //         'notes' => $request->notes,
+    //     ]);
+    
+    //     return redirect()->route('owner.property.energy.index')->with('success', 'Utility record updated successfully.');
+    // }
+    
+
+
     public function destroy($id)
     {
         // Find the utility by its ID
@@ -114,5 +157,9 @@ class EnergyManagementController extends Controller
         return redirect()->route('owner.property.energy.index')->with('success', 'Utility record deleted successfully.');
     }
     
-
+    public function downloadSampleExcel()
+    {
+        // Return a downloadable sample Excel file
+        return Excel::download(new SampleEnergyExport, 'sample_energy_template.xlsx');
+    }
 }

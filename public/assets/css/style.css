@@ -354,7 +354,7 @@ label {
     padding: 6px 12px; /* Reduce padding to make the input smaller */
     font-size: 14px; /* Adjust font size for the input */
     height: 36px; /* Set the height of the input field */
-    line-height: 36px; /* Center the text vertically */
+    line-height: 25px; /* Center the text vertically */
     border-radius: 4px; /* Optional: Adjust the border radius for rounded corners */
     border: 1px solid #ccc; /* Optional: Change the border color */
 }

@@ -144,6 +144,18 @@
                     </li>
                 @endcan
 
+                @can('Manage Asset')
+                    <li>
+                        <a href="{{ route('owner.property.visitors') }}">
+                            <i class="ri-car-line"></i>
+                            <span>{{ __('Visitors') }}</span>
+                        </a>
+                    </li>
+                @endcan
+
+
+
+
                 @can('Manage Report')
                     <li>
                         <a href="{{ route('owner.property.fleetManagement') }}">
@@ -221,24 +233,30 @@
 
 
                             {{-- @can('Manage Tenant') --}}
-                            
+
                             <li class="{{ @$subNavAllTenantMMActiveClass }}">
-                                                <a href="{{ route('owner.tenant.index', ['type' => 'all']) }}"
-                                                    class="{{ @$subNavAllTenantActiveClass }}">{{ __('All Tenants') }}</a>
-                                            </li>
-                                            <li class="{{ @$subNavTenantHistoryMMActiveClass }}">
-                                                <a href="{{ route('owner.tenant.index', ['type' => 'history']) }}"
-                                                    class="{{ @$subNavTenantHistoryActiveClass }}">{{ __('Tenant History') }}</a>
-                                            </li>
-                                    
-                                            
-                                {{-- @endcan --}}
+                                <a href="{{ route('owner.tenant.index', ['type' => 'all']) }}"
+                                    class="{{ @$subNavAllTenantActiveClass }}">{{ __('All Tenants') }}</a>
+                            </li>
+                            <li class="{{ @$subNavTenantHistoryMMActiveClass }}">
+                                <a href="{{ route('owner.tenant.index', ['type' => 'history']) }}"
+                                    class="{{ @$subNavTenantHistoryActiveClass }}">{{ __('Tenant History') }}</a>
+                            </li>
+
+
+                            {{-- @endcan --}}
                         </ul>
                     </li>
                 @endcan
                 @can('Manage Settings')
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('owner.setting.gateway.index') }}">
+                            <i class="ri-settings-3-line"></i>
+                            <span>{{ __('Settings') }}</span>
+                        </a>
+                    </li> --}}
+                    <li>
+                        <a href="{{ route('owner.setting.expense-type.index') }}">
                             <i class="ri-settings-3-line"></i>
                             <span>{{ __('Settings') }}</span>
                         </a>
