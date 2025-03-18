@@ -45,6 +45,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="property-top-search-bar-right text-md-end">
+
+                                            <button type="button" class="theme-btn" id="preventive"
+                                                title="{{ __('Preventive Maintenance') }}">{{ __('Create Preventive Maintenance') }}</button>
+                                      
+
                                             <button type="button" class="theme-btn" id="add"
                                                 title="{{ __('Add Maintenance Request') }}">{{ __('Create Maintenance Request') }}</button>
                                         </div>
@@ -73,6 +78,7 @@
                                         </tr>
                                     </thead>
                                 </table>
+
                             </div>
                             <!-- datatable End -->
                         </div>
@@ -85,6 +91,10 @@
         </div>
         <!-- End Page-content -->
     </div>
+
+
+
+
 
     <!-- Add Information Modal Start -->
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
@@ -240,6 +250,57 @@
         </div>
     </div>
 
+    
+    <div class="modal fade" id="PreventiveModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                {{-- <div class="modal-header">
+                    <h4 class="modal-title" id="addModalLabel">{{ __('Create Maintenance Request') }}</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
+                            class="iconify" data-icon="akar-icons:cross"></span></button>
+                </div> --}}
+                <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl p-6 relative">
+                    <h2 class="text-2xl font-bold mb-4 text-blue-600">Preventive Maintenance</h2>
+                    
+                    <label class="block mb-2">Title:</label>
+                    <input type="text" class="w-full p-2 border rounded mb-3" placeholder="Enter title">
+                    
+                    {{-- <label class="block mb-2">Description:</label> --}}
+                    
+                    <label class="block mb-2">Location:</label>
+                    <input type="text" class="w-full p-2 border rounded mb-3" placeholder="Enter location">
+                    
+                    <label class="block mb-2">Select Dates:</label>
+                    <input id="datePicker" type="text" class="w-full p-2 border rounded mb-3" placeholder="Select multiple dates">
+                    
+                    <label class="block mb-2">Issue:</label>
+                    <select class="w-full p-2 border rounded mb-3">
+                        <option>Cat1</option>
+                        <option>Cat2</option> 
+                    </select>
+                    
+                    
+                    <hr>
+                    <p>
+
+
+                        <textarea columns="50" style="width: -webkit-fill-available;" rows="4" class="w-full p-2 border rounded mb-3" placeholder="Enter description"></textarea>
+
+                        </p>
+
+                    
+                    <div class="flex justify-end gap-3">
+                        <button onclick="closeModal()" class="theme-btn" style="color:white; background:red">Cancel</button>
+                        <button class="theme-btn">Save</button>
+                    </div>
+                </div>
+
+
+                    
+            </div>
+        </div>
+    </div>
+    
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -318,7 +379,7 @@
                                     <input type="file" class="form-control" name="attach">
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                         <!-- Modal Inner Form Box End -->
                     </div>
 
@@ -446,6 +507,26 @@
 @endpush
 
 @push('script')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script>
+         document.addEventListener("DOMContentLoaded", function() {
+        flatpickr("#datePicker", {
+            mode: "multiple",
+            dateFormat: "Y-m-d",
+            theme: "dark"
+        });
+    });
+    
+    function closeModal() {
+        document.getElementById("calendarModal").classList.add("hidden");
+    }</script>
+
     @include('common.layouts.datatable-script')
+    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="{{ asset('assets/js/custom/maintenance-request.js') }}"></script>
+
+    
 @endpush

@@ -4,7 +4,21 @@ $(document).on('click', '#add', function () {
     selector.find('.error-message').remove();
     selector.modal('show');
     selector.find('form').trigger("reset");
+    $('#preventive').modal('hide');
+
 });
+
+
+$(document).on('click', '#preventive', function () {
+    var selector = $('#PreventiveModal');
+    selector.find('.is-invalid').removeClass('is-invalid');
+    selector.find('.error-message').remove();
+    selector.modal('show');
+    selector.find('form').trigger("reset");
+    $('#addModal').modal('hide');
+
+});
+
 
 $(document).on('click', '.edit', function () {
     commonAjax('GET', $('#getInfoRoute').val(), getDataEditRes, getDataEditRes, { 'id': $(this).data('id') });
@@ -61,7 +75,6 @@ function getDataRes(response) {
     $('.unit_name').text(response.data.unit_name);
     $('.issue_name').text(response.data.issue_name);
     $('.view_details').text(response.data.details);
-    // $('.view_incident_no').text(response.data.details);
     $('.resolved_date').val(response.data.resolved_date);
     $(document).find('#statusSelect').trigger('change');
 }
@@ -116,7 +129,7 @@ function getUnitsRes(response) {
             { "data": "unit_name", "name": "property_units.unit_name" },
             { "data": "issue_name", "name": "maintenance_issues.name" },
             { "data": "details", },
-            { "data": "created_date", },
+            { "data": "created_at", },
             { "data": "resolved_date", },
             { "data": "status", },
             { "data": "action", "class": "text-end", },
@@ -130,3 +143,25 @@ function getUnitsRes(response) {
         }
     });
 })(jQuery)
+
+
+// function date_convert(date)
+// {
+//     const isoDate = date;
+// const date = new Date(isoDate);
+
+// const readableTime = date.toLocaleString("en-US", {
+//   year: "numeric",
+//   month: "long",
+//   day: "numeric",
+//   hour: "2-digit",
+//   minute: "2-digit",
+//   second: "2-digit",
+//   hour12: true,
+//   timeZone: "UTC" // Adjust time zone if needed
+// });
+
+
+// return readableTime
+
+// }

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\FileManager;
 use App\Models\MaintenanceRequest;
 use App\Models\MaintananceRequestAssignee;
+use App\Models\Ticket;
 
 use App\Models\Property;
 use App\Traits\ResponseTrait;
@@ -196,8 +197,14 @@ class MaintenanceRequestService
             }
 
             DB::commit();
-            $message = $request->id ? __(UPDATED_SUCCESSFULLY) : __(CREATED_SUCCESSFULLY);
-            return $this->success([], $message);
+            if($maintenance!=null){
+                $message = $request->id ? __(UPDATED_SUCCESSFULLY) : __(CREATED_SUCCESSFULLY);
+                return $this->success([], $message);
+            }else{
+                $message = getErrorMessage($e, $e->getMessage());
+                return $this->error([], $message); 
+            }
+
         } catch (Exception $e) {
             DB::rollBack();
             $message = getErrorMessage($e, $e->getMessage());
@@ -230,6 +237,17 @@ class MaintenanceRequestService
             $maintenance->amount = $request->amount;
             $maintenance->resolved_date = $request->resolved_date;
             $maintenance->save();
+
+
+            if( $maintenance->status==1){
+                $ticket = Ticket::find($maintenance->ticket_id)->first();
+                    if($ticket!=null){
+                        $ticket->status = 5;
+                        $ticket->save();
+                    }
+                }
+            
+
 
             /*File Manager Call upload*/
             if ($request->hasFile('invoice')) {
