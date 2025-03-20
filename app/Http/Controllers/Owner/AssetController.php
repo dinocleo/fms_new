@@ -186,7 +186,7 @@ class AssetController extends Controller
         $data['manufacturer'] = Manufacturer::all();
         $data['categories'] = AssetCategory::all();
         $data['properties'] = Property::all();
-         $data['list'] = Asset::simplePaginate();
+         $data['list'] = Asset::orderby('updated_at', 'desc')->simplePaginate();
 
         return view('owner.asset.all-assets', $data);
 
