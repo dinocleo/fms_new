@@ -3,9 +3,7 @@
 @push('style')
 <style>
 .page-link {
-    
     color: #ffffff;
- 
     background: #28252b;
     margin: 9px;
 }

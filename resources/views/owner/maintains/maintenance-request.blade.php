@@ -47,11 +47,11 @@
                                         <div class="property-top-search-bar-right text-md-end">
 
                                             <button type="button" class="theme-btn" id="preventive"
-                                                title="{{ __('Preventive Maintenance') }}">{{ __('Create Preventive Maintenance') }}</button>
+                                                title="{{ __('Preventive Maintenance') }}" style="margin:2px">{{ __('Create Preventive Maintenance') }}</button>
                                       
 
                                             <button type="button" class="theme-btn" id="add"
-                                                title="{{ __('Add Maintenance Request') }}">{{ __('Create Maintenance Request') }}</button>
+                                                title="{{ __('Add Maintenance Request') }}"  style="margin:2px">{{ __('Create Maintenance Request') }}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -136,7 +136,7 @@
                                 <div class="col-md-6 mb-25">
                                     <label
                                         class="label-text-title color-heading font-medium mb-2">{{ __('Sub Unit') }}</label>
-                                    <select class="form-select flex-shrink-0 unit_id" name="sub_unit_id">
+                                    <select class="form-select flex-shrink-0 sub_unit_id" name="sub_unit_id">
                                         <option value="">--{{ __('Select Sub Unit') }}--</option>
                                     </select>
                                 </div>
@@ -262,30 +262,93 @@
                 <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl p-6 relative">
                     <h2 class="text-2xl font-bold mb-4 text-blue-600">Preventive Maintenance</h2>
                     
+                    <div clas="row">
                     <label class="block mb-2">Title:</label>
                     <input type="text" class="w-full p-2 border rounded mb-3" placeholder="Enter title">
+                    </div>
                     
                     {{-- <label class="block mb-2">Description:</label> --}}
+                    <div clas="row">
+
+                    <label class="block mb-2">Property:</label>
+                    <select class="w-full p-2 border rounded mb-3 "  name="property_id2">
+                        <option value="" selected>--{{ __('Select Property') }}--</option>
+                        @foreach ($properties as $item)
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+
+
+                    <label class="block mb-2">Unit:</label>
+                    <select class="w-full p-2 border rounded mb-3 v"  name="unit_id2">
+                        <option value="">--{{ __('Select Unit') }}--</option>
+
+                    </select>
                     
-                    <label class="block mb-2">Location:</label>
-                    <input type="text" class="w-full p-2 border rounded mb-3" placeholder="Enter location">
+
+                    <label class="block mb-2">Sub Unit:</label>
+                    <select class="w-full p-2 border rounded mb-3 sub_unit_id" name="sub_unit_id2">
+                        <option value="">--{{ __('Select Sub Unit') }}--</option>
+
+                    </select>
                     
-                    <label class="block mb-2">Select Dates:</label>
-                    <input id="datePicker" type="text" class="w-full p-2 border rounded mb-3" placeholder="Select multiple dates">
-                    
+                </div>
+
+              
+                <div clas="row">
+
                     <label class="block mb-2">Issue:</label>
                     <select class="w-full p-2 border rounded mb-3">
                         <option>Cat1</option>
                         <option>Cat2</option> 
                     </select>
-                    
+                </div>
+                <div clas="row">
+
                     
                     <label class="block mb-2">Assigned To:</label>
                     <select class="w-full p-2 border rounded mb-3">
                         <option>Cat1</option>
                         <option>Cat2</option> 
                     </select>
-                    <hr>
+
+                </div>
+
+                <div clas="row">
+
+                    <label class="block mb-2">Select Dates:</label>
+                    <input id="datePicker" type="text" class="w-full p-2 border rounded mb-3" placeholder="Select multiple dates">
+                    
+
+                </div>
+
+
+                <div clas="row">
+
+                    <label class="block mb-2">Monthly Recurring:</label>
+                    <select class="w-full p-2 border rounded mb-3">
+                        <option>Every January</option>
+                        <option>Every February</option> 
+                        <option>Every March</option> 
+                    </select>                    
+
+                </div>
+
+                
+                <div clas="row">
+
+                    <label class="block mb-2">Specific Interval:</label>
+                    <select class="w-full p-2 border rounded mb-3">
+                        <option>Every Week</option>
+                        <option>Every Month</option> 
+                        <option>Every Year</option> 
+                        <option>Every Two Years</option> 
+
+                    </select>                    
+
+                </div>
+
+                    <br>
                     <p>
 
 
@@ -505,6 +568,7 @@
     <!-- Add Information Modal End -->
     <input type="hidden" id="getInfoRoute" value="{{ route('owner.maintenance-request.get.info') }}">
     <input type="hidden" id="route" value="{{ route('owner.maintenance-request.index') }}">
+    <input type="hidden" id="getUnitsRoute" value="{{ route('owner.property.sub-unit.getSubUnits') }}">
     <input type="hidden" id="getPropertyUnitsRoute" value="{{ route('owner.property.getPropertyUnits') }}">
 @endsection
 @push('style')

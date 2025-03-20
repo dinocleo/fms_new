@@ -86,6 +86,12 @@ $(document).on('change', '.property_id', function () {
     commonAjax('GET', getPropertyUnitsRoute, getUnitsRes, getUnitsRes, { 'property_id': $(thisStateSelector).val() });
 });
 
+$(document).on('change', '.unit_id', function () {
+    var thisStateSelector = $(this);
+    var getUnitsRoute = $('#getUnitsRoute').val();
+    commonAjax('GET', getUnitsRoute, getSubUnitsRes, getSubUnitsRes, { 'unit_id': $(thisStateSelector).val() });
+});
+
 function getUnitsRes(response) {
     if (response.data) {
         var unitOptionsHtml = response.data.map(function (opt) {
@@ -97,6 +103,22 @@ function getUnitsRes(response) {
         $('.unit_id').html('<option value="0">--Select Unit--</option>');
     }
 }
+
+
+function getSubUnitsRes(response) {
+
+    if (Array.isArray(response.data) && response.data.length > 0) {
+        var unitOptionsHtml = response.data.map(function (opt) {
+            return '<option value="' + opt.id + '">' + opt.sub_unit_name + '</option>';
+        }).join('');
+        var unitsHtml = '<option value="0">--Select Sub Unit--</option>' + unitOptionsHtml
+        $('.sub_unit_id').html(unitsHtml);
+    } else {
+        $('.sub_unit_id').html('<option value="0">--Select Sub Unit--</option>');
+    }
+}
+
+
 
 (function ($) {
     "use strict";
