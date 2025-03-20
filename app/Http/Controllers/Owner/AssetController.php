@@ -144,8 +144,6 @@ class AssetController extends Controller
             $asset->status = 10;
             $asset->save();
             }
-                    
-                
 
 
             return redirect()->back();   
@@ -188,93 +186,7 @@ class AssetController extends Controller
         $data['manufacturer'] = Manufacturer::all();
         $data['categories'] = AssetCategory::all();
         $data['properties'] = Property::all();
-        $data['list'] = Asset::all();
-        if ($request->ajax()) {
-                        
-                            
-                        $assets = Asset::orderBy('updated_at', 'desc')->where('status', "active")->get();
-                        return datatables($assets)
-                        ->addIndexColumn()
-                        ->addColumn('image', function ($item) {
-                            return '<div class="tenants-tbl-info-object d-flex align-items-center">
-                                    <div class="flex-shrink-0">
-                                        <img src="http://127.0.0.1:8000/assets/images/no-image.jpg"
-                                        class="rounded-circle avatar-md tbl-user-image"
-                                        alt="">
-                                    </div>
-                                </div>';
-                        })
-                        
-                        
-                        ->addColumn('tag', function ($item) {
-                            return $item->tag;
-                        })
-                        ->addColumn('name', function ($item) {
-                            return $item->name;
-                        })
-                        ->addColumn('category', function ($item) {
-                            if($item->AssetCategory!=null){
-                                return $item->AssetCategory->name;
-                            }else{
-                                return "";
-                            }
-                        })
-                        ->addColumn('manufacturer', function ($item) {
-                            if($item->Manufacturer!=null){
-                                return $item->Manufacturer->name;
-                            }else{
-                                return "";
-                            }
-                        })
-                        ->addColumn('property', function ($item) {
-                            if($item->Property!=null){
-                                return $item->Property->name;
-                            }else{
-                                return "";
-                            }
-                        })
-                        ->addColumn('unit', function ($item) {
-                            if($item->propertyUnit!=null){
-                                return $item->propertyUnit->name;
-                            }else{
-                                return "";
-                            }
-                        })
-                        ->addColumn('sub_unit', function ($item) {
-                            if($item->SubUnit!=null){
-                                return $item->SubUnit->name;
-                            }else{
-                                return "";
-                            }
-                        })
-                            ->addColumn('action', function ($item) {
-                            
-
-                // return '<button type="button class="theme-btn" style= "display: inline-flex
-                // ;
-                //     align-items: center;
-                //     cursor: pointer;
-                //     outline: none;
-                //     z-index: 99;
-                //     padding: 4px 5px !important;
-                //     line-height: 20px;
-                //     justify-content: center;
-                //     border-radius: 4px;
-                //     font-weight: 500 !important;
-                //     color: var(--white-color);
-                //     border: 1px solid transparent;background-color: var(--button-primary-color);
-                //     border-radius: 4px;
-                //     padding: 3px;
-                //     color: white;
-                //     font-weight: 700;" title="Replace">View More</button>';
-
-                        })
-                        ->rawColumns(['image', 'tag','name', 'category', 'manufacturer','property','unit','sub_unit','status', 'action'])
-                        ->make(true);
-
-
-        }
-        // return $data;
+         $data['list'] = Asset::simplePaginate();
 
         return view('owner.asset.all-assets', $data);
 

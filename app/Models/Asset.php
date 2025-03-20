@@ -22,13 +22,16 @@ class Asset extends Model
     {
         return $this->belongsTo(Property::class,  'property_id');
     }
-    public function propertyUnit()
+    public function PropertyUnit()
     {
-        return $this->belongsTo(propertyUnit::class,  'unit_id');
+        return $this->belongsTo(PropertyUnit::class,  'unit_id');
     }
     public function SubUnit()
     {
         return $this->belongsTo(SubUnit::class,  'sub_unit_id');
     }
-
+    // public function Condition()
+    // {
+    //     return $this->belongsTo(Condition::class,  'condition_id');
+    // }
 }

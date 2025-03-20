@@ -1,38 +1,5 @@
  
 
-(function ($) {
-    "use strict";
-    var oTable;
-    
-    oTable = $('#allAssetsDataTable1').DataTable({
-        processing: true,
-        serverSide: true,
-        pageLength: 25,
-        responsive: true,
-        ajax: $('#Assetroute').val(),
-        order: [1, 'desc'],
-        ordering: false,
-        autoWidth: false,
-        drawCallback: function () {
-            $(".dataTables_length select").addClass("form-select form-select-sm");
-        },
-        language: {
-            'paginate': {
-                'previous': '<span class="iconify" data-icon="icons8:angle-left"></span>',
-                'next': '<span class="iconify" data-icon="icons8:angle-right"></span>'
-            }
-        },
-        columns: [
-            // { "data": "image", "image": 'DT_RowIndex' },
-            { "data": "tag" },
-            { "data": "name" },
-            { "data": "property" },
-            { "data": "unit" },
-            { "data": "sub_unit" },
-            { "data": "action"},
-        ]
-    });
-})(jQuery);
 
 
     $(document).on('click', '#add2', function () {

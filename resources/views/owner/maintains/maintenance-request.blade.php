@@ -280,6 +280,11 @@
                     </select>
                     
                     
+                    <label class="block mb-2">Assigned To:</label>
+                    <select class="w-full p-2 border rounded mb-3">
+                        <option>Cat1</option>
+                        <option>Cat2</option> 
+                    </select>
                     <hr>
                     <p>
 
