@@ -2,6 +2,10 @@
 
 // use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Route;
+
+
+
+use App\Http\Controllers\Owner\PreventiveMaintenanceController;
 use App\Http\Controllers\Owner\AssetController;
 use App\Http\Controllers\Owner\FleetController;
 use App\Http\Controllers\Owner\ReportController;
@@ -190,6 +194,7 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
 
     Route::group(['prefix' => 'maintenance-request', 'as' => 'maintenance-request.'], function () {
         Route::get('/', [MaintenanceRequestController::class, 'index'])->name('index')->middleware('can:Manage Maintains');
+        Route::post('store-preventive-maintenance', [PreventiveMaintenanceController::class, 'store_info'])->name('store_info')->middleware('can:Manage Maintains');
         Route::post('store', [MaintenanceRequestController::class, 'store'])->name('store');
         Route::get('get-info', [MaintenanceRequestController::class, 'getInfo'])->name('get.info'); // ajax
         Route::post('status-change', [MaintenanceRequestController::class, 'statusChange'])->name('status.change');

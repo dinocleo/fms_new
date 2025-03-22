@@ -24,6 +24,13 @@ $(document).on('click', '.edit', function () {
     commonAjax('GET', $('#getInfoRoute').val(), getDataEditRes, getDataEditRes, { 'id': $(this).data('id') });
 });
 
+$(document).on('change', '.property_id', function () {
+    var thisStateSelector = $(this);
+    var getPropertyUnitsRoute = $('#getPropertyUnitsRoute').val();
+    commonAjax('GET', getPropertyUnitsRoute, getUnitsRes, getUnitsRes, { 'property_id': $(thisStateSelector).val() });
+});
+
+
 function getDataEditRes(response) {
     var selector = $('#editModal');
     selector.find('.is-invalid').removeClass('is-invalid');
@@ -100,7 +107,7 @@ function getUnitsRes(response) {
         var unitsHtml = '<option value="0">--Select Unit--</option>' + unitOptionsHtml
         $('.unit_id').html(unitsHtml);
     } else {
-        $('.unit_id').html('<option value="0">--Select Unit--</option>');
+        $('.unit_id').html('<option value="0">--No Unit--</option>');
     }
 }
 
@@ -114,7 +121,7 @@ function getSubUnitsRes(response) {
         var unitsHtml = '<option value="0">--Select Sub Unit--</option>' + unitOptionsHtml
         $('.sub_unit_id').html(unitsHtml);
     } else {
-        $('.sub_unit_id').html('<option value="0">--Select Sub Unit--</option>');
+        $('.sub_unit_id').html('<option value="0">--No Sub Unit--</option>');
     }
 }
 

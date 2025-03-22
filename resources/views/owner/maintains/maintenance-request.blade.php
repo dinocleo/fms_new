@@ -254,6 +254,8 @@
     <div class="modal fade" id="PreventiveModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
+                <form  action="{{ route('owner.maintenance-request.store_info') }}" method="POST">
+                    @csrf
                 {{-- <div class="modal-header">
                     <h4 class="modal-title" id="addModalLabel">{{ __('Create Maintenance Request') }}</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
@@ -271,7 +273,7 @@
                     <div clas="row">
 
                     <label class="block mb-2">Property:</label>
-                    <select class="w-full p-2 border rounded mb-3 "  name="property_id2">
+                    <select required class="w-full p-2 border rounded mb-3 property_id"  name="property_id2">
                         <option value="" selected>--{{ __('Select Property') }}--</option>
                         @foreach ($properties as $item)
                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -280,15 +282,15 @@
 
 
                     <label class="block mb-2">Unit:</label>
-                    <select class="w-full p-2 border rounded mb-3 v"  name="unit_id2">
-                        <option value="">--{{ __('Select Unit') }}--</option>
+                    <select class="w-full p-2 border rounded mb-3 unit_id"  name="unit_id2">
+                        <option value="">--{{ __('No Unit Selected') }}--</option>
 
                     </select>
                     
 
                     <label class="block mb-2">Sub Unit:</label>
                     <select class="w-full p-2 border rounded mb-3 sub_unit_id" name="sub_unit_id2">
-                        <option value="">--{{ __('Select Sub Unit') }}--</option>
+                        <option value="">--{{ __('No Select Sub Unit Selected') }}--</option>
 
                     </select>
                     
@@ -298,12 +300,15 @@
                 <div clas="row">
 
                     <label class="block mb-2">Issue:</label>
-                    <select class="w-full p-2 border rounded mb-3">
-                        <option>Cat1</option>
-                        <option>Cat2</option> 
+                    <select required class="w-full p-2 border rounded mb-3">
+                        {{-- <option>--Select Issue--</option> --}}
+                        <option value="" selected>--{{ __('Select Issue') }}--</option>
+                        @foreach ($issues as $item)
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @endforeach
                     </select>
                 </div>
-                <div clas="row">
+                {{-- <div clas="row">
 
                     
                     <label class="block mb-2">Assigned To:</label>
@@ -311,23 +316,20 @@
                         <option>Cat1</option>
                         <option>Cat2</option> 
                     </select>
-
-                </div>
+                </div> --}}
 
                 <div clas="row">
-
                     <label class="block mb-2">Select Dates:</label>
-                    <input id="datePicker" type="text" class="w-full p-2 border rounded mb-3" placeholder="Select multiple dates">
+                    <input required id="datePicker" name="preventive_date" type="text" class="w-full p-2 border rounded mb-3" placeholder="Select multiple dates">
                     
-
                 </div>
-
 
                 <div clas="row">
 
-                    <label class="block mb-2">Monthly Recurring:</label>
-                    <select class="w-full p-2 border rounded mb-3">
-                        <option>Every January</option>
+                    <label required class="block mb-2">Monthly Recurring:</label>
+                    <select name="month_recurring" class="w-full p-2 border rounded mb-3">
+                        <option selected>--Select--</option>
+                        <option >Every January</option>
                         <option>Every February</option> 
                         <option>Every March</option> 
                     </select>                    
@@ -337,8 +339,9 @@
                 
                 <div clas="row">
 
-                    <label class="block mb-2">Specific Interval:</label>
-                    <select class="w-full p-2 border rounded mb-3">
+                    <label class="block mb-2">General Recurring:</label>
+                    <select name="specific_interval" class="w-full p-2 border rounded mb-3">
+                        <option selected>--Select--</option>
                         <option>Every Week</option>
                         <option>Every Month</option> 
                         <option>Every Year</option> 
@@ -359,9 +362,11 @@
                     
                     <div class="flex justify-end gap-3">
                         <button onclick="closeModal()" class="theme-btn" style="color:white; background:red">Cancel</button>
-                        <button class="theme-btn">Save</button>
+                        <button type="submit" class="theme-btn">Save</button>
                     </div>
                 </div>
+
+            </form>
 
 
                     
@@ -566,6 +571,7 @@
         </div>
     </div>
     <!-- Add Information Modal End -->
+    <input type="hidden" id="getPropertyUnitsRoute" value="{{ route('owner.property.getPropertyUnits') }}">
     <input type="hidden" id="getInfoRoute" value="{{ route('owner.maintenance-request.get.info') }}">
     <input type="hidden" id="route" value="{{ route('owner.maintenance-request.index') }}">
     <input type="hidden" id="getUnitsRoute" value="{{ route('owner.property.sub-unit.getSubUnits') }}">
