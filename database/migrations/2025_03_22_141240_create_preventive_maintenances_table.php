@@ -15,6 +15,15 @@ return new class extends Migration
     {
         Schema::create('preventive_maintenances', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->nullable();
+            $table->string('property_id')->nullable();
+            $table->string('unit_id')->nullable();
+            $table->string('sub_unit_id')->nullable();
+            $table->string('issue_id')->nullable();
+            $table->string('multiple_date')->nullable();
+            $table->string('monthly_recurring')->nullable();
+            $table->string('general_recurring')->nullable();
+            $table->string('decription')->nullable();
             $table->timestamps();
         });
     }

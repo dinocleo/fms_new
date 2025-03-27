@@ -254,7 +254,7 @@
     <div class="modal fade" id="PreventiveModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form  action="{{ route('owner.maintenance-request.store_info') }}" method="POST">
+                <form  action="{{ route('owner.maintenance-request.preventive_maintenance_store_info') }}" method="POST">
                     @csrf
                 {{-- <div class="modal-header">
                     <h4 class="modal-title" id="addModalLabel">{{ __('Create Maintenance Request') }}</h4>
@@ -266,7 +266,7 @@
                     
                     <div clas="row">
                     <label class="block mb-2">Title:</label>
-                    <input type="text" class="w-full p-2 border rounded mb-3" placeholder="Enter title">
+                    <input required name="title" type="text" class="w-full p-2 border rounded mb-3" placeholder="Enter title">
                     </div>
                     
                     {{-- <label class="block mb-2">Description:</label> --}}
@@ -300,7 +300,7 @@
                 <div clas="row">
 
                     <label class="block mb-2">Issue:</label>
-                    <select required class="w-full p-2 border rounded mb-3">
+                    <select required class="w-full p-2 border rounded mb-3" name="issue_id">
                         {{-- <option>--Select Issue--</option> --}}
                         <option value="" selected>--{{ __('Select Issue') }}--</option>
                         @foreach ($issues as $item)
@@ -320,18 +320,27 @@
 
                 <div clas="row">
                     <label class="block mb-2">Select Dates:</label>
-                    <input required id="datePicker" name="preventive_date" type="text" class="w-full p-2 border rounded mb-3" placeholder="Select multiple dates">
+                    <input required id="datePicker" name="multiple_date" type="text" class="w-full p-2 border rounded mb-3" placeholder="Select multiple dates">
                     
                 </div>
 
                 <div clas="row">
 
                     <label required class="block mb-2">Monthly Recurring:</label>
-                    <select name="month_recurring" class="w-full p-2 border rounded mb-3">
+                    <select name="monthly_recurring" class="w-full p-2 border rounded mb-3">
                         <option selected>--Select--</option>
-                        <option >Every January</option>
-                        <option>Every February</option> 
-                        <option>Every March</option> 
+                        <option value="every_january" >Every January</option>
+                        <option value="every_february">Every February</option> 
+                        <option value="every_march">Every March</option> 
+                        <option value="every_april">Every April</option> 
+                        <option value="every_may">Every May</option> 
+                        <option value="every_june">Every June</option> 
+                        <option value="every_july">Every July</option> 
+                        <option value="every_agost">Every Agost</option> 
+                        <option value="every_september">Every September</option> 
+                        <option value="every_october">Every October</option> 
+                        <option value="every_november">Every November</option> 
+                        <option value="every_december">Every December</option>   
                     </select>                    
 
                 </div>
@@ -340,7 +349,7 @@
                 <div clas="row">
 
                     <label class="block mb-2">General Recurring:</label>
-                    <select name="specific_interval" class="w-full p-2 border rounded mb-3">
+                    <select name="general_recurring" class="w-full p-2 border rounded mb-3">
                         <option selected>--Select--</option>
                         <option>Every Week</option>
                         <option>Every Month</option> 
@@ -355,7 +364,7 @@
                     <p>
 
 
-                        <textarea columns="50" style="width: -webkit-fill-available;" rows="4" class="w-full p-2 border rounded mb-3" placeholder="Enter description"></textarea>
+                        <textarea name="decription" columns="50" style="width: -webkit-fill-available;" rows="4" class="w-full p-2 border rounded mb-3" placeholder="Enter description"></textarea>
 
                         </p>
 

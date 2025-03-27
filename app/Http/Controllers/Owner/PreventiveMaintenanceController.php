@@ -19,9 +19,20 @@ class PreventiveMaintenanceController extends Controller
         return "dfsdfsd";
     }
 
-    public function store_info(Request $request){
+    public function preventive_maintenance_store_info(Request $request){
 
 
+        $newPPM = new PreventiveMaintenance;
+        $newPPM->title = $request->title;
+        $newPPM->property_id = $request->property_id2;
+        $newPPM->unit_id = $request->tiunit_id2tle;
+        $newPPM->sub_unit_id = $request->sub_unit_id2;
+        $newPPM->issue_id = $request->issue_id;
+        $newPPM->multiple_date = $request->multiple_date;
+        $newPPM->monthly_recurring = $request->monthly_recurring;
+        $newPPM->general_recurring = $request->general_recurring;
+        $newPPM->decription = $request->decription;
+        $newPPM->save();
         return redirect()->back();
 
 
