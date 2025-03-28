@@ -10,6 +10,7 @@ use App\Models\EnergyManagement;
 use App\Exports\SampleEnergyExport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\EnergyManagementExport;
 
 
 class EnergyManagementController extends Controller
@@ -102,6 +103,13 @@ class EnergyManagementController extends Controller
         return redirect()->route('owner.property.energy.index')->with('success', 'Utility records imported successfully.');
     }
     
+
+    public function export()
+    {
+        // This triggers the export and download of the Excel file
+        return Excel::download(new EnergyManagementExport, 'energy_management.xlsx');
+    }
+
 
     // public function edit($id)
     // {

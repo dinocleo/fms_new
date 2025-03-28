@@ -32,14 +32,25 @@
                                 </a>
                             </div>
 
-                            <!-- Import Button (Right Side) -->
-                            <div class="col-md-6 text-end">
-                                <a href="#" class="theme-btn mb-25" data-bs-toggle="modal"
-                                    data-bs-target="#importUtilityModal" title="{{ __('Import Records') }}"
-                                    style="background-color: #1c7c54; color: white; border: none; padding: 10px 20px; border-radius: 5px;">
-                                    {{ __('Import') }}
-                                </a>
+                            <div class="row justify-content-end">
+                                <div class="col-md-12 text-end mb-3">
+                                    <!-- Import Icon -->
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#importUtilityModal"
+                                        title="{{ __('Import Records') }}"
+                                        style="background-color: #1c7c54; color: white; border: none; padding: 8px 12px; border-radius: 5px; margin-right: 5px;">
+                                        <i class="bi bi-upload">Import</i>
+                                    </a>
+
+                                    <!-- Export Icon -->
+                                    <a href="{{ route('owner.property.energy.export') }}" title="{{ __('Export Records') }}"
+                                        style="color: white; border: none; padding: 8px 12px; border-radius: 5px;">
+                                        <i class="theme-btn mb-25">Export</i>
+                                    </a>
+                                </div>
                             </div>
+
+
+
                         </div>
                     </div>
 
@@ -93,18 +104,16 @@
                                                 <td>{{ 'TSh ' . number_format($utility->cost, 2, '.', ',') }}</td>
                                                 <td>{{ $utility->notes }}</td>
                                                 <td>
-                                                 <!-- Edit Button in Index View -->
-                                                <a href="javascript:void(0);" class="p-1 tbl-action-btn edit"
-                                                data-id="{{ $utility->id }}"
-                                                data-month="{{ $utility->month }}"
-                                                data-utility_type="{{ $utility->utility_type }}"
-                                                data-property_type="{{ $utility->property_type }}"
-                                                data-property_id="{{ $utility->property_id }}"
-                                                data-cost="{{ $utility->cost }}"
-                                                data-notes="{{ $utility->notes }}"
-                                                onclick="openEditModal(this)">
-                                                <i class="fas fa-edit"></i>
-                                                </a>
+                                                    <!-- Edit Button in Index View -->
+                                                    <a href="javascript:void(0);" class="p-1 tbl-action-btn edit"
+                                                        data-id="{{ $utility->id }}" data-month="{{ $utility->month }}"
+                                                        data-utility_type="{{ $utility->utility_type }}"
+                                                        data-property_type="{{ $utility->property_type }}"
+                                                        data-property_id="{{ $utility->property_id }}"
+                                                        data-cost="{{ $utility->cost }}"
+                                                        data-notes="{{ $utility->notes }}" onclick="openEditModal(this)">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
 
 
 

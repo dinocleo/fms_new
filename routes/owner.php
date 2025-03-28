@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 
 
 
-use App\Http\Controllers\Owner\PreventiveMaintenanceController;
 use App\Http\Controllers\Owner\AssetController;
 use App\Http\Controllers\Owner\FleetController;
 use App\Http\Controllers\Owner\ReportController;
@@ -15,6 +14,7 @@ use App\Http\Controllers\Owner\VendorController;
 use App\Http\Controllers\Owner\ExpenseController;
 use App\Http\Controllers\Owner\GatewayController;
 use App\Http\Controllers\Owner\InvoiceController;
+use App\Http\Controllers\Owner\ProjectController;
 use App\Http\Controllers\Owner\SettingController;
 use App\Http\Controllers\Owner\SubUnitController;
 use App\Http\Controllers\Owner\VisitorController;
@@ -27,6 +27,7 @@ use App\Http\Controllers\Owner\ConditionController;
 use App\Http\Controllers\Owner\DashboardController;
 use App\Http\Controllers\Owner\KycConfigController;
 use App\Http\Controllers\Owner\ComplianceController;
+use App\Http\Controllers\Owner\ContractorController;
 use App\Http\Controllers\Owner\MaintainerController;
 use App\Http\Controllers\Owner\TeamMemberController;
 use App\Http\Controllers\Owner\AssetStatusController;
@@ -45,6 +46,7 @@ use App\Http\Controllers\Owner\InvoiceRecurringController;
 use App\Http\Controllers\Owner\MaintenanceIssueController;
 use App\Http\Controllers\Owner\MaintenanceRequestController;
 use App\Http\Controllers\Owner\NonCommercialPropertyController;
+use App\Http\Controllers\Owner\PreventiveMaintenanceController;
 
 
 Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'owner']], function () {
@@ -96,8 +98,26 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         Route::delete('energy-management/{id}', [EnergyManagementController::class, 'destroy'])->name('energy.destroy');
         Route::post('energy-management/import', [EnergyManagementController::class, 'import'])->name('energy.import');
         Route::get('/download/sample-excel', [EnergyManagementController::class, 'downloadSampleExcel'])->name('download.sample.excel');
+        Route::get('/owner/property/energy/export', [EnergyManagementController::class, 'export'])->name('energy.export');
 
+        // contractors
+        Route::get('contractors', [ContractorController::class, 'index'])->name('contractors.index');
+        Route::get('contractors/create', [ContractorController::class, 'create'])->name('contractors.create');
+        Route::post('contractors', [ContractorController::class, 'store'])->name('contractors.store');
+        Route::get('contractors/{contractor}/edit', [ContractorController::class, 'edit'])->name('contractors.edit');
+        Route::put('contractors/{contractor}', [ContractorController::class, 'update'])->name('contractors.update');
+        Route::delete('contractors/{contractor}', [ContractorController::class, 'destroy'])->name('contractors.destroy');
 
+        // projects
+        Route::get('projects', [ProjectController::class, 'index'])->name('projects.index');
+        Route::get('projects/create', [ProjectController::class, 'create'])->name('projects.create');
+        Route::post('projects', [ProjectController::class, 'store'])->name('projects.store');        
+        Route::get('projects/{project}', [ProjectController::class, 'show'])->name('projects.show');        
+        Route::get('projects/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');        
+        Route::put('projects/{project}', [ProjectController::class, 'update'])->name('projects.update');
+        
+        // Route to delete project
+        Route::delete('projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');        // visitors
         Route::get('/visitors', [VisitorController::class, 'index'])->name('visitors');
         Route::get('/visitors/create', [VisitorController::class, 'create'])->name('visitors.create');
         Route::post('/visitors', [VisitorController::class, 'store'])->name('visitors.store');

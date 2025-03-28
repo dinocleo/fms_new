@@ -126,7 +126,10 @@
                             <span>{{ __('Contracts') }}</span>
                         </a>
                         <ul class="sub-menu">
-                            <li><a href="{{ route('owner.property.vendor.index') }}">{{ __('Vendor List') }}</a></li>
+                            <li><a href="{{ route('owner.property.contractors.index') }}">
+                                    <span>{{ __('Contracts') }}</span>
+                                </a>
+                            </li>
                             <li>
                                 <a href="{{ route('owner.agreement.index') }}">
                                     <span>{{ __(' Agreement') }}</span> </a>
@@ -137,10 +140,39 @@
                 @endcan
                 @can('Manage Asset')
                     <li>
-                        <a href="#" target="_blank">
-                            <i class="ri-projector-line"></i> <!-- You can change this icon if you prefer -->
-                            <span>{{ __('Project Management') }}</span>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i class="ri-projector-line"></i> <!-- Icon for Project Management -->
+                            <span>{{ __('Manage Projects') }}</span>
                         </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="{{ route('owner.property.projects.index') }}">
+                                    <span>{{ __('All Projects') }}</span>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="#">
+                                    <span>{{ __('Project Tasks') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>{{ __('Project Timesheets') }}</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#">
+                                    <span>{{ __('Project Documents') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span>{{ __('Project Reports') }}</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 @endcan
 

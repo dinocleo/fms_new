@@ -39,4 +39,8 @@ class NonCommercial extends Model
     {
         return $this->hasMany(EnergyManagement::class, 'non_commercial_property_id');
     }
+    public function projects()
+    {
+        return $this->hasMany(Project::class, 'non_commercial_property_id');
+    }
 }
