@@ -106,6 +106,10 @@
                             <li><a
                                     href="{{ route('owner.maintenance-request.index') }}">{{ __('Maintenance Request') }}</a>
                             </li>
+
+                            <li><a
+                                href="{{ route('owner.maintenance-request.preventiveMaintenanceRequest') }}">{{ __('Preventive Maintenance') }}</a>
+                        </li>
                         </ul>
                     </li>
                 @endcan

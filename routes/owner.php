@@ -194,6 +194,7 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
 
     Route::group(['prefix' => 'maintenance-request', 'as' => 'maintenance-request.'], function () {
         Route::get('/', [MaintenanceRequestController::class, 'index'])->name('index')->middleware('can:Manage Maintains');
+        Route::get('preventive-maintenance-request', [PreventiveMaintenanceController::class, 'preventiveMaintenanceRequest'])->name('preventiveMaintenanceRequest')->middleware('can:Manage Maintains'); // ajax
         Route::post('store-preventive-maintenance', [PreventiveMaintenanceController::class, 'preventive_maintenance_store_info'])->name('preventive_maintenance_store_info')->middleware('can:Manage Maintains');
         Route::post('store', [MaintenanceRequestController::class, 'store'])->name('store');
         Route::get('get-info', [MaintenanceRequestController::class, 'getInfo'])->name('get.info'); // ajax

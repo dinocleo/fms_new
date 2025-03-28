@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('monthly_recurring')->nullable();
             $table->string('general_recurring')->nullable();
             $table->string('decription')->nullable();
+            $table->enum('status', ['pending_approval', 'on_going', 'cancelled', 'complete'])->default('pending_approval');
             $table->timestamps();
         });
     }

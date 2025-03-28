@@ -5,7 +5,13 @@ namespace App\Http\Controllers\Owner;
 use App\Http\Controllers\Controller;
 use App\Models\PreventiveMaintenance;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\MaintenanceRequest;
+use App\Services\MaintenanceIssueService;
+use App\Services\MaintenanceRequestService;
+use App\Services\PropertyService;
+use App\Traits\ResponseTrait;
+ use App\Models\Ticket;
+use App\Models\Maintainer;
 class PreventiveMaintenanceController extends Controller
 {
     /**
@@ -13,11 +19,39 @@ class PreventiveMaintenanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     use ResponseTrait;
+     public $maintenanceRequestService;
+     public $propertyService;
+     public $maintenanceIssueService;
+ 
+     public function __construct()
+     {
+         $this->maintenanceRequestService = new MaintenanceRequestService;
+         $this->propertyService = new PropertyService;
+         $this->maintenanceIssueService = new MaintenanceIssueService;
+     }
+ 
+
     public function index()
     {
         //
         return "dfsdfsd";
     }
+
+    public function preventiveMaintenanceRequest(Request $request){
+        $data['pageTitle'] = __('Preventive Maintenance');
+        $data['properties'] = $this->propertyService->getAll();
+        $data['issues'] = $this->maintenanceIssueService->getActiveAll();
+        $data['tickets'] = Ticket::orderBy('updated_at', 'desc')->get();
+        $data['maintainers'] = Maintainer::orderBy('updated_at', 'desc')->get();
+        $data['list'] = PreventiveMaintenance::orderBy('updated_at', 'desc')->simplePaginate();
+        // if ($request->ajax()) {
+        //     return $this->maintenanceRequestService->getAllData();
+        // }
+        return view('owner.maintains.preventive-maintenance-request', $data);
+    }
+
 
     public function preventive_maintenance_store_info(Request $request){
 

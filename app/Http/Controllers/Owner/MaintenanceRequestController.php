@@ -40,6 +40,7 @@ class MaintenanceRequestController extends Controller
         return view('owner.maintains.maintenance-request', $data);
     }
 
+
     public function store(MaintenanceRequest $request)
     {
         return $this->maintenanceRequestService->store($request);
